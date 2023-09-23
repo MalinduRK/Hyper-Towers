@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
@@ -8,12 +9,12 @@ public class Pathfinder : MonoBehaviour
     //--Game objects
     private Transform waypointsParent; // Reference to the parent GameObject holding waypoints.
     private Transform[] waypoints;   // Array to store waypoints.
+    private TextMeshProUGUI baseHP; // Base HP text
 
     // Start is called before the first frame update
     void Start()
     {
-        // Find the "Waypoints" GameObject by name.
-        waypointsParent = GameObject.Find("Waypoints").transform;
+        waypointsParent = GameObject.Find("Waypoints").transform; // Find Waypoints parent object
 
         if (waypointsParent == null)
         {
@@ -26,6 +27,13 @@ public class Pathfinder : MonoBehaviour
         for (int i = 0; i < waypoints.Length; i++)
         {
             waypoints[i] = waypointsParent.GetChild(i);
+        }
+
+        // Find base HP text
+        baseHP = GameObject.Find("BaseHPValueText").GetComponent<TextMeshProUGUI>();
+        if (baseHP == null)
+        {
+            Debug.LogError("Base HP text object not found. Make sure it's named 'BaseHPValueText'.");
         }
     }
 
@@ -44,10 +52,14 @@ public class Pathfinder : MonoBehaviour
                 currentWaypointIndex++;
             }
         }
-        else
+        else // All waypoints reached
         {
-            // All waypoints reached, you can destroy the enemy or take other actions here.
+            // Destroy enemy
             Destroy(gameObject);
+            // Get current base HP
+            int baseHPValue = int.Parse(baseHP.text);
+            // Reduce base HP value by 1
+            baseHP.text = (baseHPValue - 1).ToString();
         }
     }
 }
