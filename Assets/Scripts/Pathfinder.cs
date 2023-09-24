@@ -6,6 +6,9 @@ public class Pathfinder : MonoBehaviour
     //--Variables
     public float moveSpeed = 2f; // Adjust the movement speed as needed.
     private int currentWaypointIndex = 0; // Index of the current waypoint.
+    //--Event
+    public delegate void EventHandler();
+    public static event EventHandler GameOver;
     //--Game objects
     private Transform waypointsParent; // Reference to the parent GameObject holding waypoints.
     private Transform[] waypoints;   // Array to store waypoints.
@@ -59,7 +62,15 @@ public class Pathfinder : MonoBehaviour
             // Get current base HP
             int baseHPValue = int.Parse(baseHP.text);
             // Reduce base HP value by 1
-            baseHP.text = (baseHPValue - 1).ToString();
+            baseHPValue--;
+            baseHP.text = baseHPValue.ToString();
+
+            // Game Over if base HP == 0
+            if (baseHPValue == 0)
+            {
+                // Trigger the game over event
+                GameOver?.Invoke();
+            }
         }
     }
 }
