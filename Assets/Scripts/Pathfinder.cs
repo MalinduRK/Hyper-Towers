@@ -49,7 +49,7 @@ public class Pathfinder : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
             // Check if the enemy has reached the current waypoint.
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 // Move to the next waypoint.
                 currentWaypointIndex++;

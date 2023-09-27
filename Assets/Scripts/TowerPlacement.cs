@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HoverDetection : MonoBehaviour
+public class TowerPlacement : MonoBehaviour
 {
     private GameObject towerPlotHighlight; // Child object
 
