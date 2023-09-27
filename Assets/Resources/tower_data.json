@@ -1,0 +1,10 @@
+{
+    "towers": [
+        {
+            "id": "t1",
+            "name": "tower1",
+            "range": "3",
+            "damage": "1"
+        }
+    ]
+}
