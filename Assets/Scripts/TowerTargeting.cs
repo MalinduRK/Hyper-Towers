@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 public class TowerTargeting : MonoBehaviour
@@ -6,15 +7,23 @@ public class TowerTargeting : MonoBehaviour
     private string enemyTag = "Enemy"; // Tag used by enemy objects
     private Vector3 enemyPos; // Position of the last detected enemy
     private bool enemyInRange = false;
+    private Vector3 basePos; // Position of the base
     //--Game objects
     private GameObject enemies;
     private GameObject towerRangeObject; // Tower range
     private GameObject targetEnemy; // The current target of the tower
+    private GameObject baseObject;
     //--Components
     private CircleCollider2D towerRangeCollider;
 
     void Start()
     {
+        // Find the Base object and get its position
+        baseObject = GameObject.Find("Base");
+        basePos = baseObject.transform.position;
+        // Ignore the z position since the Base object is 3D and rotates
+        basePos.z = 0;
+
         enemies = GameObject.Find("Enemies");
         // Find the tower range object within the parent
         towerRangeObject = transform.parent.Find("TowerRange(Clone)").gameObject;
@@ -63,39 +72,29 @@ public class TowerTargeting : MonoBehaviour
 
     void UpdateTarget()
     {
-        /*// Get all enemy objects (with Enemy tag) colliding with the tower range collider
-        // Create a ContactFilter2D to filter by layer and tag.
-        ContactFilter2D filter = new();
-        filter.SetLayerMask(LayerMask.GetMask(enemyTag));
+        // Use the radius of the CircleCollider2D for detection.
+        //float detectionRadius = towerRangeCollider.radius;
 
-        // Create an array to store the colliders of overlapping objects.
-        Collider2D[] colliders = new Collider2D[10]; // You can adjust the size as needed.
+        // Detect all objects within the detection radius.
+        //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, detectionLayer);
 
-        // Perform the overlap check.
-        int colliderCount = Physics2D.OverlapCollider(towerRangeCollider, filter, colliders);
+        // Get the local radius of the CircleCollider2D.
+        float localRadius = towerRangeCollider.radius;
 
-        Debug.Log(colliderCount);
+        // Convert the local radius to world space.
+        float worldRadius = transform.TransformVector(Vector2.right * localRadius).magnitude; // This has to be converted like this in order to get an actual radius value rather than relative to the parent
 
-        // Iterate through the colliders to access the game objects.
-        for (int i = 0; i < colliderCount; i++)
+        // Detect all objects within the worldRadius.
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, worldRadius, detectionLayer);
+
+        if (colliders.Length == 0) // Do not proceed if no enemies detected in range
         {
-            GameObject enemy = colliders[i].gameObject;
-
-            // You can perform actions on the 'enemy' object here.
-            Debug.Log("Found enemy: " + enemy.name);
-        }*/
-
-        if (towerRangeCollider == null)
-        {
-            Debug.LogError("CircleCollider2D component not found on the object.");
+            enemyInRange = false;
             return;
         }
 
-        // Use the radius of the CircleCollider2D for detection.
-        float detectionRadius = towerRangeCollider.radius;
-
-        // Detect all objects within the detection radius.
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, detectionLayer);
+        // Variable to store the shortest distance to the base
+        float shortestDistance = math.INFINITY; // This is as far as a distance could go, so any enemy in the game is closer than that
 
         // Loop through the detected colliders.
         foreach (Collider2D collider in colliders)
@@ -103,10 +102,19 @@ public class TowerTargeting : MonoBehaviour
             // Check if the detected collider is not the same as the current object's collider.
             if (collider.gameObject != gameObject)
             {
-                enemyInRange = true; // Tell the tower to start targeting
-                targetEnemy = collider.gameObject; // Set this enemy as the current target
-                // Handle the detection of a new object here.
                 Debug.Log("Detected object: " + collider.gameObject.name);
+
+                GameObject enemyInView = collider.gameObject; // The current enemy in calculation
+
+                // Calculate the distance from enemy to the base
+                Vector3 newEnemyPos = enemyInView.transform.position;
+                float distanceToBase = Vector3.Distance(newEnemyPos, basePos);
+                if (distanceToBase < shortestDistance) // Target this enemy only if it is has the shorter distance out of all enemies in range
+                {
+                    shortestDistance = distanceToBase;
+                    enemyInRange = true; // Tell the tower to start targeting
+                    targetEnemy = enemyInView; // Set this enemy as the current target
+                }
             }
         }
     }
