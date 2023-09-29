@@ -4,14 +4,14 @@ using UnityEngine;
 public class TowerTargeting : MonoBehaviour
 {
     //--Varaibles
+    public bool enemyInRange = false;
     private string enemyTag = "Enemy"; // Tag used by enemy objects
     private Vector3 enemyPos; // Position of the last detected enemy
-    private bool enemyInRange = false;
     private Vector3 basePos; // Position of the base
     //--Game objects
+    public GameObject targetEnemy; // The current target of the tower
     private GameObject enemies;
     private GameObject towerRangeObject; // Tower range
-    private GameObject targetEnemy; // The current target of the tower
     private GameObject baseObject;
     //--Components
     private CircleCollider2D towerRangeCollider;
@@ -102,7 +102,7 @@ public class TowerTargeting : MonoBehaviour
             // Check if the detected collider is not the same as the current object's collider.
             if (collider.gameObject != gameObject)
             {
-                Debug.Log("Detected object: " + collider.gameObject.name);
+                TargetDebug("Detected object: " + collider.gameObject.name);
 
                 GameObject enemyInView = collider.gameObject; // The current enemy in calculation
 
@@ -118,4 +118,18 @@ public class TowerTargeting : MonoBehaviour
             }
         }
     }
+
+    //--Debugs
+
+    public bool targetDebug;
+
+    void TargetDebug(string message)
+    {
+        if (targetDebug)
+        {
+            Debug.Log(message);
+        }
+    }
 }
+
+

@@ -235,4 +235,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerRangePrefab: {fileID: 7121255280069071225, guid: c2ebecec4f9d407498aacda63d687961, type: 3}
-  hoverDebug: 1
+  hoverDebug: 0

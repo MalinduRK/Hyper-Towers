@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4141895314373057501}
   - component: {fileID: 6426087156390168075}
   - component: {fileID: 3632510507813665370}
+  - component: {fileID: 2231202175275849675}
   m_Layer: 0
   m_Name: Tower1
   m_TagString: Untagged
@@ -101,7 +102,20 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
-  detectionRadius: 2
+  targetDebug: 0
+--- !u!114 &2231202175275849675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526146870431928437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec62a88b9b18c2478db5128e0655456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 2527878926135291796, guid: a1ac3b35f843daa41ad1f7215bbfa45a, type: 3}
 --- !u!1 &5653097439570338146
 GameObject:
   m_ObjectHideFlags: 0
