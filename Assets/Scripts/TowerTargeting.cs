@@ -49,7 +49,7 @@ public class TowerTargeting : MonoBehaviour
         // Adding a -90f makes it so that the barrel of the tower is pointing towards the target
         */
 
-        if (enemyInRange) // Look at the enemy
+        if (enemyInRange && (targetEnemy != null)) // Look at the enemy
         {
             // Get the position of the current target
             enemyPos = targetEnemy.transform.position;

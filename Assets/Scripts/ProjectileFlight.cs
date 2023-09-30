@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public class ProjectileFlight : MonoBehaviour
@@ -47,6 +46,8 @@ public class ProjectileFlight : MonoBehaviour
         if (Vector3.Distance(transform.position, enemyPos) < 0.1f)
         {
             EnemyHitDebug("Enemy hit");
+            // Trigger the hit function of EnemyStats script
+            targetEnemy.GetComponent<EnemyStats>().Hit();
             // Perform actions when the bullet reaches the target.
             // Example: Hit the target or destroy the bullet.
             Destroy(gameObject);
