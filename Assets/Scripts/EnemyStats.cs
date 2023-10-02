@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
@@ -7,8 +8,10 @@ public class EnemyStats : MonoBehaviour
     private int enemyHP; // Current HP of enemy
     private int hitDamage; // Damage per hit (temporary)
     private float lengthFactor; // Factor which represents 1 unit of HP in terms of length of the health bar
+    private int enemyScrapValue = 1; // The amount of scrap recieved for destroying one enemy
     //--Game objects
     private GameObject currentHealthBar;
+    private TextMeshProUGUI scrapCountText; // Scrap text
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,9 @@ public class EnemyStats : MonoBehaviour
         GameObject healthBar = transform.Find("HealthBar(Clone)").gameObject;
         currentHealthBar = healthBar.transform.Find("CurrentHealthBar").gameObject;
         Vector3 scale = currentHealthBar.transform.localScale;
+
+        // Find scrap count text
+        scrapCountText = GameObject.Find("ScrapCountValueText").GetComponent<TextMeshProUGUI>();
 
         // Set the length factor
         lengthFactor = scale.x / enemyMaxHP;
@@ -37,12 +43,16 @@ public class EnemyStats : MonoBehaviour
         if (enemyHP <= 0) // Enemy is dead
         {
             Destroy(gameObject);
+            // Add 1 scrap to the total scrap count
+            int currentScrapCount = int.Parse(scrapCountText.text); // Get current scrap amount
+            currentScrapCount += enemyScrapValue; // Add the enemy scrap to the scrap pool
+            scrapCountText.text = currentScrapCount.ToString(); // Update text
         }
         else
         {
             // Update enemy health bar
             Vector3 newScale = currentHealthBar.transform.localScale;
-            newScale.x = enemyHP * lengthFactor ;
+            newScale.x = enemyHP * lengthFactor;
             currentHealthBar.transform.localScale = newScale;
         }
     }

@@ -4,7 +4,9 @@
             "id": "t1",
             "name": "tower1",
             "range": "3",
-            "damage": "1"
+            "damage": "1",
+            "cost": "5",
+            "scrap_value": "5"
         }
     ]
 }
