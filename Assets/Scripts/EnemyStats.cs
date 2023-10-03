@@ -32,7 +32,7 @@ public class EnemyStats : MonoBehaviour
         lengthFactor = scale.x / enemyMaxHP;
         // Multiply any HP unit by the length factor to get the actual length of the health bar
 
-        Debug.Log($"Length factor: {lengthFactor}");
+        //Debug.Log($"Length factor: {lengthFactor}");
     }
 
     public void Hit()

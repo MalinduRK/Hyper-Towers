@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
+    //--Variables
+    private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
     //--Game objects
     public GameObject towerRangePrefab;
+    public GameObject towerPrefab;
     private GameObject towerPlotHighlight; // Child object
 
     private void Start()
@@ -33,6 +36,7 @@ public class TowerPlacement : MonoBehaviour
 
         if (childCount > 1) // There is a tower on the plot
         {
+            towerBuilt = true; // In this context, it means there is a pre-built tower in the plot in this level
             // Show tower range object if it is found in plot
             Transform childTransform = transform.Find("TowerRange(Clone)");
             if (childTransform != null)
@@ -69,6 +73,20 @@ public class TowerPlacement : MonoBehaviour
 
         towerPlotHighlight.SetActive(false);
         HoverDebug("Exited hovering over tower plot");
+    }
+
+    // Mouse click event
+    private void OnMouseDown()
+    {
+        if (!towerBuilt) // If no tower is built on the plot, build a tower
+        {
+            // Build new tower
+            GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            newTower.transform.SetParent(transform);
+            // Add range prefab
+            GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
+            newRange.transform.SetParent(transform);
+        }
     }
 
     // TODO: Create tower range object whenever a new tower is created
