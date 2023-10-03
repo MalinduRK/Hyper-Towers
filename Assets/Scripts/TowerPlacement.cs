@@ -4,16 +4,23 @@ public class TowerPlacement : MonoBehaviour
 {
     //--Variables
     private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
+    private int towerCost = 5; // Cost of a tower
     //--Game objects
     public GameObject towerRangePrefab;
     public GameObject towerPrefab;
     private GameObject towerPlotHighlight; // Child object
+    //--Components
+    private ScrapCounter scrapCounter;
 
     private void Start()
     {
         // Find the children object by its name, relative to the parent.
         towerPlotHighlight = transform.Find("TowerPlotHighlight").gameObject;
         towerPlotHighlight.SetActive(false);
+
+        // Find scrap manager and assign scrapCounter
+        GameObject scrapManager = GameObject.Find("ScrapManager");
+        scrapCounter = scrapManager.GetComponent<ScrapCounter>();
 
         // Hide tower range object if it is found in plot
         Transform childTransform = transform.Find("TowerRange(Clone)");
@@ -80,12 +87,24 @@ public class TowerPlacement : MonoBehaviour
     {
         if (!towerBuilt) // If no tower is built on the plot, build a tower
         {
-            // Build new tower
-            GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-            newTower.transform.SetParent(transform);
-            // Add range prefab
-            GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
-            newRange.transform.SetParent(transform);
+            if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
+            {
+                // Build new tower
+                GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+                newTower.transform.SetParent(transform);
+                // Add range prefab
+                GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
+                newRange.transform.SetParent(transform);
+
+                // Use scrap
+                scrapCounter.UseScrap(towerCost);
+
+                BuildDebug("Tower built");
+            }
+            else // Not enough scrap
+            {
+                BuildDebug("Not enough scrap to build");
+            }
         }
     }
 
@@ -112,8 +131,14 @@ public class TowerPlacement : MonoBehaviour
 
     //--Debugs
     public bool hoverDebug;
+    public bool buildDebug;
 
     void HoverDebug(string message)
+    {
+        Debug.Log(message);
+    }
+
+    void BuildDebug(string message)
     {
         Debug.Log(message);
     }

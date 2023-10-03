@@ -11,7 +11,9 @@ public class EnemyStats : MonoBehaviour
     private int enemyScrapValue = 1; // The amount of scrap recieved for destroying one enemy
     //--Game objects
     private GameObject currentHealthBar;
-    private TextMeshProUGUI scrapCountText; // Scrap text
+    //private GameObject scrapManager; // Reference to the scrap manager
+    //--Components
+    private ScrapCounter scrapCounter; //  Reference to the ScrapCounter script
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +27,9 @@ public class EnemyStats : MonoBehaviour
         currentHealthBar = healthBar.transform.Find("CurrentHealthBar").gameObject;
         Vector3 scale = currentHealthBar.transform.localScale;
 
-        // Find scrap count text
-        scrapCountText = GameObject.Find("ScrapCountValueText").GetComponent<TextMeshProUGUI>();
+        // Find scrap manager and assign scrapCounter
+        GameObject scrapManager = GameObject.Find("ScrapManager");
+        scrapCounter = scrapManager.GetComponent<ScrapCounter>();
 
         // Set the length factor
         lengthFactor = scale.x / enemyMaxHP;
@@ -44,9 +47,7 @@ public class EnemyStats : MonoBehaviour
         {
             Destroy(gameObject);
             // Add 1 scrap to the total scrap count
-            int currentScrapCount = int.Parse(scrapCountText.text); // Get current scrap amount
-            currentScrapCount += enemyScrapValue; // Add the enemy scrap to the scrap pool
-            scrapCountText.text = currentScrapCount.ToString(); // Update text
+            scrapCounter.AddScrap(enemyScrapValue);
         }
         else
         {
