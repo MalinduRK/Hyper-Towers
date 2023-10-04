@@ -1,5 +1,5 @@
 {
-    "towers": [
+    "tower1": [
         {
             "id": "t1",
             "name": "tower1",

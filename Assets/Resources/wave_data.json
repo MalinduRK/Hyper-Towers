@@ -1,0 +1,26 @@
+{
+    "levels": [
+        {
+            "waves": [
+                {
+                    "enemy_count": "10",
+                    "spawn_interval": "2f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single"
+                },
+                {
+                    "enemy_count": "15",
+                    "spawn_interval": "1.9f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single"
+                },
+                {
+                    "enemy_count": "20",
+                    "spawn_interval": "1.8f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single"
+                }
+            ]
+        }
+    ]
+}

@@ -6,36 +6,63 @@ public class EnemySpawner : MonoBehaviour
     //--Variables
     public float spawnInterval = 2f;
     //--Game objects
-    public GameObject enemyPrefab; // Assign the "Enemy1" prefab in the Inspector.
     public GameObject hpPrefab; // Enemy health bar
+    public GameObject[] enemies; // Array containing prefabs for all enemies
     //--Components
     public Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector.
 
-    private void Start()
+    public void SpawnEnemies(WaveData waveData)
     {
-        // Start the spawning coroutine.
-        StartCoroutine(SpawnEnemies());
+        // Spawn enemies according to its pattern
+        switch (waveData.pattern)
+        {
+            case "single":
+                StartCoroutine(Single(waveData));
+                break;
+        }
     }
 
-    IEnumerator SpawnEnemies()
+    // Spawn a single enemy for the entire wave
+    private IEnumerator Single(WaveData wave)
     {
-        while (true)
+        GameObject enemyPrefab = enemies[0]; // Current enemy prefab (Assign default for initialization)
+
+        // Get the correct enemy prefab from the enemies array
+        foreach (GameObject enemy in enemies)
         {
-            // Instantiate a new enemy from the prefab.
-            GameObject newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            // Find the enemy prefab matching the json data
+            if (enemy.name == wave.enemies[0]) // Only the first entry is checked since this is a Single pattern
+            {
+                enemyPrefab = enemy;
+            }
+        }
 
-            // Set the parent of the spawned enemy to the enemiesParent.
-            newEnemy.transform.parent = enemiesParent;
+        if (enemyPrefab != null) // Run the code only if the enemy prefab is found
+        {
+            for (int i = 0; i < wave.enemy_count; i++) // Loop spawner until all enemies are spawned
+            {
+                // Instantiate a new enemy from the prefab.
+                GameObject newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
 
-            // Create enemy health bar
-            GameObject newHealthBar = Instantiate(hpPrefab, newEnemy.transform.position, Quaternion.identity);
-            // Offset of the health bar is set in the prefab itself
+                // Set the parent of the spawned enemy to the enemiesParent.
+                newEnemy.transform.parent = enemiesParent;
 
-            // Attach the health bar to the enemy object so that it also moves with the enemy
-            newHealthBar.transform.parent = newEnemy.transform;
+                // Create enemy health bar
+                GameObject newHealthBar = Instantiate(hpPrefab, newEnemy.transform.position, Quaternion.identity);
+                // Offset of the health bar is set in the prefab itself
 
-            // Wait for the specified interval before spawning the next enemy.
-            yield return new WaitForSeconds(spawnInterval);
+                // Attach the health bar to the enemy object so that it also moves with the enemy
+                newHealthBar.transform.parent = newEnemy.transform;
+
+                // Wait for the specified interval before spawning the next enemy.
+                yield return new WaitForSeconds(wave.spawn_interval);
+            }
+        }
+        else
+        {
+            Debug.LogError("Enemy prefab not found");
+
+            yield break;
         }
     }
 }
