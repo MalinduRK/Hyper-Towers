@@ -8,6 +8,7 @@ public class GameState : MonoBehaviour
     //--Game objects
     public GameObject overlayPanel;
     public GameObject waveManager;
+    public GameObject notificationManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,11 @@ public class GameState : MonoBehaviour
             // Start wave
             WaveController waveController = waveManager.GetComponent<WaveController>();
             waveController.StartNewWave();
+
+            // Update notification text
+            NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
+            notificationController.ClearText();
+            notificationController.DisableAnimations();
         }
     }
 

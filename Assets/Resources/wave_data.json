@@ -10,13 +10,13 @@
                 },
                 {
                     "enemy_count": "15",
-                    "spawn_interval": "1.9f",
+                    "spawn_interval": "1.5f",
                     "enemies": ["Enemy1"],
                     "pattern": "single"
                 },
                 {
                     "enemy_count": "20",
-                    "spawn_interval": "1.8f",
+                    "spawn_interval": "1.5f",
                     "enemies": ["Enemy1"],
                     "pattern": "single"
                 }
