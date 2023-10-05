@@ -1,8 +1,8 @@
 {
-    "tower1": [
+    "towers": [
         {
-            "id": "t1",
-            "name": "tower1",
+            "id": "Tower1",
+            "name": "Sentry",
             "range": "3",
             "damage": "1",
             "cost": "5",

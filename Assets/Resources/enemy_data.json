@@ -1,0 +1,12 @@
+{
+    "enemies": [
+        {
+            "id": "Enemy1",
+            "name": "Basic",
+            "health": "10",
+            "scrap_value": "1",
+            "speed": "2",
+            "damage": "1"
+        }
+    ]
+}

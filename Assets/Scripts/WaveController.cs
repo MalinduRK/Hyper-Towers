@@ -10,13 +10,19 @@ public class WaveController : MonoBehaviour
     public TextAsset waveJson; // Reference to wave_data.json file
     //--Game objects
     public TextMeshProUGUI waveText; // Current wave
+    public TextMeshProUGUI baseHealthText; // Base HP
     public GameObject enemySpawnerObject;
+    public GameObject enemiesParent; // Parent class holding all enemy objects
+    //--Game managers
+    public GameObject notificationManager;
+    public GameObject stateManager;
     //--Components
     private EnemySpawner enemySpawner; // Enemy spawner script
 
     //--Variables
     private int waveId = 0; // Current wave
     private List<WaveData> waveData; // Wave data
+    private bool isFinalWave = false; // Check whether if its the final wave
 
     void Start()
     {
@@ -70,11 +76,76 @@ public class WaveController : MonoBehaviour
 
     public void StartNewWave()
     {
-        // Get current wave data
-        WaveData currentWave = waveData[waveId++];
-        // Update text
-        waveText.text = $"{waveId}";
-        // Trigger wave
-        enemySpawner.SpawnEnemies(currentWave);
+        // Check if there are any enemies remaining inside the enemiesParent
+        int enemyCount = enemiesParent.transform.childCount;
+
+        // Start wave only if there are no enemies remaining in the scene
+        if ((waveId < waveData.Count) && (waveData[waveId] != null) && (enemyCount == 0)) // Handle exceptions
+        {
+            WaveData currentWave = waveData[waveId++]; // Wave id starts from 0, but the 0th wave is called wave 1, therefore the post increment
+
+            // Check if this is the last wave
+            if (waveId < waveData.Count) // Do not use a null check. It throws an error
+            {
+                isFinalWave = true;
+
+                // Notify final wave to player
+                NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
+                notificationController.FinalWaveNotifier();
+            }
+
+            // Update text
+            waveText.text = $"{waveId}";
+            // Trigger wave
+            enemySpawner.SpawnEnemies(currentWave);
+        }
+        else // Finished last wave
+        {
+            Debug.LogWarning("Cannot start new wave");
+        }
+    }
+
+    // This function runs only after all the enemies of a wave are defeated
+    public void CheckGameEnd()
+    {
+        if (isFinalWave) // This is the final wave
+        {
+            // Get remaining base HP
+            int baseHP = int.Parse(baseHealthText.text);
+
+            // Victory is achieved only if there is at least 1HP remaining. Otherwise Pathfinder.cs script will handle the game over
+            if (baseHP > 0)
+            {
+                GameState gameState = stateManager.GetComponent<GameState>();
+                gameState.Victory();
+            }
+        }
+        else if (waveId + 1 < waveData.Count) // Next wave is the final wave
+        {
+            isFinalWave = true;
+            WaveDebug("Get ready for the final wave");
+
+            // Notify final wave to player
+            NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
+            notificationController.FinalWaveNotifier();
+        }
+        else // This or the next wave isn't the final wave
+        {
+            WaveDebug("End of wave");
+            // Notify player that the wave has ended
+            NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
+            notificationController.NextWaveNotifier();
+        }
+    }
+
+    //--Debugs
+    public bool waveDebug;
+
+    private void WaveDebug(string message)
+    {
+        if (waveDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }

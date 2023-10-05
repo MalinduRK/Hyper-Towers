@@ -5,9 +5,12 @@ public class EnemySpawner : MonoBehaviour
 {
     //--Variables
     public float spawnInterval = 2f;
+
     //--Game objects
     public GameObject hpPrefab; // Enemy health bar
     public GameObject[] enemies; // Array containing prefabs for all enemies
+    //--Game managers
+    public GameObject waveManager;
     //--Components
     public Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector.
 
@@ -57,6 +60,8 @@ public class EnemySpawner : MonoBehaviour
                 // Wait for the specified interval before spawning the next enemy.
                 yield return new WaitForSeconds(wave.spawn_interval);
             }
+
+            StartCoroutine(TrackEnemies());
         }
         else
         {
@@ -64,5 +69,32 @@ public class EnemySpawner : MonoBehaviour
 
             yield break;
         }
+    }
+
+    // Function to track the remaining enemies of a wave
+    IEnumerator TrackEnemies()
+    {
+        // Check if there are any enemies remaining inside the enemiesParent
+        int enemyCount = enemiesParent.transform.childCount;
+
+        if (enemyCount > 0) // There are remaining enemies
+        {
+            // Wait for one second before checking again
+            yield return new WaitForSeconds(1f);
+        }
+        else // There are no remaining enemies
+        {
+            EndWave();
+
+            // End coroutine
+            yield break;
+        }
+    }
+
+    void EndWave()
+    {
+        // Run game end check on WaveController.cs
+        WaveController waveController = waveManager.GetComponent<WaveController>();
+        waveController.CheckGameEnd();
     }
 }

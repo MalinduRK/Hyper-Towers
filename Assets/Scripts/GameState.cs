@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class GameState : MonoBehaviour
@@ -7,6 +8,7 @@ public class GameState : MonoBehaviour
     private bool isPaused = false;
     //--Game objects
     public GameObject overlayPanel;
+    public TextMeshProUGUI endGameText;
     public GameObject waveManager;
     public GameObject notificationManager;
 
@@ -42,6 +44,7 @@ public class GameState : MonoBehaviour
     private void GameOver()
     {
         overlayPanel.SetActive(true);
+        endGameText.text = "Game Over!";
         PauseGame();
     }
 
@@ -49,5 +52,12 @@ public class GameState : MonoBehaviour
     {
         Time.timeScale = 0; // This will pause the game
         isPaused = true;
+    }
+
+    public void Victory()
+    {
+        overlayPanel.SetActive(true);
+        endGameText.text = "Victory!";
+        PauseGame();
     }
 }

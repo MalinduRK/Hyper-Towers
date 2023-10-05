@@ -1,6 +1,9 @@
 {
     "levels": [
         {
+            "starting_scrap": "10",
+            "enemy_types": ["Enemy1", "Enemy2"],
+            "tower_types": ["Tower1", "Tower2"],
             "waves": [
                 {
                     "enemy_count": "10",

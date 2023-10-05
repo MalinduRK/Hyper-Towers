@@ -22,6 +22,23 @@ public class NotificationController : MonoBehaviour
         notificationText.text = null;
     }
 
+    public void NextWaveNotifier()
+    {
+        notificationText.text = "Press space to start next wave";
+        EnableAnimations();
+    }
+
+    public void FinalWaveNotifier()
+    {
+        notificationText.text = "Final wave";
+        EnableAnimations();
+    }
+
+    public void EnableAnimations()
+    {
+        _animator.enabled = true;
+    }
+
     public void DisableAnimations()
     {
         _animator.enabled = false;
