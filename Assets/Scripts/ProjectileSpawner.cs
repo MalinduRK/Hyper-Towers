@@ -58,6 +58,12 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void ShootBullet()
     {
+        // Generate a random pitch value within a desired range.
+        float randomPitch = Random.Range(0.95f, 1.05f); // Adjust the range as needed.
+
+        // Set the pitch to the random value.
+        laserShot.pitch = randomPitch;
+
         // Play the audio clip.
         laserShot.Play();
 
