@@ -237,3 +237,4 @@ MonoBehaviour:
   towerRangePrefab: {fileID: 7121255280069071225, guid: c2ebecec4f9d407498aacda63d687961, type: 3}
   towerPrefab: {fileID: 1526146870431928437, guid: f6ca3adabf46ee14dac15f466fcc818e, type: 3}
   hoverDebug: 0
+  buildDebug: 0

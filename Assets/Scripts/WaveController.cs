@@ -59,6 +59,7 @@ public class WaveController : MonoBehaviour
 
         // Access wave data for the current level
         waveData = levelData.waves;
+        Debug.Log($"Number of waves this level: {waveData.Count}");
 
         // Get reference to EnemySpawner component in enemySpawner object
         enemySpawner = enemySpawnerObject.GetComponent<EnemySpawner>();
@@ -80,22 +81,12 @@ public class WaveController : MonoBehaviour
         int enemyCount = enemiesParent.transform.childCount;
 
         // Start wave only if there are no enemies remaining in the scene
-        if ((waveId < waveData.Count) && (waveData[waveId] != null) && (enemyCount == 0)) // Handle exceptions
+        if ((waveId < waveData.Count) && (enemyCount == 0)) // Handle exceptions
         {
-            WaveData currentWave = waveData[waveId++]; // Wave id starts from 0, but the 0th wave is called wave 1, therefore the post increment
-
-            // Check if this is the last wave
-            if (waveId < waveData.Count) // Do not use a null check. It throws an error
-            {
-                isFinalWave = true;
-
-                // Notify final wave to player
-                NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
-                notificationController.FinalWaveNotifier();
-            }
+            WaveData currentWave = waveData[waveId]; 
 
             // Update text
-            waveText.text = $"{waveId}";
+            waveText.text = $"{waveId + 1}"; // Wave id starts from 0, but the 0th wave is wave 1
             // Trigger wave
             enemySpawner.SpawnEnemies(currentWave);
         }
@@ -108,6 +99,7 @@ public class WaveController : MonoBehaviour
     // This function runs only after all the enemies of a wave are defeated
     public void CheckGameEnd()
     {
+        Debug.Log("Checking game end");
         if (isFinalWave) // This is the final wave
         {
             // Get remaining base HP
@@ -120,7 +112,7 @@ public class WaveController : MonoBehaviour
                 gameState.Victory();
             }
         }
-        else if (waveId + 1 < waveData.Count) // Next wave is the final wave
+        else if (waveId + 2 == waveData.Count) // Next wave is the final wave
         {
             isFinalWave = true;
             WaveDebug("Get ready for the final wave");
@@ -136,6 +128,9 @@ public class WaveController : MonoBehaviour
             NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
             notificationController.NextWaveNotifier();
         }
+
+        // Prepare for next wave
+        waveId++;
     }
 
     //--Debugs

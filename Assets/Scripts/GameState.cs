@@ -27,7 +27,7 @@ public class GameState : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // This code will run when the spacebar is pressed.
-            Debug.Log("Spacebar pressed!");
+            ButtonPressDebug("Spacebar pressed!");
 
             // Start wave
             WaveController waveController = waveManager.GetComponent<WaveController>();
@@ -59,5 +59,17 @@ public class GameState : MonoBehaviour
         overlayPanel.SetActive(true);
         endGameText.text = "Victory!";
         PauseGame();
+    }
+
+    //--Debugs
+
+    public bool buttonPressDebug;
+
+    void ButtonPressDebug(string message)
+    {
+        if (buttonPressDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }

@@ -2858,6 +2858,7 @@ MonoBehaviour:
   enemiesParent: {fileID: 778229876}
   notificationManager: {fileID: 1012964915}
   stateManager: {fileID: 1392893525}
+  waveDebug: 1
 --- !u!1 &1319164739
 GameObject:
   m_ObjectHideFlags: 0

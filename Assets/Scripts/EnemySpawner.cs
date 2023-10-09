@@ -61,6 +61,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(wave.spawn_interval);
             }
 
+            Debug.Log("Track enemies");
             StartCoroutine(TrackEnemies());
         }
         else
@@ -74,25 +75,30 @@ public class EnemySpawner : MonoBehaviour
     // Function to track the remaining enemies of a wave
     IEnumerator TrackEnemies()
     {
+        Debug.Log("Start tracking enemies");
         // Check if there are any enemies remaining inside the enemiesParent
         int enemyCount = enemiesParent.transform.childCount;
+        Debug.Log(enemyCount);
 
-        if (enemyCount > 0) // There are remaining enemies
+        while (enemyCount > 0) // There are remaining enemies
         {
-            // Wait for one second before checking again
+            // Wait for one second before checking again to ensure that a wave doesn't end mid-wave
             yield return new WaitForSeconds(1f);
+            enemyCount = enemiesParent.transform.childCount;
+            Debug.Log(enemyCount);
         }
-        else // There are no remaining enemies
-        {
-            EndWave();
 
-            // End coroutine
-            yield break;
-        }
+        // There are no remaining enemies
+        Debug.Log("Ending wave");
+        EndWave();
+
+        // End coroutine
+        yield break;
     }
 
     void EndWave()
     {
+        Debug.Log("Calling wave controller");
         // Run game end check on WaveController.cs
         WaveController waveController = waveManager.GetComponent<WaveController>();
         waveController.CheckGameEnd();

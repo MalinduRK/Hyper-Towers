@@ -4,7 +4,7 @@ public class ProjectileFlight : MonoBehaviour
 {
     //--Variables
     private Vector3 enemyPos;
-    private float projectileVelocity = 2.5f; // Bullet speed
+    private float projectileVelocity = 2.6f; // Bullet speed
     //--Game objects
     public GameObject targetEnemy;
 
@@ -43,7 +43,7 @@ public class ProjectileFlight : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, enemyPos, step);
 
         // Check if the bullet has reached the target.
-        if (Vector3.Distance(transform.position, enemyPos) < 0.1f)
+        if (Vector3.Distance(transform.position, enemyPos) < 0.3f)
         {
             EnemyHitDebug("Enemy hit");
             // Trigger the hit function of EnemyStats script

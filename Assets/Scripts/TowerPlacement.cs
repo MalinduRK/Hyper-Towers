@@ -22,17 +22,12 @@ public class TowerPlacement : MonoBehaviour
         GameObject scrapManager = GameObject.Find("ScrapManager");
         scrapCounter = scrapManager.GetComponent<ScrapCounter>();
 
-        // Hide tower range object if it is found in plot
+        // Hide tower range object if it is found in plot at the start of the game
         Transform childTransform = transform.Find("TowerRange(Clone)");
         if (childTransform != null)
         {
             // Hide the range ring rather than disabling it
             childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            //HoverDebug("Hidden tower range indicator");
-        }
-        else
-        {
-            //Debug.Log("Tower range not found");
         }
     }
 
@@ -51,10 +46,6 @@ public class TowerPlacement : MonoBehaviour
                 childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = true;
                 HoverDebug("Showing tower range indicator");
             }
-            else
-            {
-                Debug.Log("Tower range not found");
-            }
         }
         else // There is no tower on the plot
         {
@@ -72,10 +63,6 @@ public class TowerPlacement : MonoBehaviour
         {
             childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = false;
             HoverDebug("Hidden tower range indicator");
-        }
-        else
-        {
-            Debug.Log("Tower range not found");
         }
 
         towerPlotHighlight.SetActive(false);
@@ -135,11 +122,17 @@ public class TowerPlacement : MonoBehaviour
 
     void HoverDebug(string message)
     {
-        Debug.Log(message);
+        if (hoverDebug)
+        {
+            Debug.Log(message);
+        }
     }
 
     void BuildDebug(string message)
     {
-        Debug.Log(message);
+        if (buildDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }
