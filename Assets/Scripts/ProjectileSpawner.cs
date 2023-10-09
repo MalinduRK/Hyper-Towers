@@ -1,17 +1,18 @@
-using System;
 using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
 {
-    //--Variables
-    private float firerate = 2f; // Fire rate of the tower
-    private float nextLoadTime; // The next time a bullet is loaded into the magazine
-    private bool ammoLoaded = false; // The tower has to have this true in order to fire a shot
+    //--Assets
+    private AudioSource laserShot;
     //--Game objects
     public GameObject bulletPrefab;
     private GameObject projectilesParent; // Empty game object which holds all the created projectiles
     //--Components
     private TowerTargeting towerTargeting;
+    //--Variables
+    private float firerate = 1f; // Fire rate of the tower (lower the faster)
+    private float nextLoadTime; // The next time a bullet is loaded into the magazine
+    private bool ammoLoaded = false; // The tower has to have this true in order to fire a shot
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,9 @@ public class ProjectileSpawner : MonoBehaviour
 
         // Specify the next load at the start
         nextLoadTime = Time.time + firerate;
+
+        // Get the AudioSource component attached to this GameObject.
+        laserShot = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -54,6 +58,9 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void ShootBullet()
     {
+        // Play the audio clip.
+        laserShot.Play();
+
         // Instantiate new bullet at the tower
         GameObject newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 

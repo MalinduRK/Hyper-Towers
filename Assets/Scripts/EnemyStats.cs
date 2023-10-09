@@ -20,7 +20,7 @@ public class EnemyStats : MonoBehaviour
     {
         enemyMaxHP = 10;
         enemyHP = 10;
-        hitDamage = 5;
+        hitDamage = 3;
 
         // Find and assign health bar
         GameObject healthBar = transform.Find("HealthBar(Clone)").gameObject;

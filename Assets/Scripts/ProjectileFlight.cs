@@ -4,7 +4,7 @@ public class ProjectileFlight : MonoBehaviour
 {
     //--Variables
     private Vector3 enemyPos;
-    private float projectileVelocity = 2.6f; // Bullet speed
+    private float projectileVelocity = 2.8f; // Bullet speed
     //--Game objects
     public GameObject targetEnemy;
 
