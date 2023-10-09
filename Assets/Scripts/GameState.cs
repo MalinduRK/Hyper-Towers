@@ -11,6 +11,7 @@ public class GameState : MonoBehaviour
     public TextMeshProUGUI endGameText;
     public GameObject waveManager;
     public GameObject notificationManager;
+    [SerializeField] private GameInteractivity interactionManager;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class GameState : MonoBehaviour
         overlayPanel.SetActive(true);
         endGameText.text = "Game Over!";
         PauseGame();
+        interactionManager.DisableInteractions();
     }
 
     private void PauseGame()
@@ -59,6 +61,7 @@ public class GameState : MonoBehaviour
         overlayPanel.SetActive(true);
         endGameText.text = "Victory!";
         PauseGame();
+        interactionManager.DisableInteractions();
     }
 
     //--Debugs
