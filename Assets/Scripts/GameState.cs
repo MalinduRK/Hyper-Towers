@@ -1,25 +1,32 @@
-using System;
 using TMPro;
 using UnityEngine;
 
 public class GameState : MonoBehaviour
 {
-    //--Variables
-    private bool isPaused = false;
-    //--Game objects
-    public GameObject overlayPanel;
-    public TextMeshProUGUI endGameText;
-    public GameObject waveManager;
-    public GameObject notificationManager;
+    [Header("Assets")]
+    [SerializeField] private AudioClip gameOver;
+    [SerializeField] private AudioClip victory;
+
+    [Header("Game Objects")]
+    [SerializeField] private GameObject overlayPanel;
+    [SerializeField] private TextMeshProUGUI endGameText;
+    [SerializeField] private GameObject waveManager;
+    [SerializeField] private GameObject notificationManager;
     [SerializeField] private GameInteractivity interactionManager;
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("Components")]
+    private AudioSource audioSource;
+
+    [Header("Variables")]
+    private bool isPaused = false;
+
+    private void Start()
     {
         // Disable overlay panel
         overlayPanel.SetActive(false);
-        // Subscribe to the event from Pathfinder.cs
-        Pathfinder.GameOver += GameOver;
+
+        // Assign audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -42,15 +49,18 @@ public class GameState : MonoBehaviour
     }
 
     // This triggers when the Pathfinder.cs script sends an event for the base HP reaching 0
-    private void GameOver()
+    public void GameOver()
     {
         overlayPanel.SetActive(true);
         endGameText.text = "Game Over!";
         PauseGame();
         interactionManager.DisableInteractions();
+        // Play audio
+        audioSource.clip = gameOver;
+        audioSource.Play();
     }
 
-    private void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale = 0; // This will pause the game
         isPaused = true;
@@ -62,13 +72,16 @@ public class GameState : MonoBehaviour
         endGameText.text = "Victory!";
         PauseGame();
         interactionManager.DisableInteractions();
+        // Play audio
+        audioSource.clip = victory;
+        audioSource.Play();
     }
 
     //--Debugs
+    [Header("Debugs")]
+    [SerializeField] private bool buttonPressDebug;
 
-    public bool buttonPressDebug;
-
-    void ButtonPressDebug(string message)
+    private void ButtonPressDebug(string message)
     {
         if (buttonPressDebug)
         {

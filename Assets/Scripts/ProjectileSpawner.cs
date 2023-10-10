@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
 {
-    //--Assets
-    private AudioSource laserShot;
-    //--Game objects
-    public GameObject bulletPrefab;
+    [Header("Game Objects")]
+    [SerializeField] private GameObject bulletPrefab;
     private GameObject projectilesParent; // Empty game object which holds all the created projectiles
-    //--Components
+
+    [Header("Components")]
     private TowerTargeting towerTargeting;
-    //--Variables
+    private AudioSource laserShot;
+
+    [Header("Variables")]
     private float firerate = 1f; // Fire rate of the tower (lower the faster)
     private float nextLoadTime; // The next time a bullet is loaded into the magazine
     private bool ammoLoaded = false; // The tower has to have this true in order to fire a shot
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         // Get a reference to the TowerTargeting script
         towerTargeting = GetComponent<TowerTargeting>();
@@ -28,9 +28,7 @@ public class ProjectileSpawner : MonoBehaviour
             Debug.LogError("'Projectiles' object not found in scene");
         }
 
-        // Load ammo when the tower is first placed
         // TODO: This is not the final intended code. Should implement a reload function that reloads the magazine after every few shots. The reload function should run here instead.
-        ammoLoaded = true;
 
         // Specify the next load at the start
         nextLoadTime = Time.time + firerate;
@@ -39,13 +37,11 @@ public class ProjectileSpawner : MonoBehaviour
         laserShot = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Time.time >= nextLoadTime) // Load a bullet
         {
             ammoLoaded = true;
-            nextLoadTime = Time.time + firerate;
         }
 
         if (towerTargeting.enemyInRange && ammoLoaded) // Shoot if an enemy is in range and an ammo is loaded
@@ -53,6 +49,8 @@ public class ProjectileSpawner : MonoBehaviour
             ShootBullet();
             // Empty the bullet
             ammoLoaded = false;
+            // Start reloading
+            nextLoadTime = Time.time + firerate;
         }
     }
 

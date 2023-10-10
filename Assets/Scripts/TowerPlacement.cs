@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
-    //--Variables
-    private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
-    private int towerCost = 5; // Cost of a tower
-    //--Game objects
+    [Header("Game Objects")]
     public GameObject towerRangePrefab;
     public GameObject towerPrefab;
     private GameObject towerPlotHighlight; // Child object
-    //--Components
+
+    [Header("Components")]
     private ScrapCounter scrapCounter;
+
+    [Header("Variables")]
+    private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
+    private int towerCost = 5; // Cost of a tower
 
     private void Start()
     {
@@ -31,7 +33,7 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    void OnMouseEnter()
+    private void OnMouseEnter()
     {
         // Check if the TowerPlots object has more than one child
         int childCount = gameObject.transform.childCount;
@@ -55,7 +57,7 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    void OnMouseExit()
+    private void OnMouseExit()
     {
         // Hide tower range object if it is found in plot
         Transform childTransform = transform.Find("TowerRange(Clone)");
@@ -87,6 +89,8 @@ public class TowerPlacement : MonoBehaviour
                 scrapCounter.UseScrap(towerCost);
 
                 BuildDebug("Tower built");
+
+                towerBuilt = true;
             }
             else // Not enough scrap
             {
@@ -117,10 +121,11 @@ public class TowerPlacement : MonoBehaviour
      */
 
     //--Debugs
-    public bool hoverDebug;
-    public bool buildDebug;
+    [Header("Debugs")]
+    [SerializeField] private bool hoverDebug;
+    [SerializeField] private bool buildDebug;
 
-    void HoverDebug(string message)
+    private void HoverDebug(string message)
     {
         if (hoverDebug)
         {
@@ -128,7 +133,7 @@ public class TowerPlacement : MonoBehaviour
         }
     }
 
-    void BuildDebug(string message)
+    private void BuildDebug(string message)
     {
         if (buildDebug)
         {

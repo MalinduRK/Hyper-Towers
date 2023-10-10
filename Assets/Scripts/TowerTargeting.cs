@@ -3,20 +3,24 @@ using UnityEngine;
 
 public class TowerTargeting : MonoBehaviour
 {
-    //--Varaibles
-    public bool enemyInRange = false;
-    private string enemyTag = "Enemy"; // Tag used by enemy objects
-    private Vector3 enemyPos; // Position of the last detected enemy
-    private Vector3 basePos; // Position of the base
-    //--Game objects
+    [Header("Game Objects")]
     public GameObject targetEnemy; // The current target of the tower
     private GameObject enemies;
     private GameObject towerRangeObject; // Tower range
     private GameObject baseObject;
-    //--Components
-    private CircleCollider2D towerRangeCollider;
 
-    void Start()
+    [Header("Components")]
+    private CircleCollider2D towerRangeCollider;
+    [SerializeField] private LayerMask detectionLayer; // Assign the layer(s) you want to detect in the Inspector.
+
+    [Header("Variables")]
+    public bool enemyInRange = false;
+    private string enemyTag = "Enemy"; // Tag used by enemy objects
+    private Vector3 enemyPos; // Position of the last detected enemy
+    private Vector3 basePos; // Position of the base
+    //public float detectionRadius = 2.0f; // Set the detection radius in the Inspector.
+
+    private void Start()
     {
         // Find the Base object and get its position
         baseObject = GameObject.Find("Base");
@@ -34,8 +38,7 @@ public class TowerTargeting : MonoBehaviour
         InvokeRepeating(nameof(UpdateTarget), 0f, 0.5f);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // TODO: Set the tower to target the enemy nearest to the mouse pointer when holding RMB
 
@@ -67,10 +70,7 @@ public class TowerTargeting : MonoBehaviour
         }
     }
 
-    public LayerMask detectionLayer; // Assign the layer(s) you want to detect in the Inspector.
-    //public float detectionRadius = 2.0f; // Set the detection radius in the Inspector.
-
-    void UpdateTarget()
+    private void UpdateTarget()
     {
         // Use the radius of the CircleCollider2D for detection.
         //float detectionRadius = towerRangeCollider.radius;
@@ -120,10 +120,10 @@ public class TowerTargeting : MonoBehaviour
     }
 
     //--Debugs
+    [Header("Debugs")]
+    [SerializeField] private bool targetDebug;
 
-    public bool targetDebug;
-
-    void TargetDebug(string message)
+    private void TargetDebug(string message)
     {
         if (targetDebug)
         {

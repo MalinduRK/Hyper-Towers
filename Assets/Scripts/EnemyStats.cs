@@ -1,22 +1,23 @@
-using TMPro;
 using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    //--Variables
+    [Header("Game Objects")]
+    private GameObject currentHealthBar;
+    //private GameObject scrapManager; // Reference to the scrap manager
+
+    [Header("Components")]
+    private ScrapCounter scrapCounter; //  Reference to the ScrapCounter script
+
+    [Header("Variables")]
     private int enemyMaxHP; // Max HP of enemy
     private int enemyHP; // Current HP of enemy
     private int hitDamage; // Damage per hit (temporary)
     private float lengthFactor; // Factor which represents 1 unit of HP in terms of length of the health bar
     private int enemyScrapValue = 1; // The amount of scrap recieved for destroying one enemy
-    //--Game objects
-    private GameObject currentHealthBar;
-    //private GameObject scrapManager; // Reference to the scrap manager
-    //--Components
-    private ScrapCounter scrapCounter; //  Reference to the ScrapCounter script
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         enemyMaxHP = 10;
         enemyHP = 10;

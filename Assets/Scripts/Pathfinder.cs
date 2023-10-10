@@ -1,21 +1,16 @@
-using TMPro;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
 {
-    //--Variables
-    public float moveSpeed = 2f; // Adjust the movement speed as needed.
-    private int currentWaypointIndex = 0; // Index of the current waypoint.
-    //--Event
-    public delegate void EventHandler();
-    public static event EventHandler GameOver;
-    //--Game objects
+    [Header("Game Objects")]
     private Transform waypointsParent; // Reference to the parent GameObject holding waypoints.
     private Transform[] waypoints;   // Array to store waypoints.
-    private TextMeshProUGUI baseHP; // Base HP text
 
-    // Start is called before the first frame update
-    void Start()
+    [Header("Variables")]
+    private float moveSpeed = 2f; // Adjust the movement speed as needed.
+    private int currentWaypointIndex = 0; // Index of the current waypoint.
+
+    private void Start()
     {
         waypointsParent = GameObject.Find("Waypoints").transform; // Find Waypoints parent object
 
@@ -31,17 +26,9 @@ public class Pathfinder : MonoBehaviour
         {
             waypoints[i] = waypointsParent.GetChild(i);
         }
-
-        // Find base HP text
-        baseHP = GameObject.Find("BaseHPValueText").GetComponent<TextMeshProUGUI>();
-        if (baseHP == null)
-        {
-            Debug.LogError("Base HP text object not found. Make sure it's named 'BaseHPValueText'.");
-        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (currentWaypointIndex < waypoints.Length)
         {
@@ -55,22 +42,13 @@ public class Pathfinder : MonoBehaviour
                 currentWaypointIndex++;
             }
         }
-        else // All waypoints reached
+        else // Reached base
         {
+            // Call BaseBreach function on BaseController
+            BaseController baseController = GameObject.Find("Base").GetComponent<BaseController>();
+            baseController.BaseBreach();
             // Destroy enemy
             Destroy(gameObject);
-            // Get current base HP
-            int baseHPValue = int.Parse(baseHP.text);
-            // Reduce base HP value by 1
-            baseHPValue--;
-            baseHP.text = baseHPValue.ToString();
-
-            // Game Over if base HP == 0
-            if (baseHPValue == 0)
-            {
-                // Trigger the game over event
-                GameOver?.Invoke();
-            }
         }
     }
 }

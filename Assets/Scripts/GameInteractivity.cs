@@ -3,11 +3,11 @@ using UnityEngine;
 // This script handles the interactions with game objects (clicks, button presses and hovers)
 public class GameInteractivity : MonoBehaviour
 {
-    public static bool interactionsDisabled = false; // This variable is useful for mouse enter/exit events
-
-    //--Game objects (to disable interactions)
+    [Header("Game Objects")]
     [SerializeField] private GameObject towerPlotsParent;
     private Transform[] towerPlots;
+
+    public static bool interactionsDisabled = false; // This variable is useful for mouse enter/exit events
 
     private void Start()
     {

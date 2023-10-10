@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class ProjectileFlight : MonoBehaviour
 {
-    //--Variables
-    private Vector3 enemyPos;
-    private float projectileVelocity = 2.8f; // Bullet speed
-    //--Game objects
+    [Header("Game Objects")]
     public GameObject targetEnemy;
 
-    void Update()
+    [Header("Variables")]
+    private Vector3 enemyPos;
+    private float projectileVelocity = 2.8f; // Bullet speed
+
+    private void Update()
     {
         if (targetEnemy != null)
         {
@@ -34,7 +35,7 @@ public class ProjectileFlight : MonoBehaviour
         }
     }
 
-    void MoveTowardsTarget()
+    private void MoveTowardsTarget()
     {
         // Calculate the step based on speed and time.
         float step = projectileVelocity * Time.deltaTime;
@@ -55,10 +56,10 @@ public class ProjectileFlight : MonoBehaviour
     }
 
     //--Debugs
+    [Header("Debugs")]
+    [SerializeField] private bool enemyHitDebug;
 
-    public bool enemyHitDebug;
-
-    void EnemyHitDebug(string message)
+    private void EnemyHitDebug(string message)
     {
         if (enemyHitDebug)
         {

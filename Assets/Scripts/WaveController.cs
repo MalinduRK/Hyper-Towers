@@ -6,25 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class WaveController : MonoBehaviour
 {
-    //--Assets
-    public TextAsset waveJson; // Reference to wave_data.json file
-    //--Game objects
-    public TextMeshProUGUI waveText; // Current wave
-    public TextMeshProUGUI baseHealthText; // Base HP
-    public GameObject enemySpawnerObject;
-    public GameObject enemiesParent; // Parent class holding all enemy objects
-    //--Game managers
-    public GameObject notificationManager;
-    public GameObject stateManager;
-    //--Components
-    private EnemySpawner enemySpawner; // Enemy spawner script
+    [Header("Assets")]
+    [SerializeField] private TextAsset waveJson; // Reference to wave_data.json file
+    [SerializeField] private AudioClip callWave;
+    [SerializeField] private AudioClip callFinalWave;
+    [SerializeField] private AudioClip waveClear;
+    [SerializeField] private AudioClip waveCrystalClear; // Call when a wave ends with no damage to the base
 
-    //--Variables
+    [Header("Game Objects")]
+    [SerializeField] private TextMeshProUGUI waveText; // Current wave
+    [SerializeField] private TextMeshProUGUI baseHealthText; // Base HP
+    [SerializeField] private GameObject enemySpawnerObject;
+    [SerializeField] private GameObject enemiesParent; // Parent class holding all enemy objects
+    //--Game managers
+    [SerializeField] private GameObject notificationManager;
+    [SerializeField] private GameObject stateManager;
+
+    [Header("Components")]
+    private EnemySpawner enemySpawner; // Enemy spawner script
+    private AudioSource audioSource;
+
+    [Header("Variables")]
     private int waveId = 0; // Current wave
     private List<WaveData> waveData; // Wave data
     private bool isFinalWave = false; // Check whether if its the final wave
 
-    void Start()
+    private void Start()
     {
         // Access the name of the current level (scene)
         Scene currentScene = SceneManager.GetActiveScene(); // Get the currently active scene
@@ -73,6 +80,9 @@ public class WaveController : MonoBehaviour
             // Access other wave properties as needed.
         }
         */
+
+        // Assign audio source
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void StartNewWave()
@@ -89,6 +99,18 @@ public class WaveController : MonoBehaviour
             waveText.text = $"{waveId + 1}"; // Wave id starts from 0, but the 0th wave is wave 1
             // Trigger wave
             enemySpawner.SpawnEnemies(currentWave);
+
+            // Play audio
+            if (!isFinalWave) // Normal wave call sound
+            {
+                audioSource.clip = callWave;
+                audioSource.Play();
+            }
+            else // Final wave call sound
+            {
+                audioSource.clip = callFinalWave;
+                audioSource.Play();
+            }
         }
         else // Finished last wave
         {
@@ -120,6 +142,10 @@ public class WaveController : MonoBehaviour
             // Notify final wave to player
             NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
             notificationController.FinalWaveNotifier();
+
+            // Play audio
+            audioSource.clip = waveClear;
+            audioSource.Play();
         }
         else // This or the next wave isn't the final wave
         {
@@ -127,6 +153,10 @@ public class WaveController : MonoBehaviour
             // Notify player that the wave has ended
             NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
             notificationController.NextWaveNotifier();
+
+            // Play audio
+            audioSource.clip = waveClear;
+            audioSource.Play();
         }
 
         // Prepare for next wave
@@ -134,7 +164,8 @@ public class WaveController : MonoBehaviour
     }
 
     //--Debugs
-    public bool waveDebug;
+    [Header("Debugs")]
+    [SerializeField] private bool waveDebug;
 
     private void WaveDebug(string message)
     {

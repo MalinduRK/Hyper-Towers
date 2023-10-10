@@ -4,11 +4,12 @@ using UnityEngine;
 // All scrap related functions are done through this class
 public class ScrapCounter : MonoBehaviour
 {
-    //--Variables
+    [Header("Game Objects")]
+    [SerializeField] private TextMeshProUGUI scrapCountText; // Scrap text
+
+    [Header("Variables")]
     private int scrapCount; // Universal scrap count
     private int startingScrap = 10; // Amount of scrap in the beginning of the game
-    //--Game objects
-    public TextMeshProUGUI scrapCountText; // Scrap text
 
     private void Start()
     {

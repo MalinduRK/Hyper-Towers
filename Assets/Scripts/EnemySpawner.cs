@@ -3,16 +3,13 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    //--Variables
-    public float spawnInterval = 2f;
+    [Header("Game Objects")]
+    [SerializeField] private GameObject hpPrefab; // Enemy health bar
+    [SerializeField] private GameObject[] enemies; // Array containing prefabs for all enemies
+    [SerializeField] private GameObject waveManager;
 
-    //--Game objects
-    public GameObject hpPrefab; // Enemy health bar
-    public GameObject[] enemies; // Array containing prefabs for all enemies
-    //--Game managers
-    public GameObject waveManager;
-    //--Components
-    public Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector.
+    [Header("Components")]
+    [SerializeField] private Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector
 
     public void SpawnEnemies(WaveData waveData)
     {
@@ -73,7 +70,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Function to track the remaining enemies of a wave
-    IEnumerator TrackEnemies()
+    private IEnumerator TrackEnemies()
     {
         Debug.Log("Start tracking enemies");
         // Check if there are any enemies remaining inside the enemiesParent
@@ -96,7 +93,7 @@ public class EnemySpawner : MonoBehaviour
         yield break;
     }
 
-    void EndWave()
+    private void EndWave()
     {
         Debug.Log("Calling wave controller");
         // Run game end check on WaveController.cs

@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class NotificationController : MonoBehaviour
 {
+    [Header("Game Objects")]
     private TextMeshProUGUI notificationText;
+
+    [Header("Components")]
     private Animator _animator;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         // Assign TMP component
         notificationText = GetComponent<TextMeshProUGUI>();
