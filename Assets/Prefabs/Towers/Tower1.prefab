@@ -100,11 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822102e3f2136ef4387e371ee30d3287, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInRange: 0
   targetEnemy: {fileID: 0}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 8
+  enemyInRange: 0
   targetDebug: 0
 --- !u!114 &2231202175275849675
 MonoBehaviour:

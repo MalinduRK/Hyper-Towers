@@ -5,6 +5,7 @@
             "name": "Sentry",
             "range": "3",
             "damage": "1",
+            "firerate": "1",
             "cost": "5",
             "scrap_value": "5"
         }

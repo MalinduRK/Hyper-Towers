@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ProjectileSpawner : MonoBehaviour
 {
+    [Header("Assets")]
+    [SerializeField] private TextAsset towerJson; // Reference to tower_data.json file
+
     [Header("Game Objects")]
     [SerializeField] private GameObject bulletPrefab;
     private GameObject projectilesParent; // Empty game object which holds all the created projectiles

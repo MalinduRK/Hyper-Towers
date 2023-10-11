@@ -59,7 +59,7 @@ public class WaveController : MonoBehaviour
         }
 
         // Deserialize the JSON data into a C# object.
-        JsonData jsonData = JsonUtility.FromJson<JsonData>(waveJson.text);
+        WaveJsonData jsonData = JsonUtility.FromJson<WaveJsonData>(waveJson.text);
 
         // Access data specific to the current level
         LevelData levelData = jsonData.levels[currentLevel];
