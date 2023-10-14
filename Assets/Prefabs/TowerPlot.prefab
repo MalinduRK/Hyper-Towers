@@ -235,6 +235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerRangePrefab: {fileID: 7121255280069071225, guid: c2ebecec4f9d407498aacda63d687961, type: 3}
-  towerPrefab: {fileID: 1526146870431928437, guid: f6ca3adabf46ee14dac15f466fcc818e, type: 3}
+  towerPrefabs:
+  - {fileID: 1526146870431928437, guid: f6ca3adabf46ee14dac15f466fcc818e, type: 3}
+  selectionCirclePrefab: {fileID: 2080869730181595404, guid: dfe49518c6a6a9b4894e97282a6e4104, type: 3}
+  tower1IconPrefab: {fileID: 1524565868883544467, guid: 4adcd64f19d645b4d8301446a004dcbe, type: 3}
   hoverDebug: 0
   buildDebug: 0

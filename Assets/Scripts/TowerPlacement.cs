@@ -1,10 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
     [Header("Game Objects")]
-    public GameObject towerRangePrefab;
-    public GameObject towerPrefab;
+    [SerializeField] private GameObject towerRangePrefab;
+    [SerializeField] private GameObject[] towerPrefabs; // Array containing all tower prefabs
+    [SerializeField] private GameObject selectionCirclePrefab;
+    [SerializeField] private GameObject tower1IconPrefab; // Icon prefab for tower 1
     private GameObject towerPlotHighlight; // Child object
 
     [Header("Components")]
@@ -76,7 +79,8 @@ public class TowerPlacement : MonoBehaviour
     {
         if (!towerBuilt) // If no tower is built on the plot, build a tower
         {
-            if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
+            // Below is the script used for building the basic tower on click, without selection circle
+            /*if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
             {
                 // Build new tower
                 GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
@@ -95,7 +99,59 @@ public class TowerPlacement : MonoBehaviour
             else // Not enough scrap
             {
                 BuildDebug("Not enough scrap to build");
+            }*/
+
+            // Create new selection circle
+            GameObject selectionCircle = Instantiate(selectionCirclePrefab, transform);
+
+            // Reference selection sectors within the selection circle
+            GameObject selectionSectorTop = selectionCircle.transform.Find("SelectionSectorTop").gameObject;
+
+            // Instantiate display items/icons on each sector
+            GameObject tower1Icon = Instantiate(tower1IconPrefab, selectionSectorTop.transform);
+
+            // Assign item references to selection sectors
+            SectorSelection sectorSelection = selectionSectorTop.GetComponent<SectorSelection>();
+            sectorSelection.relatedObject = gameObject;
+            sectorSelection.selectionCategory = "Towers";
+            sectorSelection.assignedAction = "Tower1";
+        }
+    }
+
+    public void BuildTower(string towerId)
+    {
+        // Assign default prefab
+        GameObject towerPrefab = towerPrefabs[0];
+
+        // Get the tower info related to the tower to be built
+        foreach(GameObject tower in towerPrefabs)
+        {
+            if (tower.name ==  towerId)
+            {
+                // Assing correct tower prefab to build
+                towerPrefab = tower;
             }
+        }
+
+        if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
+        {
+            // Build new tower
+            GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            newTower.transform.SetParent(transform);
+            // Add range prefab
+            GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
+            newRange.transform.SetParent(transform);
+
+            // Use scrap
+            scrapCounter.UseScrap(towerCost);
+
+            BuildDebug("Tower built");
+
+            towerBuilt = true;
+        }
+        else // Not enough scrap
+        {
+            BuildDebug("Not enough scrap to build");
         }
     }
 

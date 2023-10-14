@@ -58,7 +58,7 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(wave.spawn_interval);
             }
 
-            Debug.Log("Track enemies");
+            EnemyCountDebug("All enemies spawned");
             StartCoroutine(TrackEnemies());
         }
         else
@@ -72,21 +72,21 @@ public class EnemySpawner : MonoBehaviour
     // Function to track the remaining enemies of a wave
     private IEnumerator TrackEnemies()
     {
-        Debug.Log("Start tracking enemies");
+        //Debug.Log("Start tracking enemies");
         // Check if there are any enemies remaining inside the enemiesParent
         int enemyCount = enemiesParent.transform.childCount;
-        Debug.Log(enemyCount);
+        EnemyCountDebug("Enemies left" + enemyCount);
 
         while (enemyCount > 0) // There are remaining enemies
         {
             // Wait for one second before checking again to ensure that a wave doesn't end mid-wave
             yield return new WaitForSeconds(1f);
             enemyCount = enemiesParent.transform.childCount;
-            Debug.Log(enemyCount);
+            EnemyCountDebug("Enemies left" + enemyCount);
         }
 
         // There are no remaining enemies
-        Debug.Log("Ending wave");
+        WaveEndDebug("Ending wave");
         EndWave();
 
         // End coroutine
@@ -95,9 +95,31 @@ public class EnemySpawner : MonoBehaviour
 
     private void EndWave()
     {
-        Debug.Log("Calling wave controller");
+        //Debug.Log("Wave end");
         // Run game end check on WaveController.cs
         WaveController waveController = waveManager.GetComponent<WaveController>();
         waveController.CheckGameEnd();
+    }
+
+    //--Debugs
+
+    [Header("Debugs")]
+    public bool enemyCountDebug;
+    public bool waveEndDebug;
+
+    private void EnemyCountDebug(string message)
+    {
+        if (enemyCountDebug)
+        {
+            Debug.Log(message);
+        }
+    }
+
+    private void WaveEndDebug(string message)
+    {
+        if (waveEndDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }
