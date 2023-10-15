@@ -151,6 +151,9 @@ public class TowerPlacement : MonoBehaviour
             GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
             newRange.transform.SetParent(transform);
 
+            // Hide range prefab after creating
+            newRange.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
             // Use scrap
             scrapCounter.UseScrap(towerCost);
 
