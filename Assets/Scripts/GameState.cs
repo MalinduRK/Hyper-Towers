@@ -48,7 +48,18 @@ public class GameState : MonoBehaviour
         }
     }
 
-    // This triggers when the Pathfinder.cs script sends an event for the base HP reaching 0
+    public void PauseGame()
+    {
+        Time.timeScale = 0; // This will pause the game
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1; // This will pause the game
+        isPaused = false;
+    }
+
     public void GameOver()
     {
         overlayPanel.SetActive(true);
@@ -58,12 +69,6 @@ public class GameState : MonoBehaviour
         // Play audio
         audioSource.clip = gameOver;
         audioSource.Play();
-    }
-
-    public void PauseGame()
-    {
-        Time.timeScale = 0; // This will pause the game
-        isPaused = true;
     }
 
     public void Victory()

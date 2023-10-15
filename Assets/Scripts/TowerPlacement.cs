@@ -8,7 +8,8 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private GameObject[] towerPrefabs; // Array containing all tower prefabs
     [SerializeField] private GameObject selectionCirclePrefab;
     [SerializeField] private GameObject tower1IconPrefab; // Icon prefab for tower 1
-    private GameObject towerPlotHighlight; // Child object
+    private GameInteractivity interactionManager;
+    private GameObject towerPlotHighlight; // Outline of the tower plot
 
     [Header("Components")]
     private ScrapCounter scrapCounter;
@@ -34,6 +35,9 @@ public class TowerPlacement : MonoBehaviour
             // Hide the range ring rather than disabling it
             childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
+
+        // Assign interaction manager
+        interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
     }
 
     private void OnMouseEnter()
@@ -103,6 +107,9 @@ public class TowerPlacement : MonoBehaviour
 
             // Create new selection circle
             GameObject selectionCircle = Instantiate(selectionCirclePrefab, transform);
+
+            // Disable interactions with outside objects
+            interactionManager.DisableInteractions();
 
             // Reference selection sectors within the selection circle
             GameObject selectionSectorTop = selectionCircle.transform.Find("SelectionSectorTop").gameObject;

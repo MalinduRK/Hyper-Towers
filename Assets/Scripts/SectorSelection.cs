@@ -7,6 +7,7 @@ public class SectorSelection : MonoBehaviour
     [Header("Game Objects")]
     public GameObject relatedObject; // Game object related with the selection circle
     private GameObject parentCircle; // Parent selection circle
+    private GameInteractivity interactionManager;
 
     [Header("Components")]
     private ScrapCounter scrapCounter;
@@ -23,6 +24,9 @@ public class SectorSelection : MonoBehaviour
         // Find scrap manager and assign scrapCounter
         GameObject scrapManager = GameObject.Find("ScrapManager");
         scrapCounter = scrapManager.GetComponent<ScrapCounter>();
+
+        // Assign interaction manager
+        interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
     }
 
     private void OnMouseEnter()
@@ -46,5 +50,8 @@ public class SectorSelection : MonoBehaviour
 
         // Hide selection circle
         parentCircle.SetActive(false);
+
+        // Re-enable interactions with outside objects
+        interactionManager.EnableInteractions();
     }
 }
