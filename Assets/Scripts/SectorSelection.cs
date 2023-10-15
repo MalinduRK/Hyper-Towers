@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 // This script is responsible for handling the selection of a sector in the selection circle
@@ -48,8 +49,8 @@ public class SectorSelection : MonoBehaviour
                 break;
         }
 
-        // Hide selection circle
-        parentCircle.SetActive(false);
+        // Destroy selection circle
+        Destroy(parentCircle);
 
         // Re-enable interactions with outside objects
         interactionManager.EnableInteractions();

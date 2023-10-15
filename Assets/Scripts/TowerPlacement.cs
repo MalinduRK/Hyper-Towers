@@ -105,6 +105,8 @@ public class TowerPlacement : MonoBehaviour
                 BuildDebug("Not enough scrap to build");
             }*/
 
+            // TODO: Rather than instantiating a new selection circle, it should be available whenever a plot is created on the scene, just like the plot highlight
+
             // Create new selection circle
             GameObject selectionCircle = Instantiate(selectionCirclePrefab, transform);
 
