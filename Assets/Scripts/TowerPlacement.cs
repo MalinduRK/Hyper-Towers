@@ -1,8 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TowerPlacement : MonoBehaviour
 {
+    [Header("Assets")]
+    [SerializeField] private AudioClip turretBuild;
+
     [Header("Game Objects")]
     [SerializeField] private GameObject towerRangePrefab;
     [SerializeField] private GameObject[] towerPrefabs; // Array containing all tower prefabs
@@ -13,6 +15,7 @@ public class TowerPlacement : MonoBehaviour
 
     [Header("Components")]
     private ScrapCounter scrapCounter;
+    private AudioSource audioSource;
 
     [Header("Variables")]
     private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
@@ -38,6 +41,9 @@ public class TowerPlacement : MonoBehaviour
 
         // Assign interaction manager
         interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
+
+        // Assign audio source
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
@@ -160,6 +166,10 @@ public class TowerPlacement : MonoBehaviour
             BuildDebug("Tower built");
 
             towerBuilt = true;
+
+            // Play build sound
+            audioSource.clip = turretBuild;
+            audioSource.Play();
         }
         else // Not enough scrap
         {
