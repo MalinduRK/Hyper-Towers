@@ -1,36 +1,27 @@
 using UnityEngine;
 
+// This script handles all the tower data from the moment it is decided to being built. All upgraded and changed values will also be handled and updated here to be accessible to any other script
 public class TowerStats : MonoBehaviour
 {
-    [Header("Assets")]
-    [SerializeField] private TextAsset towerJson; // Reference to tower_data.json file
+    [Header("Scripts")]
+    private DataReader dataReader;
 
     [Header("Variables")]
-    private TowerJsonData jsonData;
+    public TowerData towerData = new TowerData();
 
     private void Start()
     {
-        // Deserialize the JSON data
-        jsonData = JsonUtility.FromJson<TowerJsonData>(towerJson.text);
+        // Get the name of the current GameObject (It's always in the format "TowerXIcon(Clone)")
+        string gameObjectName = gameObject.name;
 
-        // Find the tower with the id
-        TowerData tower = jsonData.towers.Find(t => t.id == "Tower1");
+        // Remove "Icon" from the name
+        string towerName = gameObjectName.Replace("Icon(Clone)", "");
 
-        if (tower != null)
-        {
-            // You now have the TowerData object for "Tower1"
-            Debug.Log("Tower Name: " + tower.name);
-            Debug.Log("Range: " + tower.range);
-            // Access other properties as needed.
-        }
-        else
-        {
-            Debug.Log("Tower with id 'Tower1' not found.");
-        }
-    }
+        // Assign data reader
+        GameObject dataReaderObject = GameObject.Find("DataManager");
+        dataReader = dataReaderObject.GetComponent<DataReader>();
 
-    private void Update()
-    {
-        
+        // Read and assign tower data
+        towerData = dataReader.ReadTowerData(towerName);
     }
 }

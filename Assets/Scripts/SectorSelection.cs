@@ -1,4 +1,4 @@
-using UnityEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // This script is responsible for handling the selection of a sector in the selection circle
@@ -10,6 +10,7 @@ public class SectorSelection : MonoBehaviour
     private GameObject parentCircle; // Parent selection circle
 
     [Header("Components")]
+    public Sprite objectSprite;
     private ScrapCounter scrapCounter;
     private GameInteractivity interactionManager;
     private DetailPanelController detailPanelController;
@@ -37,6 +38,10 @@ public class SectorSelection : MonoBehaviour
     private void OnMouseEnter()
     {
         // Higlight sector
+
+        // Pass tower reference and sprite to detail panel controller
+        detailPanelController.referenceObjectName = assignedAction;
+        detailPanelController.referenceSprite = objectSprite;
 
         // Notify detail panel controller that the mouse is hovering over a sector
         detailPanelController.isHoveringOverSector = true;

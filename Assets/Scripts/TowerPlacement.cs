@@ -9,7 +9,6 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private GameObject towerRangePrefab;
     [SerializeField] private GameObject[] towerPrefabs; // Array containing all tower prefabs
     [SerializeField] private GameObject selectionCirclePrefab;
-    [SerializeField] private GameObject tower1IconPrefab; // Icon prefab for tower 1
     private GameInteractivity interactionManager;
     private GameObject towerPlotHighlight; // Outline of the tower plot
 
@@ -122,14 +121,20 @@ public class TowerPlacement : MonoBehaviour
             // Reference selection sectors within the selection circle
             GameObject selectionSectorTop = selectionCircle.transform.Find("SelectionSectorTop").gameObject;
 
-            // Instantiate display items/icons on each sector
-            GameObject tower1Icon = Instantiate(tower1IconPrefab, selectionSectorTop.transform);
+            //GameObject tower1Icon = Instantiate(towerPrefabs[0], selectionSectorTop.transform);
+
+            // Find the sprite of the displayed game object
+            Sprite towerSprite = towerPrefabs[0].GetComponent<SpriteRenderer>().sprite;
+
+            // Assign sprite of the relevent object to the Icon sprite of the current sector
+            selectionSectorTop.transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = towerSprite;
 
             // Assign item references to selection sectors
             SectorSelection sectorSelection = selectionSectorTop.GetComponent<SectorSelection>();
             sectorSelection.relatedObject = gameObject;
             sectorSelection.selectionCategory = "Towers";
             sectorSelection.assignedAction = "Tower1";
+            sectorSelection.objectSprite = towerSprite;
         }
     }
 
