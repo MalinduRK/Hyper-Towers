@@ -9,11 +9,16 @@ public class DetailPanelController : MonoBehaviour
     private RectTransform panelRectTransform; // Rect Transform of the detail panel
 
     [Header("Variables")]
+    public bool isSelectionMenuOpen = false;
+    public bool isHoveringOverSector = false;
     private float centerScreenY = 0.5f;
     private float panelY;
 
     private void Start()
     {
+        // Disable panel at start
+        detailPanel.SetActive(false);
+
         // Assign rect transform
         panelRectTransform = detailPanel.GetComponent<RectTransform>();
 
@@ -22,6 +27,22 @@ public class DetailPanelController : MonoBehaviour
     }
 
     private void Update()
+    {
+        if (isSelectionMenuOpen && isHoveringOverSector)
+        {
+            // Enable detail panel
+            detailPanel.SetActive(true);
+            RelocatePanel();
+        }
+        else
+        {
+            // Disable detail panel
+            detailPanel.SetActive(false);
+        }
+    }
+
+    // Function to relocate detail panel based on mouse position
+    private void RelocatePanel()
     {
         // Get the mouse position in screen coordinates.
         Vector2 mousePosition = Input.mousePosition;

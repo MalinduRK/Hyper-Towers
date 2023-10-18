@@ -30,6 +30,7 @@ public class TowerData
 {
     public string id;
     public string name;
+    public string description;
     public float range;
     public float damage;
     public float firerate;

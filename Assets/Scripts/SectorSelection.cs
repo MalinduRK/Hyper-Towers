@@ -8,10 +8,11 @@ public class SectorSelection : MonoBehaviour
     [Header("Game Objects")]
     public GameObject relatedObject; // Game object related with the selection circle
     private GameObject parentCircle; // Parent selection circle
-    private GameInteractivity interactionManager;
 
     [Header("Components")]
     private ScrapCounter scrapCounter;
+    private GameInteractivity interactionManager;
+    private DetailPanelController detailPanelController;
 
     [Header("Variables")]
     public string selectionCategory; // Narrows down the selection circle to check in which situation the circle is in (tower built/not built)
@@ -28,11 +29,23 @@ public class SectorSelection : MonoBehaviour
 
         // Assign interaction manager
         interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
+
+        // Assign detail panel controller
+        detailPanelController = GameObject.Find("UIManager").GetComponent<DetailPanelController>();
     }
 
     private void OnMouseEnter()
     {
         // Higlight sector
+
+        // Notify detail panel controller that the mouse is hovering over a sector
+        detailPanelController.isHoveringOverSector = true;
+    }
+
+    private void OnMouseExit()
+    {
+        // Notify detail panel controller that the mouse is not hovering over a sector
+        detailPanelController.isHoveringOverSector = false;
     }
 
     private void OnMouseDown() // Clicking on a sector
@@ -54,5 +67,8 @@ public class SectorSelection : MonoBehaviour
 
         // Re-enable interactions with outside objects
         interactionManager.EnableInteractions();
+
+        // Notify other scripts that the selection menu is closed
+        detailPanelController.isSelectionMenuOpen = false;
     }
 }

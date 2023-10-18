@@ -5,17 +5,23 @@ public class SelectionMenuBehaviour : MonoBehaviour
     [Header("Game Objects")]
     private GameInteractivity interactionManager;
 
+    [Header("Components")]
+    private DetailPanelController detailPanelController;
+
     private void Start()
     {
+        // Assign detail panel controller
+        detailPanelController = GameObject.Find("UIManager").GetComponent<DetailPanelController>();
+
+        // Notify other scripts that the selection menu is open
+        detailPanelController.isSelectionMenuOpen = true;
+
         // Assign interaction manager
         interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
     }
 
     private void OnMouseExit()
     {
-        // NOTE!!!
-        // Below is not the intended behaviour. It is supposed to work when the mouse is NOT over a child object. Find a solution soon
-
         // Close the menu only if the mouse exited the selection circle range entirely
         if (!IsMouseOverChildObject())
         {
@@ -23,6 +29,9 @@ public class SelectionMenuBehaviour : MonoBehaviour
 
             // Re-enable interactions with outside objects
             interactionManager.EnableInteractions();
+
+            // Notify other scripts that the selection menu is closed
+            detailPanelController.isSelectionMenuOpen = false;
 
             // Destroy selection circle
             Destroy(gameObject);
