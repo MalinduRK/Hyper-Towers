@@ -11,6 +11,17 @@ public class EnemySpawner : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector
 
+    [Header("Variables")]
+    private Vector3 spawnPosition; // Corrected spawn position for enemies
+
+    private void Start()
+    {
+        // Set enemy spawn position slightly below the enemy spawner, at the level of waypoints
+        Vector3 originalSpawn = transform.position;
+        originalSpawn.z += 0.01f; // Set new z axis
+        spawnPosition = originalSpawn;
+    }
+
     public void SpawnEnemies(WaveData waveData)
     {
         // Spawn enemies according to its pattern
@@ -42,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
             for (int i = 0; i < wave.enemy_count; i++) // Loop spawner until all enemies are spawned
             {
                 // Instantiate a new enemy from the prefab.
-                GameObject newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+                GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
                 // Set the parent of the spawned enemy to the enemiesParent.
                 newEnemy.transform.parent = enemiesParent;
