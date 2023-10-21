@@ -19,6 +19,7 @@ public class TowerPlacement : MonoBehaviour
     [Header("Variables")]
     private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
     private int towerCost = 5; // Cost of a tower
+    private Vector3 buildPosition; // Corrected build position for turrets
 
     private void Start()
     {
@@ -43,6 +44,11 @@ public class TowerPlacement : MonoBehaviour
 
         // Assign audio source
         audioSource = gameObject.GetComponent<AudioSource>();
+
+        // Set turret position slightly above the tower plot, at the level of enemies
+        Vector3 originalPosition = transform.position;
+        originalPosition.z -= 0.01f; // Set new z axis
+        buildPosition = originalPosition;
     }
 
     private void OnMouseEnter()
@@ -134,7 +140,7 @@ public class TowerPlacement : MonoBehaviour
         if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
         {
             // Build new tower
-            GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            GameObject newTower = Instantiate(towerPrefab, buildPosition, Quaternion.identity);
             newTower.transform.SetParent(transform);
             // Add range prefab
             GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
