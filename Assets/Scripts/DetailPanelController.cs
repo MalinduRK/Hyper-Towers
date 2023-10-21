@@ -117,15 +117,61 @@ public class DetailPanelController : MonoBehaviour
                     }
                 }
 
-                // Repeat this step for each object
+                // Find the "Firerate" child object inside the "StatsPanelTop" child
+                Transform firerate = statsPanelTop.Find("Firerate");
+
+                if (firerate != null)
+                {
+                    // Find the "FirerateValue" object inside the "Firerate" child
+                    Transform firerateValue = firerate.Find("FirerateValue");
+
+                    if (firerateValue != null)
+                    {
+                        // Update firerate value text
+                        TextMeshProUGUI firerateText = firerateValue.GetComponent<TextMeshProUGUI>();
+                        firerateText.text = towerData.firerate.ToString();
+                    }
+                }
+            }
+
+            // Find the "StatsPanelBottom" object inside the "StatsPanel" child
+            Transform statsPanelBottom = statsPanel.Find("StatsPanelBottom");
+
+            if (statsPanelBottom != null)
+            {
+                // Find the "Range" child object inside the "StatsPanelBottom" child
+                Transform range = statsPanelTop.Find("Range");
+
+                if (range != null)
+                {
+                    // Find the "RangeValue" object inside the "Range" child
+                    Transform rangeValue = range.Find("RangeValue");
+
+                    if (rangeValue != null)
+                    {
+                        // Update range value text
+                        TextMeshProUGUI rangeText = rangeValue.GetComponent<TextMeshProUGUI>();
+                        rangeText.text = towerData.range.ToString();
+                    }
+                }
+
+                // Find the "Scrap" child object inside the "StatsPanelBottom" child
+                Transform scrap = statsPanelTop.Find("scrap");
+
+                if (scrap != null)
+                {
+                    // Find the "ScrapValue" object inside the "Scrap" child
+                    Transform scrapValue = scrap.Find("ScrapValue");
+
+                    if (scrapValue != null)
+                    {
+                        // Update scrap value text
+                        TextMeshProUGUI scrapText = scrapValue.GetComponent<TextMeshProUGUI>();
+                        scrapText.text = towerData.scrap_value.ToString();
+                    }
+                }
             }
         }
-
-
-        detailPanel.transform.Find("DamageValue").GetComponent<TextMeshProUGUI>().text = towerData.damage.ToString();
-        detailPanel.transform.Find("ASpeedValue").GetComponent<TextMeshProUGUI>().text = towerData.firerate.ToString();
-        detailPanel.transform.Find("RangeValue").GetComponent<TextMeshProUGUI>().text = towerData.range.ToString();
-        detailPanel.transform.Find("ScrapValue").GetComponent<TextMeshProUGUI>().text = towerData.scrap_value.ToString();
     }
 
     private void SetAnchorToTop()
