@@ -21,6 +21,7 @@ public class WaveController : MonoBehaviour
     //--Game managers
     [SerializeField] private GameObject notificationManager;
     [SerializeField] private GameObject stateManager;
+    [SerializeField] private GameObject dataManager;
 
     [Header("Components")]
     private EnemySpawner enemySpawner; // Enemy spawner script
@@ -58,15 +59,11 @@ public class WaveController : MonoBehaviour
             return;
         }
 
-        // Deserialize the JSON data into a C# object.
-        WaveJsonData jsonData = JsonUtility.FromJson<WaveJsonData>(waveJson.text);
-
-        // Access data specific to the current level
-        LevelData levelData = jsonData.levels[currentLevel];
+        // Assign DataReader.cs
+        DataReader dataReader = dataManager.GetComponent<DataReader>();
 
         // Access wave data for the current level
-        waveData = levelData.waves;
-        Debug.Log($"Number of waves this level: {waveData.Count}");
+        waveData = dataReader.ReadWaveData(currentLevel);
 
         // Get reference to EnemySpawner component in enemySpawner object
         enemySpawner = enemySpawnerObject.GetComponent<EnemySpawner>();

@@ -1,17 +1,32 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DataReader : MonoBehaviour
 {
     [Header("Assets")]
+    [SerializeField] private TextAsset waveJson; // Reference to wave_data.json file
     [SerializeField] private TextAsset towerJson; // Reference to tower_data.json file
 
-    [Header("Variables")]
-    private TowerJsonData jsonData;
+    public List<WaveData> ReadWaveData(int currentLevel)
+    {
+        // Deserialize the JSON data into a C# object.
+        WaveJsonData jsonData = JsonUtility.FromJson<WaveJsonData>(waveJson.text);
+
+        // Access data specific to the current level
+        LevelData levelData = jsonData.levels[currentLevel];
+
+        List<WaveData> waveData; // Wave data for each wave
+
+        // Access wave data for the current level
+        waveData = levelData.waves;
+
+        return waveData;
+    }
 
     public TowerData ReadTowerData(string towerId)
     {
         // Deserialize the JSON data
-        jsonData = JsonUtility.FromJson<TowerJsonData>(towerJson.text);
+        TowerJsonData jsonData = JsonUtility.FromJson<TowerJsonData>(towerJson.text);
 
         // Find the tower with the id
         TowerData tower = jsonData.towers.Find(t => t.id == towerId);

@@ -141,7 +141,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 255
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -179,7 +179,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -231,7 +231,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6320db92ffa8f9248afef6aba9b127b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerJson: {fileID: 4900000, guid: 3d0d771b50ba64748aa4e81e95a21aea, type: 3}
+  towerData:
+    id: 
+    name: 
+    description: 
+    range: 0
+    damage: 0
+    firerate: 0
+    cost: 0
+    scrap_value: 0
 --- !u!1 &4432001966860522969
 GameObject:
   m_ObjectHideFlags: 0
