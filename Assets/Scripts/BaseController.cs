@@ -24,7 +24,7 @@ public class BaseController : MonoBehaviour
     private void Update()
     {
         // Rotate the object around its Y-axis.
-        transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
+        //transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime, Space.World);
     }
 
     public void BaseBreach()

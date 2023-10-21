@@ -88,28 +88,6 @@ public class TowerPlacement : MonoBehaviour
     {
         if (!towerBuilt) // If no tower is built on the plot, build a tower
         {
-            // Below is the script used for building the basic tower on click, without selection circle
-            /*if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
-            {
-                // Build new tower
-                GameObject newTower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-                newTower.transform.SetParent(transform);
-                // Add range prefab
-                GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
-                newRange.transform.SetParent(transform);
-
-                // Use scrap
-                scrapCounter.UseScrap(towerCost);
-
-                BuildDebug("Tower built");
-
-                towerBuilt = true;
-            }
-            else // Not enough scrap
-            {
-                BuildDebug("Not enough scrap to build");
-            }*/
-
             // TODO: Rather than instantiating a new selection circle, it should be available whenever a plot is created on the scene, just like the plot highlight
 
             // Create new selection circle

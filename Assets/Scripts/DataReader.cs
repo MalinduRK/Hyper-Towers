@@ -34,6 +34,7 @@ public class DataReader : MonoBehaviour
         else
         {
             Debug.Log($"Tower with id '{towerId}' not found.");
+            return null;
         }
 
         return towerData;

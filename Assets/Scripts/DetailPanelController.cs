@@ -42,10 +42,9 @@ public class DetailPanelController : MonoBehaviour
     {
         if (isSelectionMenuOpen && isHoveringOverSector) // Ignore hovering over other objects when selection circle is open
         {
-            // Enable detail panel
-            detailPanel.SetActive(true);
-            RelocatePanel();
+            // Enable and update detail panel
             UpdatePanel();
+            RelocatePanel();
         }
         else if (!isSelectionMenuOpen && isHoveringOverTower) // Mouse is hovering over a built tower
         {
@@ -85,6 +84,14 @@ public class DetailPanelController : MonoBehaviour
     {
         // Read data from data reader
         TowerData towerData = dataReader.ReadTowerData(referenceObjectName);
+
+        if (towerData == null)
+        {
+            return;
+        }
+
+        // Enable detail panel
+        detailPanel.SetActive(true);
 
         // Assign values from the reference object to UI elements
         detailPanel.transform.Find("Image").GetComponent<Image>().sprite = referenceSprite;
