@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -7,9 +8,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject hpPrefab; // Enemy health bar
     [SerializeField] private GameObject[] enemies; // Array containing prefabs for all enemies
     [SerializeField] private GameObject waveManager;
+    [SerializeField] private GameObject enemyCounter; // Object with text component showing the remaining number of enemies
+    [SerializeField] private GameObject spawnerLight; // Light source
 
     [Header("Components")]
     [SerializeField] private Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector
+    private Animator _animator;
 
     [Header("Variables")]
     private Vector3 spawnPosition; // Corrected spawn position for enemies
@@ -20,10 +24,20 @@ public class EnemySpawner : MonoBehaviour
         Vector3 originalSpawn = transform.position;
         originalSpawn.z += 0.01f; // Set new z axis
         spawnPosition = originalSpawn;
+
+        // Hide enemy count when starting the game
+        TextMeshProUGUI enemyCountText = enemyCounter.GetComponent<TextMeshProUGUI>();
+        enemyCountText.text = "";
+
+        // Assign animator component
+        _animator = spawnerLight.GetComponent<Animator>();
     }
 
     public void SpawnEnemies(WaveData waveData)
     {
+        // Disable animation for spawner
+        DisableAnimations();
+
         // Spawn enemies according to its pattern
         switch (waveData.pattern)
         {
@@ -36,6 +50,11 @@ public class EnemySpawner : MonoBehaviour
     // Spawn a single enemy for the entire wave
     private IEnumerator Single(WaveData wave)
     {
+        // Display total number of enemies this wave
+        TextMeshProUGUI enemyCountText = enemyCounter.GetComponent<TextMeshProUGUI>();
+        int enemiesLeft = wave.enemy_count;
+        enemyCountText.text = enemiesLeft.ToString();
+
         GameObject enemyPrefab = enemies[0]; // Current enemy prefab (Assign default for initialization)
 
         // Get the correct enemy prefab from the enemies array
@@ -64,6 +83,9 @@ public class EnemySpawner : MonoBehaviour
 
                 // Attach the health bar to the enemy object so that it also moves with the enemy
                 newHealthBar.transform.parent = newEnemy.transform;
+
+                // Update number of enemies left to spawn
+                enemyCountText.text = (--enemiesLeft).ToString();
 
                 // Wait for the specified interval before spawning the next enemy.
                 yield return new WaitForSeconds(wave.spawn_interval);
@@ -110,6 +132,16 @@ public class EnemySpawner : MonoBehaviour
         // Run game end check on WaveController.cs
         WaveController waveController = waveManager.GetComponent<WaveController>();
         waveController.CheckGameEnd();
+    }
+
+    public void EnableAnimations()
+    {
+        _animator.enabled = true;
+    }
+
+    public void DisableAnimations()
+    {
+        _animator.enabled = false;
     }
 
     //--Debugs
