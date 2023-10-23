@@ -21,8 +21,8 @@ public class EnemySpawner : MonoBehaviour
     private TextMeshProUGUI enemyCountText; // Text component of enemyCounter
 
     [Header("Variables")]
+    public bool waveOngoing = false; // Boolean to show whether a wave is ongoing
     private Vector3 spawnPosition; // Corrected spawn position for enemies
-    private bool waveOngoing = false; // Boolean to show whether a wave is ongoing
 
     private void Start()
     {

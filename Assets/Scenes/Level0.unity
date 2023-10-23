@@ -2002,9 +2002,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1042540560}
-        m_TargetAssemblyTypeName: PlayButtonController, Assembly-CSharp
-        m_MethodName: StartWave
+      - m_Target: {fileID: 1392893526}
+        m_TargetAssemblyTypeName: GameState, Assembly-CSharp
+        m_MethodName: CheckAndExecuteWave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8223,10 +8223,13 @@ MonoBehaviour:
   victory: {fileID: 8300000, guid: cc2c7851966504f45a7e7ba7f6977674, type: 3}
   overlayPanel: {fileID: 395700540}
   endGameText: {fileID: 1298288165}
+  enemySpawner: {fileID: 1180711674}
   waveManager: {fileID: 1309665700}
   notificationManager: {fileID: 1012964915}
   interactionManager: {fileID: 2030696899}
+  uiManager: {fileID: 1042540557}
   buttonPressDebug: 0
+  gameStateDebug: 1
 --- !u!4 &1392893527
 Transform:
   m_ObjectHideFlags: 0

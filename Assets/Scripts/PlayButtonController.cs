@@ -14,9 +14,18 @@ public class PlayButtonController : MonoBehaviour
     // This function runs when the button is clicked on as well as from other functions
     public void StartWave()
     {
-        // Call start wave function from the state manager
-        stateManagerObject.GetComponent<GameState>().StartWave();
+        // Convert play button into pause button
+        playButton.GetComponent<Image>().sprite = pause;
+    }
 
+    public void PauseWave()
+    {
+        // Convert pause button into play button
+        playButton.GetComponent<Image>().sprite = play;
+    }
+
+    public void ResumeWave()
+    {
         // Convert play button into pause button
         playButton.GetComponent<Image>().sprite = pause;
     }
