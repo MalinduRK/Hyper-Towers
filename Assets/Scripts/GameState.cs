@@ -37,15 +37,20 @@ public class GameState : MonoBehaviour
             // This code will run when the spacebar is pressed.
             ButtonPressDebug("Spacebar pressed!");
 
-            // Start wave
-            WaveController waveController = waveManager.GetComponent<WaveController>();
-            waveController.StartNewWave();
-
-            // Update notification text
-            NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
-            notificationController.ClearText();
-            notificationController.DisableAnimations();
+            StartWave();
         }
+    }
+
+    public void StartWave()
+    {
+        // Start wave
+        WaveController waveController = waveManager.GetComponent<WaveController>();
+        waveController.StartNewWave();
+
+        // Update notification text
+        NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
+        notificationController.ClearText();
+        notificationController.DisableAnimations();
     }
 
     public void PauseGame()

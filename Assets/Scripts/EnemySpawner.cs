@@ -7,10 +7,13 @@ public class EnemySpawner : MonoBehaviour
     [Header("Game Objects")]
     [SerializeField] private GameObject hpPrefab; // Enemy health bar
     [SerializeField] private GameObject[] enemies; // Array containing prefabs for all enemies
-    [SerializeField] private GameObject waveManager;
     [SerializeField] private GameObject enemyCounter; // Object with text component showing the remaining number of enemies
     [SerializeField] private GameObject spawnerLight; // Light source
     [SerializeField] private GameObject hoverText; // Text that appears when hovering over the object
+
+    [Header("Game Managers")]
+    [SerializeField] private GameObject waveManager;
+    [SerializeField] private GameObject uiManager;
 
     [Header("Components")]
     [SerializeField] private Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector
@@ -162,6 +165,9 @@ public class EnemySpawner : MonoBehaviour
         EnableAnimations();
         enemyCountText.text = "";
         waveOngoing = false;
+
+        // Convert play button to pause button
+        uiManager.GetComponent<PlayButtonController>().EndWave();
     }
 
     public void EnableAnimations()

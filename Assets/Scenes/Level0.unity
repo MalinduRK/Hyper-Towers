@@ -2001,7 +2001,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952094599}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1042540560}
+        m_TargetAssemblyTypeName: PlayButtonController, Assembly-CSharp
+        m_MethodName: StartWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &952094599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7262,6 +7274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1042540558}
   - component: {fileID: 1042540559}
+  - component: {fileID: 1042540560}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -7304,6 +7317,22 @@ MonoBehaviour:
   isSelectionMenuOpen: 0
   isHoveringOverSector: 0
   isHoveringOverTower: 0
+--- !u!114 &1042540560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042540557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e55c17c1eb411b418d8e993895a0133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  play: {fileID: 21300000, guid: 7e9cbdbffb3a3044f97e21eb94e1b7c7, type: 3}
+  pause: {fileID: 21300000, guid: 112e7c5c723774d4783d74feec7fac54, type: 3}
+  playButton: {fileID: 952094596}
+  stateManagerObject: {fileID: 1392893525}
 --- !u!1001 &1065935611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10508,6 +10537,10 @@ PrefabInstance:
       propertyPath: hpPrefab
       value: 
       objectReference: {fileID: 6245660916420946814, guid: 6aff083e6aeb89742bb5f9e3da04faf9, type: 3}
+    - target: {fileID: 2887915710838715682, guid: 826155341eb1b1f4785c61be96121a1a, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 1042540557}
     - target: {fileID: 2887915710838715682, guid: 826155341eb1b1f4785c61be96121a1a, type: 3}
       propertyPath: waveManager
       value: 
