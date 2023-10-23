@@ -6,6 +6,7 @@ public class DetailPanelController : MonoBehaviour
 {
     [Header("Game Objects")]
     public string referenceObjectName; // The name of object that the detail panel is currently showing information on
+    [SerializeField] private GameObject detailPanelHolder; // Container of detail panel
     [SerializeField] private GameObject detailPanel;
     [SerializeField] private GameObject dataReaderObject;
 
@@ -26,10 +27,10 @@ public class DetailPanelController : MonoBehaviour
     private void Start()
     {
         // Disable panel at start
-        detailPanel.SetActive(false);
+        detailPanelHolder.SetActive(false);
 
         // Assign rect transform
-        panelRectTransform = detailPanel.GetComponent<RectTransform>();
+        panelRectTransform = detailPanelHolder.GetComponent<RectTransform>();
 
         // Get the Y position of the panel
         panelY = panelRectTransform.localPosition.y;
@@ -53,7 +54,7 @@ public class DetailPanelController : MonoBehaviour
         else
         {
             // Disable detail panel
-            detailPanel.SetActive(false);
+            detailPanelHolder.SetActive(false);
         }
     }
 
@@ -91,7 +92,7 @@ public class DetailPanelController : MonoBehaviour
         }
 
         // Enable detail panel
-        detailPanel.SetActive(true);
+        detailPanelHolder.SetActive(true);
 
         // Assign values from the reference object to UI elements
         detailPanel.transform.Find("Image").GetComponent<Image>().sprite = referenceSprite;
@@ -187,6 +188,7 @@ public class DetailPanelController : MonoBehaviour
         {
             panelRectTransform.anchorMin = new Vector2(0, 1);
             panelRectTransform.anchorMax = new Vector2(1, 1);
+            panelRectTransform.pivot = new Vector2(0.5f, 1);
             // Change Y position
             Vector3 newPosition = panelRectTransform.localPosition;
             newPosition.y = -panelY; // Set the new position
@@ -200,6 +202,7 @@ public class DetailPanelController : MonoBehaviour
         {
             panelRectTransform.anchorMin = new Vector2(0, 0);
             panelRectTransform.anchorMax = new Vector2(1, 0);
+            panelRectTransform.pivot = new Vector2(0.5f, 0);
             // Change Y position
             Vector3 newPosition = panelRectTransform.localPosition;
             newPosition.y = panelY; // Set the new position
