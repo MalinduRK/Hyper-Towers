@@ -10,13 +10,16 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject waveManager;
     [SerializeField] private GameObject enemyCounter; // Object with text component showing the remaining number of enemies
     [SerializeField] private GameObject spawnerLight; // Light source
+    [SerializeField] private GameObject hoverText; // Text that appears when hovering over the object
 
     [Header("Components")]
     [SerializeField] private Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector
     private Animator _animator;
+    private TextMeshProUGUI enemyCountText; // Text component of enemyCounter
 
     [Header("Variables")]
     private Vector3 spawnPosition; // Corrected spawn position for enemies
+    private bool waveOngoing = false; // Boolean to show whether a wave is ongoing
 
     private void Start()
     {
@@ -26,17 +29,41 @@ public class EnemySpawner : MonoBehaviour
         spawnPosition = originalSpawn;
 
         // Hide enemy count when starting the game
-        TextMeshProUGUI enemyCountText = enemyCounter.GetComponent<TextMeshProUGUI>();
+        enemyCountText = enemyCounter.GetComponent<TextMeshProUGUI>();
         enemyCountText.text = "";
 
         // Assign animator component
         _animator = spawnerLight.GetComponent<Animator>();
+
+        // Hide hover text
+        hoverText.SetActive(false);
+    }
+
+    private void OnMouseEnter()
+    {
+        // Don't display text when there is an ongoing wave
+        if (!waveOngoing)
+        {
+            // Show hover text
+            hoverText.SetActive(true);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (!waveOngoing)
+        {
+            // Hide hover text
+            hoverText.SetActive(false);
+        }
     }
 
     public void SpawnEnemies(WaveData waveData)
     {
         // Disable animation for spawner
         DisableAnimations();
+
+        waveOngoing = true;
 
         // Spawn enemies according to its pattern
         switch (waveData.pattern)
@@ -51,7 +78,6 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator Single(WaveData wave)
     {
         // Display total number of enemies this wave
-        TextMeshProUGUI enemyCountText = enemyCounter.GetComponent<TextMeshProUGUI>();
         int enemiesLeft = wave.enemy_count;
         enemyCountText.text = enemiesLeft.ToString();
 
@@ -132,6 +158,10 @@ public class EnemySpawner : MonoBehaviour
         // Run game end check on WaveController.cs
         WaveController waveController = waveManager.GetComponent<WaveController>();
         waveController.CheckGameEnd();
+
+        EnableAnimations();
+        enemyCountText.text = "";
+        waveOngoing = false;
     }
 
     public void EnableAnimations()
