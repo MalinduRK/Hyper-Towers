@@ -479,11 +479,13 @@ MonoBehaviour:
   hpPrefab: {fileID: 0}
   enemies:
   - {fileID: 5664401185350760041, guid: 2d3044707f76c034199f2a450a584210, type: 3}
-  waveManager: {fileID: 0}
   enemyCounter: {fileID: 1819324978720693334}
   spawnerLight: {fileID: 9155841035694084162}
   hoverText: {fileID: 6295893727868762880}
+  waveManager: {fileID: 0}
+  uiManager: {fileID: 0}
   enemiesParent: {fileID: 0}
+  waveOngoing: 0
   enemyCountDebug: 0
   waveEndDebug: 0
 --- !u!61 &2525826568705730599
@@ -610,7 +612,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295

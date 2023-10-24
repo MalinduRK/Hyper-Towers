@@ -5,6 +5,7 @@ public class TowerPlacement : MonoBehaviour
     [Header("Assets")]
     [SerializeField] private AudioClip turretBuild;
     [SerializeField] private AudioClip cannotBuild;
+    [SerializeField] private AudioClip openMenu;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject towerRangePrefab;
@@ -95,6 +96,10 @@ public class TowerPlacement : MonoBehaviour
     {
         if (!towerBuilt) // If no tower is built on the plot, build a tower
         {
+            // Play menu open sound
+            audioSource.clip = openMenu;
+            audioSource.Play();
+
             // TODO: Rather than instantiating a new selection circle, it should be available whenever a plot is created on the scene, just like the plot highlight
 
             // Create new selection circle
