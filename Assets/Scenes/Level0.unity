@@ -8688,6 +8688,10 @@ PrefabInstance:
       propertyPath: baseHP
       value: 
       objectReference: {fileID: 1897786299}
+    - target: {fileID: -804431395965833254, guid: f165c75ec0896944eb186aed4fee71ff, type: 3}
+      propertyPath: baseBreach
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e21322cd51f0b44b9280ddab45052af, type: 3}
     - target: {fileID: 254723373011544387, guid: f165c75ec0896944eb186aed4fee71ff, type: 3}
       propertyPath: m_RootOrder
       value: 0
