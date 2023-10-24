@@ -4,6 +4,7 @@ public class TowerPlacement : MonoBehaviour
 {
     [Header("Assets")]
     [SerializeField] private AudioClip turretBuild;
+    [SerializeField] private AudioClip cannotBuild;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject towerRangePrefab;
@@ -162,6 +163,10 @@ public class TowerPlacement : MonoBehaviour
         }
         else // Not enough scrap
         {
+            // Play error sound
+            audioSource.clip = cannotBuild;
+            audioSource.Play();
+
             BuildDebug("Not enough scrap to build");
         }
     }

@@ -41,6 +41,8 @@ public class BaseController : MonoBehaviour
             // Trigger game over
             GameState gameState = GameObject.Find("StateManager").GetComponent<GameState>();
             gameState.GameOver();
+
+            return;
         }
 
         // Play audio
