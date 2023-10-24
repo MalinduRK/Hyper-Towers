@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Game Managers")]
     [SerializeField] private GameObject waveManager;
     [SerializeField] private GameObject uiManager;
+    [SerializeField] private GameObject stateManager;
 
     [Header("Components")]
     [SerializeField] private Transform enemiesParent; // Assign the "Enemies" GameObject in the Inspector
@@ -58,6 +59,14 @@ public class EnemySpawner : MonoBehaviour
         {
             // Hide hover text
             hoverText.SetActive(false);
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (!waveOngoing)
+        {
+            stateManager.GetComponent<GameState>().StartWave();
         }
     }
 
