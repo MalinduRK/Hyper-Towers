@@ -6,16 +6,19 @@ public class MenuButtonController : MonoBehaviour
 {
     public void LoadMainMenu()
     {
+        Debug.Log("Loading Main Menu");
         SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadSettings()
     {
+        Debug.Log("Loading Settings");
         SceneManager.LoadScene("SettingsMenu");
     }
 
     public void LoadLevelSelectionMenu()
     {
+        Debug.Log("Loading Level Selection");
         SceneManager.LoadScene("LevelSelection");
     }
 
@@ -53,6 +56,7 @@ public class MenuButtonController : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("Quitting Game");
         // Check if the application is running in the Unity Editor, as you might not want to quit during development.
         if (Application.isEditor)
         {

@@ -4,3 +4,6 @@
 -Play, FF, Pause icons:
 Icon Pack: Music | Filled by Pixel perfect
 <div> Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect"> Pixel perfect </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+-UI confirmation alert, B5:
+"UI Confirmation Alert, B5.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
