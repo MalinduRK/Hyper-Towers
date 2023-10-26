@@ -9,6 +9,7 @@ public class GameState : MonoBehaviour
 
     [Header("Game Objects")]
     [SerializeField] private GameObject overlayPanel;
+    [SerializeField] private GameObject escapeMenuPanel;
     [SerializeField] private TextMeshProUGUI endGameText;
     [SerializeField] private GameObject enemySpawner;
 
@@ -24,6 +25,7 @@ public class GameState : MonoBehaviour
 
     [Header("Variables")]
     private bool isPaused = true;
+    private bool isEscaped = false; // Turns true when escape menu is open
     private bool gameStarted = false; // This should only be false before starting the first wave
 
     private void Start()
@@ -31,20 +33,51 @@ public class GameState : MonoBehaviour
         // Disable overlay panel
         overlayPanel.SetActive(false);
 
+        // Disable escape menu
+        escapeMenuPanel.SetActive(false);
+
         // Assign audio source
         audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        // Check if the spacebar key is pressed.
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Escape key check
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isEscaped) // Already in escape menu. Resume game
+            {
+                CloseEscapeMenu();
+            }
+            else // Escape
+            {
+                OpenEscapeMenu();
+            }
+        }
+
+        // Check if the spacebar key is pressed and the escape menu is NOT open
+        if (Input.GetKeyDown(KeyCode.Space) && !isEscaped)
         {
             // This code will run when the spacebar is pressed.
             ButtonPressDebug("Spacebar pressed!");
 
             CheckAndExecuteWave();
         }
+    }
+
+    // Below two functions control what happens when escape button is pressed
+    public void OpenEscapeMenu()
+    {
+        PauseGame();
+        escapeMenuPanel.SetActive(true);
+        isEscaped = true;
+    }
+
+    public void CloseEscapeMenu()
+    {
+        ResumeGame();
+        escapeMenuPanel.SetActive(false);
+        isEscaped = false;
     }
 
     // This function is created in order for any outside class to access this class and start, pause or resume a wave
