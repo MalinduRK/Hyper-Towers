@@ -36,10 +36,10 @@ public class MusicController : MonoBehaviour
 
     private void OnSceneChanged(Scene previousScene, Scene currentScene)
     {
-        // Change music only if the scene changes from MainMenu or LevelSelection to another, or vise versa
-        if (currentScene.name == "MainMenu" || currentScene.name == "LevelSelection")
+        // Change music only if the scene changes from menu scenes to other scenes, or vise versa
+        if (currentScene.name == "MainMenu" || currentScene.name == "LevelSelection" || currentScene.name == "SettingsMenu")
         {
-            if (previousScene.name == "MainMenu" !| previousScene.name == "LevelSelection")
+            if (previousScene.name == "MainMenu" !| previousScene.name == "LevelSelection" !| previousScene.name == "SettingsMenu")
             {
                 StartCoroutine(CrossfadeTo(mainMenuMusic));
             }

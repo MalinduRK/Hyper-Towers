@@ -3,31 +3,28 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtonController : MonoBehaviour
 {
-    public void LoadLevelSelectionMenu()
-    {
-        // Get the current scene
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // Load the new scene asynchronously
-        SceneManager.LoadSceneAsync("LevelSelection");
-    }
-
     public void LoadMainMenu()
     {
-        // Get the current scene
-        Scene currentScene = SceneManager.GetActiveScene();
-
         // Load the new scene asynchronously
-        SceneManager.LoadSceneAsync("MainMenu");
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LoadSettings()
+    {
+        // Load the new scene asynchronously
+        SceneManager.LoadScene("SettingsMenu");
+    }
+
+    public void LoadLevelSelectionMenu()
+    {
+        // Load the new scene asynchronously
+        SceneManager.LoadScene("LevelSelection");
     }
 
     public void LoadLevel0()
     {
-        // Get the current scene
-        Scene currentScene = SceneManager.GetActiveScene();
-
         // Load the new scene asynchronously
-        SceneManager.LoadSceneAsync("Level0");
+        SceneManager.LoadScene("Level0");
     }
 
     public void QuitGame()
