@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,26 +6,49 @@ public class MenuButtonController : MonoBehaviour
 {
     public void LoadMainMenu()
     {
-        // Load the new scene asynchronously
         SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadSettings()
     {
-        // Load the new scene asynchronously
         SceneManager.LoadScene("SettingsMenu");
     }
 
     public void LoadLevelSelectionMenu()
     {
-        // Load the new scene asynchronously
         SceneManager.LoadScene("LevelSelection");
     }
 
     public void LoadLevel0()
     {
-        // Load the new scene asynchronously
-        SceneManager.LoadScene("Level0");
+        Debug.Log("Loading Level0");
+
+        // Load loading screen
+        SceneManager.LoadScene("LoadingScreen");
+
+        // Load the new scene asynchronously, with the loading screen
+        StartCoroutine(LoadSceneAsync("Level0"));
+    }
+
+    // Use this function to load scene with the loading screen
+    IEnumerator LoadSceneAsync(string sceneName)
+    {
+        // Load the target scene in the background.
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName);
+
+        // Simulate loading progress (replace this with your actual loading logic).
+        while (!loadOperation.isDone)
+        {
+            // Update progress bar or loading screen.
+
+            // If the load operation is almost complete, allow scene activation.
+            if (loadOperation.progress >= 0.9f)
+            {
+                Debug.Log($"Loaded {sceneName}");
+            }
+
+            yield return null;
+        }
     }
 
     public void QuitGame()
