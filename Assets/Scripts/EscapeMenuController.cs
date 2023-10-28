@@ -33,13 +33,14 @@ public class EscapeMenuController : MonoBehaviour
 
     public void ExitToMainMenu()
     {
-        Debug.Log("Loading Main Menu");
-
         // Load loading screen
         SceneManager.LoadScene("LoadingScreen");
 
         // Load the new scene asynchronously, with the loading screen
         StartCoroutine(LoadSceneAsync("MainMenu"));
+
+        // Set timescale to 1 (since timescale is persistent through scenes)
+        Time.timeScale = 1;
     }
 
     public void QuitToDesktop()
@@ -52,7 +53,7 @@ public class EscapeMenuController : MonoBehaviour
         if (Application.isEditor)
         {
             // Handle quitting in the editor (e.g., stop play mode).
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
         else
         {

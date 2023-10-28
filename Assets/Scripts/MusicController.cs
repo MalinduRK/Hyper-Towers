@@ -12,6 +12,9 @@ public class MusicController : MonoBehaviour
     [SerializeField] private AudioClip levelMusic;
     private AudioSource audioSource;
 
+    [Header("Variables")]
+    private string activeSceneName; // Variable to store the active scene name to use for checking previous scene, since the parameter doesn't work for some reason
+
     private void Awake()
     {
         // If no instance of an AudioManager has been created before, keep this AudioManager
@@ -32,16 +35,21 @@ public class MusicController : MonoBehaviour
 
         // Assign audio source
         audioSource = gameObject.GetComponent<AudioSource>();
+
+        activeSceneName = SceneManager.GetActiveScene().name;
     }
 
     private void OnSceneChanged(Scene previousScene, Scene currentScene)
     {
-        Debug.Log($"Scene changed. Previous: {previousScene.name}, Current: {currentScene.name}");
+        // Set active scene to previous scene
+        string lastSceneName = activeSceneName;
+
+        Debug.Log($"Scene changed. Previous: {lastSceneName}, Current: {currentScene.name}");
 
         // Change music only if the scene changes from menu scenes to other scenes, or vise versa
-        if (currentScene.name == "MainMenu" || currentScene.name == "LevelSelection" || currentScene.name == "SettingsMenu")
+        /*if (currentScene.name == "MainMenu" || currentScene.name == "LevelSelection" || currentScene.name == "SettingsMenu")
         {
-            if (previousScene.name == "MainMenu" !| previousScene.name == "LevelSelection" !| previousScene.name == "SettingsMenu") // Coming from a game scene
+            if (!(lastSceneName == "MainMenu" || lastSceneName == "LevelSelection" || lastSceneName == "SettingsMenu")) // Coming from a game scene
             {
                 StartCoroutine(CrossfadeTo(mainMenuMusic));
             }
@@ -49,7 +57,22 @@ public class MusicController : MonoBehaviour
         else
         {
             StartCoroutine(CrossfadeTo(levelMusic));
+        }*/
+
+        if (lastSceneName == "LoadingScreen")
+        {
+            if (currentScene.name == "MainMenu")
+            {
+                StartCoroutine(CrossfadeTo(mainMenuMusic));
+            }
+            else
+            {
+                StartCoroutine(CrossfadeTo(levelMusic));
+            }
         }
+
+        // Set current scene to active scene for use in next scene change
+        activeSceneName = currentScene.name;
     }
 
     // This function crossfades the current track to the next
@@ -62,9 +85,12 @@ public class MusicController : MonoBehaviour
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
+            Debug.Log($"timer = {timer}");
             audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
             yield return null;
         }
+
+        Debug.Log($"Changing music to {newClip.name}");
 
         audioSource.clip = newClip;
         audioSource.Play();

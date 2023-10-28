@@ -6,26 +6,21 @@ public class MenuButtonController : MonoBehaviour
 {
     public void LoadMainMenu()
     {
-        Debug.Log("Loading Main Menu");
         SceneManager.LoadScene("MainMenu");
     }
 
     public void LoadSettings()
     {
-        Debug.Log("Loading Settings");
         SceneManager.LoadScene("SettingsMenu");
     }
 
     public void LoadLevelSelectionMenu()
     {
-        Debug.Log("Loading Level Selection");
         SceneManager.LoadScene("LevelSelection");
     }
 
     public void LoadLevel0()
     {
-        Debug.Log("Loading Level0");
-
         // Load loading screen
         SceneManager.LoadScene("LoadingScreen");
 
@@ -61,7 +56,7 @@ public class MenuButtonController : MonoBehaviour
         if (Application.isEditor)
         {
             // Handle quitting in the editor (e.g., stop play mode).
-            UnityEditor.EditorApplication.isPlaying = false;
+            //UnityEditor.EditorApplication.isPlaying = false;
         }
         else
         {

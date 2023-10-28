@@ -132,7 +132,7 @@ public class GameState : MonoBehaviour
 
     public void ResumeGame()
     {
-        Time.timeScale = 1; // This will pause the game
+        Time.timeScale = 1; // This will resume the game
         isPaused = false;
 
         // Change play button to pause button

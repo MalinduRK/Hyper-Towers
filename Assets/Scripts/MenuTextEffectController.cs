@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuTextHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private TextMeshProUGUI text; // Text component of this object
     private AudioSource audioSource;
