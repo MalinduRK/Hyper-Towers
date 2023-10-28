@@ -1194,6 +1194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveJson: {fileID: 4900000, guid: bf5539373ef176e41b97bea8c708026a, type: 3}
   towerJson: {fileID: 4900000, guid: 3d0d771b50ba64748aa4e81e95a21aea, type: 3}
+  enemyJson: {fileID: 4900000, guid: f2bf9362f2759294d8706a30427a5a6b, type: 3}
 --- !u!1 &510232683
 GameObject:
   m_ObjectHideFlags: 0

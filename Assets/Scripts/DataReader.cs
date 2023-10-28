@@ -6,6 +6,7 @@ public class DataReader : MonoBehaviour
     [Header("Assets")]
     [SerializeField] private TextAsset waveJson; // Reference to wave_data.json file
     [SerializeField] private TextAsset towerJson; // Reference to tower_data.json file
+    [SerializeField] private TextAsset enemyJson; // Reference to enemy_data.json file
 
     public List<WaveData> ReadWaveData(int currentLevel)
     {
@@ -53,5 +54,35 @@ public class DataReader : MonoBehaviour
         }
 
         return towerData;
+    }
+
+    public EnemyData ReadEnemyData(string enemyId)
+    {
+        // Deserialize the JSON data
+        EnemyJsonData jsonData = JsonUtility.FromJson<EnemyJsonData>(enemyJson.text);
+
+        // Find the enemy with the id
+        EnemyData enemy = jsonData.enemies.Find(e => e.id == enemyId);
+
+        // Create variable to store and return enemy data
+        EnemyData enemyData = new EnemyData();
+
+        // Assign enemy data to public variables
+        if (enemy != null)
+        {
+            enemyData.id = enemy.id;
+            enemyData.name = enemy.name;
+            enemyData.health = enemy.health;
+            enemyData.scrap_value = enemy.scrap_value;
+            enemyData.speed = enemy.speed;
+            enemyData.damage = enemy.damage;
+        }
+        else
+        {
+            Debug.Log($"Enemy with id '{enemyId}' not found.");
+            return null;
+        }
+
+        return enemyData;
     }
 }

@@ -8,19 +8,33 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Components")]
     private ScrapCounter scrapCounter; //  Reference to the ScrapCounter script
+    private DataReader dataReader;
 
     [Header("Variables")]
+    public EnemyData enemyData = new EnemyData();
     private int enemyMaxHP; // Max HP of enemy
-    private int enemyHP; // Current HP of enemy
     private int hitDamage; // Damage per hit (temporary)
     private float lengthFactor; // Factor which represents 1 unit of HP in terms of length of the health bar
-    private int enemyScrapValue = 1; // The amount of scrap recieved for destroying one enemy
 
     // Start is called before the first frame update
     private void Start()
     {
-        enemyMaxHP = 10;
-        enemyHP = 10;
+        // Get the name of the current GameObject (It's always in the format "EnemyX(Clone)")
+        string gameObjectName = gameObject.name;
+
+        // Remove "(Clone)" from the name
+        string enemyName = gameObjectName.Replace("(Clone)", "");
+
+        // Assign data reader
+        GameObject dataReaderObject = GameObject.Find("DataManager");
+        dataReader = dataReaderObject.GetComponent<DataReader>();
+
+        // Read and assign enemy data
+        enemyData = dataReader.ReadEnemyData(enemyName);
+
+        // Store enemy max HP for future reference
+        enemyMaxHP = enemyData.health;
+
         hitDamage = 3;
 
         // Find and assign health bar
@@ -39,22 +53,22 @@ public class EnemyStats : MonoBehaviour
         //Debug.Log($"Length factor: {lengthFactor}");
     }
 
-    public void Hit()
+    public void Hit() // TODO: Take hit damage as parameter
     {
         // Damage enemy
-        enemyHP -= hitDamage;
+        enemyData.health -= hitDamage;
 
-        if (enemyHP <= 0) // Enemy is dead
+        if (enemyData.health <= 0) // Enemy is dead
         {
             Destroy(gameObject);
             // Add 1 scrap to the total scrap count
-            scrapCounter.AddScrap(enemyScrapValue);
+            scrapCounter.AddScrap(enemyData.scrap_value);
         }
         else
         {
             // Update enemy health bar
             Vector3 newScale = currentHealthBar.transform.localScale;
-            newScale.x = enemyHP * lengthFactor;
+            newScale.x = enemyData.health * lengthFactor;
             currentHealthBar.transform.localScale = newScale;
         }
     }
