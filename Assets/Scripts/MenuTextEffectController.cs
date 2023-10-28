@@ -3,14 +3,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [Header("Assets")]
+    [SerializeField] private AudioClip hoverSound;
+    [SerializeField] private AudioClip clickSound;
+
+    [Header("Components")]
     [SerializeField] private TextMeshProUGUI text; // Text component of this object
     private AudioSource audioSource;
 
+    [Header("Variables")]
     [SerializeField] private Color hoverColor = Color.red;
     [SerializeField] private float transitionDuration = 0.5f; // Duration of color transition
-
     private Color originalColor;
     private Color targetColor;
     private Coroutine colorTransitionCoroutine;
@@ -26,6 +31,7 @@ public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        audioSource.clip = hoverSound;
         audioSource.Play();
         targetColor = hoverColor;
         StartColorTransition();
@@ -35,6 +41,12 @@ public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPo
     {
         targetColor = originalColor;
         StartColorTransition();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        audioSource.clip = clickSound;
+        audioSource.Play();
     }
 
     private void StartColorTransition()

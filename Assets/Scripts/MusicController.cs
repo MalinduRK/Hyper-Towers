@@ -85,7 +85,7 @@ public class MusicController : MonoBehaviour
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
-            Debug.Log($"timer = {timer}");
+            //Debug.Log($"timer = {timer}");
             audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
             yield return null;
         }
