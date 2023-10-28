@@ -5,10 +5,6 @@ using UnityEngine.EventSystems;
 
 public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    [Header("Assets")]
-    [SerializeField] private AudioClip hoverSound;
-    [SerializeField] private AudioClip clickSound;
-
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI text; // Text component of this object
     private AudioSource audioSource;
@@ -31,7 +27,6 @@ public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        audioSource.clip = hoverSound;
         audioSource.Play();
         targetColor = hoverColor;
         StartColorTransition();
@@ -45,8 +40,11 @@ public class MenuTextEffectController : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        audioSource.clip = clickSound;
-        audioSource.Play();
+        // Reference PersistentAudioManager
+        GameObject audioManager = GameObject.Find("PersistentAudioManager");
+
+        // Play click sound from ClickAudioHandler script of audio manager
+        audioManager.GetComponent<ClickAudioHandler>().PlayMenuClickSound();
     }
 
     private void StartColorTransition()

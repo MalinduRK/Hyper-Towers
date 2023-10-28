@@ -8,9 +8,9 @@ public class MusicController : MonoBehaviour
     private static MusicController instance;
 
     [Header("Components")]
+    [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioClip mainMenuMusic;
     [SerializeField] private AudioClip levelMusic;
-    private AudioSource audioSource;
 
     [Header("Variables")]
     private string activeSceneName; // Variable to store the active scene name to use for checking previous scene, since the parameter doesn't work for some reason
@@ -34,7 +34,7 @@ public class MusicController : MonoBehaviour
         SceneManager.activeSceneChanged += OnSceneChanged;
 
         // Assign audio source
-        audioSource = gameObject.GetComponent<AudioSource>();
+        //musicAudioSource = gameObject.GetComponent<AudioSource>();
 
         activeSceneName = SceneManager.GetActiveScene().name;
     }
@@ -79,27 +79,27 @@ public class MusicController : MonoBehaviour
     private IEnumerator CrossfadeTo(AudioClip newClip)
     {
         float fadeDuration = 2.0f;
-        float startVolume = audioSource.volume;
+        float startVolume = musicAudioSource.volume;
         float timer = 0f;
 
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
             //Debug.Log($"timer = {timer}");
-            audioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+            musicAudioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
             yield return null;
         }
 
         Debug.Log($"Changing music to {newClip.name}");
 
-        audioSource.clip = newClip;
-        audioSource.Play();
+        musicAudioSource.clip = newClip;
+        musicAudioSource.Play();
 
         timer = 0f;
         while (timer < fadeDuration)
         {
             timer += Time.deltaTime;
-            audioSource.volume = Mathf.Lerp(0f, startVolume, timer / fadeDuration);
+            musicAudioSource.volume = Mathf.Lerp(0f, startVolume, timer / fadeDuration);
             yield return null;
         }
     }
