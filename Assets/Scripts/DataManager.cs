@@ -32,8 +32,10 @@ public class TowerData
     public string name;
     public string description;
     public float range;
+    public float turn_rate;
     public float damage;
     public float firerate;
+    public float projectile_velocity;
     public int cost;
     public int scrap_value;
 }
@@ -51,7 +53,7 @@ public class EnemyData
 {
     public string id;
     public string name;
-    public int health;
+    public float health;
     public int scrap_value;
     public float speed;
     public int damage;

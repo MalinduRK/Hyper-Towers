@@ -3,14 +3,25 @@ using UnityEngine;
 public class ProjectileFlight : MonoBehaviour
 {
     [Header("Game Objects")]
-    public GameObject targetEnemy;
+    private GameObject targetEnemy;
+
+    [Header("Components")]
+    private ProjectileStats projectileStats; // ProjectileStats script attached to this projectile
 
     [Header("Variables")]
     private Vector3 enemyPos;
-    private float projectileVelocity = 2.8f; // Bullet speed
+
+    private void Start()
+    {
+        // Get reference to ProjectileStats.cs script
+        projectileStats = GetComponent<ProjectileStats>();
+    }
 
     private void Update()
     {
+        // Set the target enemy
+        targetEnemy = projectileStats.targetEnemy;
+
         if (targetEnemy != null)
         {
             // Get the position of the target
@@ -38,7 +49,7 @@ public class ProjectileFlight : MonoBehaviour
     private void MoveTowardsTarget()
     {
         // Calculate the step based on speed and time.
-        float step = projectileVelocity * Time.deltaTime;
+        float step = projectileStats.velocity * Time.deltaTime;
 
         // Move the bullet towards the target position using lerp.
         transform.position = Vector3.MoveTowards(transform.position, enemyPos, step);
@@ -48,7 +59,7 @@ public class ProjectileFlight : MonoBehaviour
         {
             EnemyHitDebug("Enemy hit");
             // Trigger the hit function of EnemyStats script
-            targetEnemy.GetComponent<EnemyStats>().Hit();
+            targetEnemy.GetComponent<EnemyStats>().Hit(projectileStats.damage);
             // Perform actions when the bullet reaches the target.
             // Example: Hit the target or destroy the bullet.
             Destroy(gameObject);

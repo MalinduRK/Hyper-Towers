@@ -72,7 +72,11 @@ public class ProjectileSpawner : MonoBehaviour
         GameObject newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
         // Set the target enemy on the newly instantiated bullet
-        newBullet.GetComponent<ProjectileFlight>().targetEnemy = towerTargeting.targetEnemy; // Assign the enemy target to the bullet
+        newBullet.GetComponent<ProjectileStats>().targetEnemy = towerTargeting.targetEnemy;
+
+        // Read the tower stats from TowerStats.cs and pass them to the ProjectileStats.cs script
+        TowerData towerData = GetComponent<TowerStats>().towerData;
+        newBullet.GetComponent<ProjectileStats>().towerData = towerData;
 
         // Set the parent of the bullet to the projectilesParent.
         newBullet.transform.parent = projectilesParent.transform;

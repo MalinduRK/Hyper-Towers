@@ -12,8 +12,7 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Variables")]
     public EnemyData enemyData = new EnemyData();
-    private int enemyMaxHP; // Max HP of enemy
-    private int hitDamage; // Damage per hit (temporary)
+    private float enemyMaxHP; // Max HP of enemy
     private float lengthFactor; // Factor which represents 1 unit of HP in terms of length of the health bar
 
     // Start is called before the first frame update
@@ -35,8 +34,6 @@ public class EnemyStats : MonoBehaviour
         // Store enemy max HP for future reference
         enemyMaxHP = enemyData.health;
 
-        hitDamage = 3;
-
         // Find and assign health bar
         currentHealthBar = gameObject.transform.Find("Canvas").Find("HealthBar").gameObject;
 
@@ -53,7 +50,7 @@ public class EnemyStats : MonoBehaviour
         //Debug.Log($"Length factor: {lengthFactor}");
     }
 
-    public void Hit() // TODO: Take hit damage as parameter
+    public void Hit(float hitDamage)
     {
         // Damage enemy
         enemyData.health -= hitDamage;
