@@ -24,8 +24,8 @@ public class EnemyStats : MonoBehaviour
         hitDamage = 3;
 
         // Find and assign health bar
-        GameObject healthBar = transform.Find("HealthBar(Clone)").gameObject;
-        currentHealthBar = healthBar.transform.Find("CurrentHealthBar").gameObject;
+        currentHealthBar = gameObject.transform.Find("Canvas").Find("HealthBar").gameObject;
+
         Vector3 scale = currentHealthBar.transform.localScale;
 
         // Find scrap manager and assign scrapCounter

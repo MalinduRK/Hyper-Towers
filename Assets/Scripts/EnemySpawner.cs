@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Game Objects")]
-    [SerializeField] private GameObject hpPrefab; // Enemy health bar
     [SerializeField] private GameObject[] enemies; // Array containing prefabs for all enemies
     [SerializeField] private GameObject enemyCounter; // Object with text component showing the remaining number of enemies
     [SerializeField] private GameObject spawnerLight; // Light source
@@ -114,13 +113,6 @@ public class EnemySpawner : MonoBehaviour
 
                 // Set the parent of the spawned enemy to the enemiesParent.
                 newEnemy.transform.parent = enemiesParent;
-
-                // Create enemy health bar
-                GameObject newHealthBar = Instantiate(hpPrefab, newEnemy.transform.position, Quaternion.identity);
-                // Offset of the health bar is set in the prefab itself
-
-                // Attach the health bar to the enemy object so that it also moves with the enemy
-                newHealthBar.transform.parent = newEnemy.transform;
 
                 // Update number of enemies left to spawn
                 enemyCountText.text = (--enemiesLeft).ToString();
