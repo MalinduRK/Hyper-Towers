@@ -19,14 +19,14 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameInteractivity interactionManager;
     [SerializeField] private GameObject uiManager;
 
-
     [Header("Components")]
     private AudioSource audioSource;
+    private InterfaceAudioHandler interfaceAudioManager; // Persistent audio manager
 
     [Header("Variables")]
     private bool isPaused = true;
     private bool isEscaped = false; // Turns true when escape menu is open
-    private bool gameStarted = false; // This should only be false before starting the first wave
+    //private bool gameStarted = false; // This should only be false before starting the first wave
 
     private void Start()
     {
@@ -38,6 +38,9 @@ public class GameState : MonoBehaviour
 
         // Assign audio source
         audioSource = GetComponent<AudioSource>();
+
+        // Find audio manager
+        interfaceAudioManager = GameObject.Find("PersistentAudioManager").GetComponent<InterfaceAudioHandler>();
     }
 
     private void Update()
@@ -48,10 +51,14 @@ public class GameState : MonoBehaviour
             if (isEscaped) // Already in escape menu. Resume game
             {
                 CloseEscapeMenu();
+                // Play menu close sound
+                interfaceAudioManager.PlayEscapeMenuCloseSound();
             }
             else // Escape
             {
                 OpenEscapeMenu();
+                // Play menu open sound
+                interfaceAudioManager.PlayEscapeMenuOpenSound();
             }
         }
 

@@ -15,7 +15,7 @@ public class TowerTargeting : MonoBehaviour
 
     [Header("Variables")]
     public bool enemyInRange = false;
-    private string enemyTag = "Enemy"; // Tag used by enemy objects
+    //private string enemyTag = "Enemy"; // Tag used by enemy objects
     private Vector3 enemyPos; // Position of the last detected enemy
     private Vector3 basePos; // Position of the base
     //public float detectionRadius = 2.0f; // Set the detection radius in the Inspector.

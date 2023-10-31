@@ -7,3 +7,9 @@ Icon Pack: Music | Filled by Pixel perfect
 
 -UI confirmation alert, B5:
 "UI Confirmation Alert, B5.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
+
+-UI sounds (escape menu enter/exit, menu clicks):
+"SCI-FI User Interface SFX" by Sound Works 12
+
+-Explosions
+"Grenade Sound FX" by MGWSoundDesign
