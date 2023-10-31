@@ -76,6 +76,7 @@ public class GameState : MonoBehaviour
     public void OpenEscapeMenu()
     {
         PauseGame();
+        interactionManager.DisableInteractions();
         escapeMenuPanel.SetActive(true);
         isEscaped = true;
     }
@@ -83,6 +84,7 @@ public class GameState : MonoBehaviour
     public void CloseEscapeMenu()
     {
         ResumeGame();
+        interactionManager.EnableInteractions();
         escapeMenuPanel.SetActive(false);
         isEscaped = false;
     }
