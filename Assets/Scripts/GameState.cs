@@ -6,6 +6,8 @@ public class GameState : MonoBehaviour
     [Header("Assets")]
     [SerializeField] private AudioClip gameOver;
     [SerializeField] private AudioClip victory;
+    [SerializeField] private AudioClip escapeMenuOpenSound;
+    [SerializeField] private AudioClip escapeMenuCloseSound;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject overlayPanel;
@@ -52,13 +54,13 @@ public class GameState : MonoBehaviour
             {
                 CloseEscapeMenu();
                 // Play menu close sound
-                interfaceAudioManager.PlayEscapeMenuCloseSound();
+                interfaceAudioManager.PlayClip(escapeMenuCloseSound);
             }
             else // Escape
             {
                 OpenEscapeMenu();
                 // Play menu open sound
-                interfaceAudioManager.PlayEscapeMenuOpenSound();
+                interfaceAudioManager.PlayClip(escapeMenuOpenSound);
             }
         }
 

@@ -5004,6 +5004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c52544b158580429b9a87efb516275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuBackButtonClickSound: {fileID: 0}
 --- !u!114 &1268615193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5537,6 +5538,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOver: {fileID: 8300000, guid: fcc69d596e136463999c775beed3baa8, type: 3}
   victory: {fileID: 8300000, guid: 9e615a6ec1e774c0a8bfb003bbfe14ee, type: 3}
+  escapeMenuOpenSound: {fileID: 8300000, guid: 870187eecd095214ca9421d5c777bb69, type: 3}
+  escapeMenuCloseSound: {fileID: 8300000, guid: 007c56480b50b2b4ca5da2d55c2aecd6, type: 3}
   overlayPanel: {fileID: 395700540}
   escapeMenuPanel: {fileID: 145354875}
   endGameText: {fileID: 1298288165}
@@ -5574,7 +5577,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6503,6 +6506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c52544b158580429b9a87efb516275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuBackButtonClickSound: {fileID: 0}
 --- !u!114 &1734164819
 MonoBehaviour:
   m_ObjectHideFlags: 0

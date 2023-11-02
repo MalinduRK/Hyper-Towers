@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 public class BackButtonController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
+    [Header("Assets")]
+    [SerializeField] private AudioClip menuBackButtonClickSound;
+
     [Header("Components")]
     private InterfaceAudioHandler interfaceAudioManager;
 
@@ -14,7 +17,7 @@ public class BackButtonController : MonoBehaviour, IPointerClickHandler, IPointe
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        interfaceAudioManager.PlayMenuBackClickSound();
+        interfaceAudioManager.PlayClip(menuBackButtonClickSound);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

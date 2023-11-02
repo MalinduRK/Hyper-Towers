@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class MainMenuButtonController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [Header("Assets")]
+    [SerializeField] private AudioClip menuButtonClickSound;
+    [SerializeField] private AudioClip menuButtonHoverSound;
+
     [Header("Components")]
     [SerializeField] private TextMeshProUGUI text; // Text component of this object
     private InterfaceAudioHandler interfaceAudioManager;
@@ -27,7 +31,7 @@ public class MainMenuButtonController : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        interfaceAudioManager.PlayMenuButtonHoverSound();
+        interfaceAudioManager.PlayClip(menuButtonHoverSound);
         targetColor = hoverColor;
         StartColorTransition();
     }
@@ -40,7 +44,7 @@ public class MainMenuButtonController : MonoBehaviour, IPointerEnterHandler, IPo
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        interfaceAudioManager.PlayMenuClickSound();
+        interfaceAudioManager.PlayClip(menuButtonClickSound);
     }
 
     private void StartColorTransition()
