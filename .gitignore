@@ -70,3 +70,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Asset packages used for testing and manually imported assets which are currently unused in the project
+/[Aa]ssets/AssetPackages
+/[Aa]ssets/UnusedAssets

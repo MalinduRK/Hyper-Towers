@@ -744,7 +744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 406.9, y: 230.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &308565106
@@ -5535,8 +5535,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa4d96ee433c674e872275b6a592ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOver: {fileID: 8300000, guid: d6ba909915a43354baedf416fc15ab82, type: 3}
-  victory: {fileID: 8300000, guid: cc2c7851966504f45a7e7ba7f6977674, type: 3}
+  gameOver: {fileID: 8300000, guid: fcc69d596e136463999c775beed3baa8, type: 3}
+  victory: {fileID: 8300000, guid: 9e615a6ec1e774c0a8bfb003bbfe14ee, type: 3}
   overlayPanel: {fileID: 395700540}
   escapeMenuPanel: {fileID: 145354875}
   endGameText: {fileID: 1298288165}
@@ -8248,6 +8248,38 @@ PrefabInstance:
     - target: {fileID: 2459582071203147825, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1042540561}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EscapeMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088805246025096826, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5280036473781166362, guid: 07bff101403a7274e8d6ee4bd043428d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 63.899994
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

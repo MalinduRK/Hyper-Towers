@@ -13,3 +13,6 @@ Icon Pack: Music | Filled by Pixel perfect
 
 -Explosions
 "Grenade Sound FX" by MGWSoundDesign
+
+-Victory/Defeat sounds
+"Sci-Fi Sfx" by Little Robot Sound Factory
