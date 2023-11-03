@@ -5156,10 +5156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveJson: {fileID: 4900000, guid: bf5539373ef176e41b97bea8c708026a, type: 3}
-  callWave: {fileID: 8300000, guid: 3e81b608adce52b4c8d9f0f3961e61ce, type: 3}
+  callWave: {fileID: 8300000, guid: 6b809bb5c46a79445a7426816c45c460, type: 3}
   callFinalWave: {fileID: 8300000, guid: 7e4f9331496da104b8d6b5a4411b43d5, type: 3}
-  waveClear: {fileID: 8300000, guid: d20c3e475ab4ff449aa7ca36e950c219, type: 3}
-  waveCrystalClear: {fileID: 8300000, guid: 765a4d8249cc4ac418eee97378e455bd, type: 3}
+  waveClear: {fileID: 8300000, guid: 56dd1c6390fdcf042bfc787e47bb01ac, type: 3}
+  waveCrystalClear: {fileID: 8300000, guid: b16fa9ce0945c7a42a5a90edf67323f2, type: 3}
   waveText: {fileID: 736500023}
   baseHealthText: {fileID: 1897786299}
   enemySpawnerObject: {fileID: 1180711674}
