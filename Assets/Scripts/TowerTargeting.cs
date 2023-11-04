@@ -10,7 +10,7 @@ public class TowerTargeting : MonoBehaviour
     private GameObject baseObject;
 
     [Header("Components")]
-    private CircleCollider2D towerRangeCollider;
+    //private CircleCollider2D towerRangeCollider;
     [SerializeField] private LayerMask detectionLayer; // Assign the layer(s) you want to detect in the Inspector.
 
     [Header("Variables")]
@@ -18,7 +18,7 @@ public class TowerTargeting : MonoBehaviour
     //private string enemyTag = "Enemy"; // Tag used by enemy objects
     private Vector3 enemyPos; // Position of the last detected enemy
     private Vector3 basePos; // Position of the base
-    //public float detectionRadius = 2.0f; // Set the detection radius in the Inspector.
+    private float detectionRadius;
 
     private void Start()
     {
@@ -32,9 +32,13 @@ public class TowerTargeting : MonoBehaviour
         // Find the tower range object within the parent
         towerRangeObject = transform.parent.Find("TowerRange(Clone)").gameObject;
         // Get a reference to the 2D collider of the tower range
-        towerRangeCollider = towerRangeObject.GetComponent<CircleCollider2D>();
+        //towerRangeCollider = towerRangeObject.GetComponent<CircleCollider2D>();
         // Trigger the below function right from the start (0th second) and every 0.5 seconds (2 times per second).
         // Using this is more lightweight on the hardware than using the update method, which runs at least 60 times a second.
+
+        // Radius of the circle is half of the circle's local scale
+        detectionRadius = towerRangeObject.transform.localScale.x / 2;
+
         InvokeRepeating(nameof(UpdateTarget), 0f, 0.5f);
     }
 
@@ -79,13 +83,17 @@ public class TowerTargeting : MonoBehaviour
         //Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, detectionLayer);
 
         // Get the local radius of the CircleCollider2D.
-        float localRadius = towerRangeCollider.radius;
+        //float localRadius = towerRangeCollider.radius;
+
+        //Debug.Log($"Local radius: {localRadius}");
 
         // Convert the local radius to world space.
-        float worldRadius = transform.TransformVector(Vector2.right * localRadius).magnitude; // This has to be converted like this in order to get an actual radius value rather than relative to the parent
+        //float worldRadius = transform.TransformVector(Vector2.right * localRadius).magnitude; // This has to be converted like this in order to get an actual radius value rather than relative to the parent
 
-        // Detect all objects within the worldRadius.
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, worldRadius, detectionLayer);
+        //Debug.Log($"World radius: {worldRadius}");
+
+        // Detect all objects within the detectionRadius.
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, detectionLayer);
 
         if (colliders.Length == 0) // Do not proceed if no enemies detected in range
         {

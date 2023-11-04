@@ -4,7 +4,7 @@
             "id": "Tower1",
             "name": "Sentry",
             "description": "Decent firerate, low damage. Better in numbers. Overall balanced.",
-            "range": "3",
+            "range": "5",
             "turn_rate": "5",
             "damage": "3",
             "firerate": "1",
