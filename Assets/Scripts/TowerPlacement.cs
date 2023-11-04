@@ -20,7 +20,6 @@ public class TowerPlacement : MonoBehaviour
 
     [Header("Variables")]
     private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
-    private int towerCost = 5; // Cost of a tower
     private Vector3 buildPosition; // Corrected build position for turrets
 
     private void Start()
@@ -130,7 +129,17 @@ public class TowerPlacement : MonoBehaviour
 
     public void BuildTower(string towerId)
     {
-        // Assign default prefab
+        // Get data related to the tower
+            //
+        // Assign data reader
+        GameObject dataReaderObject = GameObject.Find("DataManager");
+        DataReader dataReader = dataReaderObject.GetComponent<DataReader>();
+
+        // Read and assign tower data
+        TowerData towerData = new TowerData();
+        towerData = dataReader.ReadTowerData(towerId);
+
+        // Assign default prefab for initializing
         GameObject towerPrefab = towerPrefabs[0];
 
         // Get the tower info related to the tower to be built
@@ -138,10 +147,12 @@ public class TowerPlacement : MonoBehaviour
         {
             if (tower.name ==  towerId)
             {
-                // Assing correct tower prefab to build
+                // Assign correct tower prefab to build
                 towerPrefab = tower;
             }
         }
+
+        int towerCost = towerData.scrap_value; // Cost of the tower
 
         if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
         {
@@ -154,6 +165,13 @@ public class TowerPlacement : MonoBehaviour
 
             // Hide range prefab after creating
             newRange.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+            // Set correct range
+            float towerRange = towerData.range;
+            newRange.transform.localScale = towerRange * Vector3.one;
+
+            // Send tower data to TowerStats.cs
+            newTower.gameObject.GetComponent<TowerStats>().towerData = towerData;
 
             // Use scrap
             scrapCounter.UseScrap(towerCost);
