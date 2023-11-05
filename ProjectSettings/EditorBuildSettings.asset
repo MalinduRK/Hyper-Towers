@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SettingsMenu.unity
     guid: e111df1c64bf18c4db2cbe903e947735
   - enabled: 1
+    path: Assets/Scenes/CreditsScreen.unity
+    guid: 71c4f79d05e5c884090d4cbbd2ef3d7c
+  - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
     guid: e44d6c3093b7f6a4aa98036b44de291b
   - enabled: 1

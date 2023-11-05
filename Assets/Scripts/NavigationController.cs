@@ -9,14 +9,19 @@ public class NavigationController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void LoadLevelSelectionMenu()
+    {
+        SceneManager.LoadScene("LevelSelection");
+    }
+
     public void LoadSettings()
     {
         SceneManager.LoadScene("SettingsMenu");
     }
 
-    public void LoadLevelSelectionMenu()
+    public void LoadCredits()
     {
-        SceneManager.LoadScene("LevelSelection");
+        SceneManager.LoadScene("CreditsScreen");
     }
 
     public void LoadLevel0()

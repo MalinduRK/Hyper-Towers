@@ -1,22 +1,55 @@
--Cogwheel Icon (Settings):
-<a href="https://www.flaticon.com/free-icons/cog" title="cog icons">Cog icons created by icon_small - Flaticon</a>
+Cogwheel Icon (Settings)
+------------------------
+"Cog icons" created by icon_small - Flaticon
+https://www.flaticon.com/free-icons/cog
 
--Play, FF, Pause icons:
+Play, Fast Forward, Pause icons
+-------------------------------
 Icon Pack: Music | Filled by Pixel perfect
-<div> Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect"> Pixel perfect </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+https://www.flaticon.com/authors/pixel-perfect
 
--UI confirmation alert, B5:
-"UI Confirmation Alert, B5.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
-
--UI sounds (escape menu enter/exit, menu clicks, call wave, wave clear, final wave):
+UI sounds (escape menu enter/exit, menu clicks, call wave, etc.)
+----------------------------------------------------------------
 "SCI-FI User Interface SFX" by Sound Works 12
 
--Explosions
-"Grenade Sound FX" by MGWSoundDesign
-
--Victory/Defeat sounds
+Victory/Defeat sounds
+---------------------
 "Sci-Fi Sfx" by Little Robot Sound Factory
 
--Bullet sprite
+BGM
+---
+Main Menu: "Electronic Future Beats" by QubeSounds on Pixabay
+In-game: "Stranger Things" by Music_Unlimited on Pixabay
 
--Fonts
+Bullet sprite
+-------------
+"Glenos-G 160 bullet" from Commando 2
+
+Fonts
+-----
+"Ethnocentric" by Typodermic Fonts
+"Pavelt" by Khurasan
+"Nasalization" by Typodermic Fonts
+*All of the above fonts obtained via https://www.dafont.com
+
+
+Note:
+
+While some of the assets were created by the developer using software like Adobe Photoshop and FL studio, most were downloaded from external sources such as the following:
+-Unity Asset Store
+-Pixabay
+-Mixkit
+-dafont.com
+-itch.io
+-etc.
+
+Although 90% of the externally obtained assets were properly credited here, the references for some assets used here were lost in space. Please excuse the developer as this is his very first game project and contact him without hesitation for any inquiries.
+Also note that this game is not commercial and is created with the intention of a portfolio project.
+
+
+Special thanks to...
+
+..Ovin for helping me with sound design in his awesome home-studio setup
+..My sister for guiding me through the unkown territory of Photoshop
+..My girlfriend for lifting me up whenever I felt overwhelmed
+..and my parents for believing in me and letting me "do my own thing".

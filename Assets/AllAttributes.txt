@@ -1,0 +1,39 @@
+Cogwheel Icon (Settings)
+------------------------
+"Cog icons" created by icon_small - Flaticon
+https://www.flaticon.com/free-icons/cog
+
+Play, Fast Forward, Pause icons
+-------------------------------
+Icon Pack: Music | Filled by Pixel perfect
+https://www.flaticon.com/authors/pixel-perfect
+
+-UI confirmation alert, B5:
+"UI Confirmation Alert, B5.wav" by InspectorJ (www.jshaw.co.uk) of Freesound.org
+
+UI sounds (escape menu enter/exit, menu clicks, call wave, etc.)
+----------------------------------------------------------------
+"SCI-FI User Interface SFX" by Sound Works 12
+
+-Explosions
+"Grenade Sound FX" by MGWSoundDesign
+
+Victory/Defeat sounds
+---------------------
+"Sci-Fi Sfx" by Little Robot Sound Factory
+
+BGM
+---
+Main Menu: "Electronic Future Beats" by QubeSounds on Pixabay
+In-game: "Stranger Things" by Music_Unlimited on Pixabay
+
+Bullet sprite
+-------------
+"Glenos-G 160 bullet" from Commando 2
+
+Fonts
+-----
+"Ethnocentric" by Typodermic Fonts
+"Pavelt" by Khurasan
+"Nasalization" by Typodermic Fonts
+*All of the above fonts obtained via https://www.dafont.com

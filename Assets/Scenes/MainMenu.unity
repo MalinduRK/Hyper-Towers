@@ -657,6 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c52544b158580429b9a87efb516275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuBackButtonClickSound: {fileID: 0}
 --- !u!1 &433200764
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,11 +816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f30cffd97ef4f40bbc71ab48d05b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuButtonClickSound: {fileID: 8300000, guid: a4e04e29867f24244b3d27bf5c8b8333, type: 3}
-  menuBackButtonClickSound: {fileID: 8300000, guid: e59d83a114c4b624b922f19e08bdce72, type: 3}
-  menuButtonHoverSound: {fileID: 8300000, guid: 497a0bc1552ca4f45b2d8119eeca60dc, type: 3}
-  escapeMenuOpenSound: {fileID: 8300000, guid: e3adecf604c3ebb46a4c91d83f31cad5, type: 3}
-  escapeMenuCloseSound: {fileID: 8300000, guid: e88b6c0b608354044b792b860f523d8d, type: 3}
   interfaceAudioSource: {fileID: 433200769}
 --- !u!82 &433200769
 AudioSource:
@@ -1319,6 +1315,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPanel: {fileID: 170378605}
+  exitToMenuPopup: {fileID: 0}
+  quitToDesktopPopup: {fileID: 0}
 --- !u!1001 &1029341966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,10 +1416,14 @@ PrefabInstance:
     - target: {fileID: 6757137861096254304, guid: 134ba4da22bfc9c4eaa6e8bd493dd032, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1025876628}
+      objectReference: {fileID: 1025876629}
     - target: {fileID: 6757137861096254304, guid: 134ba4da22bfc9c4eaa6e8bd493dd032, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
+      value: LoadCredits
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757137861096254304, guid: 134ba4da22bfc9c4eaa6e8bd493dd032, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: NavigationController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7141200406646475345, guid: 134ba4da22bfc9c4eaa6e8bd493dd032, type: 3}
       propertyPath: m_Name
