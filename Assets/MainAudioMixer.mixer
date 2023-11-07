@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-8086952648783100336
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: c52f984a1d025ff42a894d44ade347dc
+  m_EffectName: Attenuation
+  m_MixLevel: b46708c7d60d5fd4cb428a0907fc8708
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-3302977865879234582
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: b239d865b3202ed4ba5d48df06ce7d55
+  m_Children: []
+  m_Volume: bce41062683fb924ab50046461370661
+  m_Pitch: 39082cc61979b004984999754e7db5e5
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 506373240234651286}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -16,11 +49,17 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
+  - guid: 0ee5ab9005be9da469cf6fa626faea9c
+    name: bgmVolume
   - guid: 1f21f6e087c459f47b7b7b94643f6e32
     name: masterVolume
+  - guid: bce41062683fb924ab50046461370661
+    name: sfxVolume
   m_AudioMixerGroupViews:
   - guids:
     - ffcf1b2702b79f441a0e10e1b1c0d441
+    - e2086b95db1d8cb47971c59a41ac7533
+    - b239d865b3202ed4ba5d48df06ce7d55
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -33,7 +72,9 @@ AudioMixerGroupController:
   m_Name: Master
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: ffcf1b2702b79f441a0e10e1b1c0d441
-  m_Children: []
+  m_Children:
+  - {fileID: 7184910806968929419}
+  - {fileID: -3302977865879234582}
   m_Volume: 1f21f6e087c459f47b7b7b94643f6e32
   m_Pitch: 0afd2bbdc524d80448466a7cb4e1c1e6
   m_Send: 00000000000000000000000000000000
@@ -68,3 +109,36 @@ AudioMixerSnapshotController:
   m_SnapshotID: 7a9835c9382c51640922e6e0232309f0
   m_FloatValues: {}
   m_TransitionOverrides: {}
+--- !u!244 &506373240234651286
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: b72038939d91fe2429849039c1cd9202
+  m_EffectName: Attenuation
+  m_MixLevel: 4f948883cf2a5f748830d50af4d2ffb7
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &7184910806968929419
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BGM
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: e2086b95db1d8cb47971c59a41ac7533
+  m_Children: []
+  m_Volume: 0ee5ab9005be9da469cf6fa626faea9c
+  m_Pitch: e26027112eb87e64ca04e583dfbce069
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -8086952648783100336}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
