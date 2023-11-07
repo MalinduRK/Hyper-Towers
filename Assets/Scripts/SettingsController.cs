@@ -1,19 +1,77 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
 {
-    [SerializeField] GameObject masterVolumeSlider;
-    [SerializeField] GameObject bgmVolumeSlider;
-    [SerializeField] GameObject sfxVolumeSlider;
+    [Header("Game Objects")]
+    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField] Slider bgmVolumeSlider;
+    [SerializeField] Slider sfxVolumeSlider;
+    [SerializeField] TMP_Dropdown resolutionDropdown;
+    [SerializeField] TMP_Dropdown windowModeDropdown;
 
+    [Header("Assets")]
     public AudioMixer audioMixer;
 
+    [Header("Variables")]
+    private Resolution[] resolutions; // Variable to store all resolutions related to the current device
     private float volumeMinValue; // Volume will drop to -80 when it reaches the min value of the slider
 
     private void Start()
     {
+        // Get all resolutions matching the current device screen
+        resolutions = Screen.resolutions;
+
+        // Clear the options of the resolution dropdown at start
+        resolutionDropdown.ClearOptions();
+
+        // Create list to store all viable resolutions as a string
+        List<string> resolutionOptions = new List<string>();
+
+        // Variable to store current screen resolution
+        int currentResolutionIndex = 0;
+
+        // Add all resolutions to the list
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            resolutionOptions.Add(option);
+
+            // Set the current resolution from the list of resolutions
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        // Add new options to resolution dropdown
+        resolutionDropdown.AddOptions(resolutionOptions);
+        // Display current resolution on the dropdown menu
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+
+
+        // Set current window mode in the dropdown on start
+        int currentWindowModeIndex = 0; // Variable to store index
+
+        if (Screen.fullScreen == true)
+        {
+            currentWindowModeIndex = 0;
+        }
+        else if (Screen.fullScreen == false)
+        {
+            // TODO: Add a nested loop here when implementing borderless window
+            currentWindowModeIndex = 1;
+        }
+
+        // Set and refresh dropdown
+        windowModeDropdown.value = currentWindowModeIndex;
+        windowModeDropdown.RefreshShownValue();
+
+
         // Variables to store current volumes
         float currentMasterVolume;
         float currentBGMVolume;
@@ -58,6 +116,26 @@ public class SettingsController : MonoBehaviour
         else
         {
             sfxVolumeSlider.GetComponent<Slider>().value = volumeMinValue;
+        }
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    public void SetWindowMode(int windowModeIndex)
+    {
+        switch (windowModeIndex)
+        {
+            case 0: // Fullscreen
+                Screen.fullScreen = true;
+                break;
+
+            case 1: // Windowed
+                Screen.fullScreen = false;
+                break;
         }
     }
 
