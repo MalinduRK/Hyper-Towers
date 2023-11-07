@@ -55,16 +55,18 @@ public class SettingsController : MonoBehaviour
 
 
         // Set current window mode in the dropdown on start
-        int currentWindowModeIndex = 0; // Variable to store index
-
-        if (Screen.fullScreen == true)
+        int currentWindowModeIndex;
+        if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen) // FullScreen
         {
             currentWindowModeIndex = 0;
         }
-        else if (Screen.fullScreen == false)
+        else if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow) // Borderless Window
         {
-            // TODO: Add a nested loop here when implementing borderless window
             currentWindowModeIndex = 1;
+        }
+        else // Windowed
+        {
+            currentWindowModeIndex = 2;
         }
 
         // Set and refresh dropdown
@@ -130,11 +132,15 @@ public class SettingsController : MonoBehaviour
         switch (windowModeIndex)
         {
             case 0: // Fullscreen
-                Screen.fullScreen = true;
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
                 break;
 
-            case 1: // Windowed
-                Screen.fullScreen = false;
+            case 1: // Borderless window
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+
+            case 2: // Windowed
+                Screen.fullScreenMode = FullScreenMode.Windowed;
                 break;
         }
     }

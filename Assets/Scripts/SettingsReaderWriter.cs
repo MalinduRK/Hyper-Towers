@@ -74,7 +74,7 @@ public class SettingsReaderWriter : MonoBehaviour
             settingsData = JsonUtility.FromJson<SettingsData>(json);
 
             // Set resolution and window mode
-            Screen.SetResolution(settingsData.resolutionWidth, settingsData.resolutionHeight, Screen.fullScreen);
+            Screen.SetResolution(settingsData.resolutionWidth, settingsData.resolutionHeight, Screen.fullScreenMode);
             switch (settingsData.windowMode)
             {
                 case 0: // Fullscreen
