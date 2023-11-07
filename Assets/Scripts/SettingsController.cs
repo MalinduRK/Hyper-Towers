@@ -88,7 +88,6 @@ public class SettingsController : MonoBehaviour
         volumeMinValue = masterVolumeSlider.GetComponent<Slider>().minValue;
 
         // Make sure all the volumes stay at -80 if the sliders are all the way down
-        SettingsDebug($"Master volume: {currentMasterVolume} | BGM volume: {currentBGMVolume} | SFX volume: {currentSFXVolume}");
 
         // Master
         if (currentMasterVolume > volumeMinValue)
@@ -119,12 +118,15 @@ public class SettingsController : MonoBehaviour
         {
             sfxVolumeSlider.GetComponent<Slider>().value = volumeMinValue;
         }
+
+
+        SettingsDebug($"Resolution: {resolutionDropdown.value} | Window mode: {windowModeDropdown.value} | Master volume: {currentMasterVolume} | BGM volume: {currentBGMVolume} | SFX volume: {currentSFXVolume}");
     }
 
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
     }
 
     public void SetWindowMode(int windowModeIndex)
