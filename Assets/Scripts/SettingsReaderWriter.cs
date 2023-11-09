@@ -11,6 +11,7 @@ public class SettingsReaderWriter : MonoBehaviour
     {
         public int resolutionWidth;
         public int resolutionHeight;
+        public int resolutionRefreshRate;
         public int windowMode;
         public float masterVolume;
         public float bgmVolume;
@@ -39,6 +40,7 @@ public class SettingsReaderWriter : MonoBehaviour
         // Get new settings
         int resolutionWidth = Screen.currentResolution.width;
         int resolutionHeight = Screen.currentResolution.height;
+        int resolutionRefreshRate = Mathf.RoundToInt(float.Parse(Screen.currentResolution.refreshRateRatio.ToString()));
         int windowModeIndex = windowModeDropdown.value;
         audioMixer.GetFloat("masterVolume", out float currentMasterVolume);
         audioMixer.GetFloat("bgmVolume", out float currentBGMVolume);
@@ -49,6 +51,7 @@ public class SettingsReaderWriter : MonoBehaviour
         {
             resolutionWidth = resolutionWidth,
             resolutionHeight = resolutionHeight,
+            resolutionRefreshRate = resolutionRefreshRate,
             windowMode = windowModeIndex,
             masterVolume = currentMasterVolume,
             bgmVolume = currentBGMVolume,
@@ -78,11 +81,14 @@ public class SettingsReaderWriter : MonoBehaviour
             switch (settingsData.windowMode)
             {
                 case 0: // Fullscreen
-                    Screen.fullScreen = true;
+                    Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
                     break;
 
-                case 1: // Windowed
-                    Screen.fullScreen = false;
+                case 1: // Borderless Windowed
+                    Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                    break;
+                case 2: // Windowed
+                    Screen.fullScreenMode = FullScreenMode.Windowed;
                     break;
             }
             // Set volumes in the audio mixer

@@ -40,7 +40,16 @@ public class SettingsController : MonoBehaviour
             // Take screen refresh rate and round off to nearest int
             int refreshRate = Mathf.RoundToInt(float.Parse(resolutions[i].refreshRateRatio.ToString()));
 
-            string option = $"{resolutions[i].width} x {resolutions[i].height} ({refreshRate}Hz)";
+            // If the previous resolution has the same value, don't add this one to the list
+            if (i != 0)
+            {
+                if (resolutions[i].width == resolutions[i - 1].width && resolutions[i].height == resolutions[i - 1].height)
+                {
+                    return;
+                }
+            }
+
+            string option = $"{resolutions[i].width} x {resolutions[i].height}";
             resolutionOptions.Add(option);
 
             // Set the current resolution from the list of resolutions
