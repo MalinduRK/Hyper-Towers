@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -22,8 +24,9 @@ public class SettingsReaderWriter : MonoBehaviour
     public AudioMixer audioMixer;
 
     [Header("Game Objects")]
-    [SerializeField] TMP_Dropdown resolutionDropdown;
-    [SerializeField] TMP_Dropdown windowModeDropdown;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown windowModeDropdown;
+    [SerializeField] private TextMeshProUGUI successMessageText;
 
     [Header("Variables")]
     private string filePath; // Data can be read through a referred text asset but cannot be written into. Therefore the file path is necessary to write data
@@ -92,10 +95,27 @@ public class SettingsReaderWriter : MonoBehaviour
         };
 
         string json = JsonUtility.ToJson(settingsData);
-        // Write new json data to file
-        File.WriteAllText(filePath, json);
 
-        Debug.Log("Settings applied");
+        // Write new json data to file
+        try
+        {
+            // Attempt to write the JSON string to the file
+            File.WriteAllText(filePath, json);
+
+            // If the write operation is successful, display success message
+            Debug.Log("Successfully applied settings");
+            successMessageText.text = "Settings applied";
+            // Start a coroutine to clear the text after 2 seconds
+            StartCoroutine(ClearTextAfterDelayCoroutine());
+        }
+        catch (Exception e)
+        {
+            // If there was an error, catch the exception and display error message
+            Debug.LogError("Failed to apply settings: " + e.Message);
+            successMessageText.text = "Failed to apply settings";
+            // Start a coroutine to clear the text after 2 seconds
+            StartCoroutine(ClearTextAfterDelayCoroutine());
+        }
     }
 
     public void LoadSettings()
@@ -145,5 +165,15 @@ public class SettingsReaderWriter : MonoBehaviour
         }
 
         return settingsData;
+    }
+
+    // Use this function to clear text (TODO: Replace with an animation)
+    private IEnumerator ClearTextAfterDelayCoroutine()
+    {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2f);
+
+        // Clear the text
+        successMessageText.text = "";
     }
 }
