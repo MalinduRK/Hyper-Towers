@@ -37,7 +37,10 @@ public class SettingsController : MonoBehaviour
         // Add all resolutions to the list
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
+            // Take screen refresh rate and round off to nearest int
+            int refreshRate = Mathf.RoundToInt(float.Parse(resolutions[i].refreshRateRatio.ToString()));
+
+            string option = $"{resolutions[i].width} x {resolutions[i].height} ({refreshRate}Hz)";
             resolutionOptions.Add(option);
 
             // Set the current resolution from the list of resolutions
