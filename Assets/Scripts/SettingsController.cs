@@ -2,19 +2,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
 {
-    [Header("Game Objects")]
-    [SerializeField] Slider masterVolumeSlider;
-    [SerializeField] Slider bgmVolumeSlider;
-    [SerializeField] Slider sfxVolumeSlider;
-    [SerializeField] TMP_Dropdown resolutionDropdown;
-    [SerializeField] TMP_Dropdown windowModeDropdown;
-
     [Header("Assets")]
     public AudioMixer audioMixer;
+
+    [Header("Game Objects")]
+    [SerializeField] private Slider masterVolumeSlider;
+    [SerializeField] private Slider bgmVolumeSlider;
+    [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown windowModeDropdown;
+
+    [Header("Components")]
+    private SettingsData settingsData;
 
     [Header("Variables")]
     private Resolution[] resolutions; // Variable to store all resolutions related to the current device
@@ -22,6 +26,9 @@ public class SettingsController : MonoBehaviour
 
     private void Start()
     {
+        // Assign settingsData
+        settingsData = GetComponent<SettingsReaderWriter>().ReadSettings();
+
         // Get all resolutions matching the current device screen
         resolutions = Screen.resolutions;
 
@@ -53,7 +60,7 @@ public class SettingsController : MonoBehaviour
             resolutionOptions.Add(option);
 
             // Set the current resolution from the list of resolutions
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == settingsData.resolutionWidth && resolutions[i].height == settingsData.resolutionHeight)
             {
                 currentResolutionIndex = i;
             }
@@ -67,19 +74,7 @@ public class SettingsController : MonoBehaviour
 
 
         // Set current window mode in the dropdown on start
-        int currentWindowModeIndex;
-        if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen) // FullScreen
-        {
-            currentWindowModeIndex = 0;
-        }
-        else if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow) // Borderless Window
-        {
-            currentWindowModeIndex = 1;
-        }
-        else // Windowed
-        {
-            currentWindowModeIndex = 2;
-        }
+        int currentWindowModeIndex = settingsData.windowMode;
 
         // Set and refresh dropdown
         windowModeDropdown.value = currentWindowModeIndex;
@@ -91,10 +86,10 @@ public class SettingsController : MonoBehaviour
         float currentBGMVolume;
         float currentSFXVolume;
 
-        // Set the volume sliders to the current volume of the audio mixer on load
-        audioMixer.GetFloat("masterVolume", out currentMasterVolume);
-        audioMixer.GetFloat("bgmVolume", out currentBGMVolume);
-        audioMixer.GetFloat("sfxVolume", out currentSFXVolume);
+        // Set the volume sliders to the current volume on load
+        currentMasterVolume = settingsData.masterVolume;
+        currentBGMVolume = settingsData.bgmVolume;
+        currentSFXVolume = settingsData.sfxVolume;
 
         // Get the min value of the slider
         volumeMinValue = masterVolumeSlider.GetComponent<Slider>().minValue;

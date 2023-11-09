@@ -3,25 +3,26 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 
+// Data class to store the settings json structure
+[System.Serializable]
+public class SettingsData
+{
+    public int resolutionWidth;
+    public int resolutionHeight;
+    public int resolutionRefreshRate;
+    public int windowMode;
+    public float masterVolume;
+    public float bgmVolume;
+    public float sfxVolume;
+}
+
 public class SettingsReaderWriter : MonoBehaviour
 {
-    // Data class to store the settings json structure
-    [System.Serializable]
-    private class SettingsData
-    {
-        public int resolutionWidth;
-        public int resolutionHeight;
-        public int resolutionRefreshRate;
-        public int windowMode;
-        public float masterVolume;
-        public float bgmVolume;
-        public float sfxVolume;
-    }
-
     [Header("Assets")]
     public AudioMixer audioMixer;
 
     [Header("Game Objects")]
+    [SerializeField] TMP_Dropdown resolutionDropdown;
     [SerializeField] TMP_Dropdown windowModeDropdown;
 
     [Header("Variables")]
@@ -37,9 +38,41 @@ public class SettingsReaderWriter : MonoBehaviour
 
     public void SaveSettings()
     {
+        // Get resolution string from the dropdown and extract width and height values
+        string resolutionString = resolutionDropdown.options[resolutionDropdown.value].text; // Get current value of the dropdown
+        //Debug.Log(resolutionString);
+
+        string[] parts = resolutionString.Split('x'); // Split the string using 'x' as the delimiter
+        // Initialize variables and assign default values
+        int resolutionWidth = 1280;
+        int resolutionHeight = 720;
+
+        if (parts.Length == 2)
+        {
+            if (int.TryParse(parts[0].Trim(), out resolutionWidth))
+            {
+                if (int.TryParse(parts[1].Trim(), out resolutionHeight))
+                {
+                    // Now you have resolutionWidth and resolutionHeight as integers
+                    Debug.Log("Width: " + resolutionWidth);
+                    Debug.Log("Height: " + resolutionHeight);
+                }
+                else
+                {
+                    Debug.LogError("Failed to parse resolution height.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to parse resolution width.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Invalid format for resolution string.");
+        }
+
         // Get new settings
-        int resolutionWidth = Screen.currentResolution.width;
-        int resolutionHeight = Screen.currentResolution.height;
         int resolutionRefreshRate = Mathf.RoundToInt(float.Parse(Screen.currentResolution.refreshRateRatio.ToString()));
         int windowModeIndex = windowModeDropdown.value;
         audioMixer.GetFloat("masterVolume", out float currentMasterVolume);
@@ -98,5 +131,19 @@ public class SettingsReaderWriter : MonoBehaviour
 
             Debug.Log($"Settings loaded from file {filePath}");
         }
+    }
+
+    // This function will only return the settings values without applying them
+    public SettingsData ReadSettings()
+    {
+        filePath = Application.persistentDataPath + "/settings.json";
+
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            settingsData = JsonUtility.FromJson<SettingsData>(json);
+        }
+
+        return settingsData;
     }
 }
