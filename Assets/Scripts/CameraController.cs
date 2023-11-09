@@ -5,12 +5,35 @@ public class CameraController : MonoBehaviour
     public float zoomSpeed = 2.0f;
     public float minSize = 3.0f;
     public float maxSize = 5.0f;
+    public float targetAspectRatio = 16f / 9f; // The target aspect ratio of the game
 
     private Camera mainCamera;
 
     private void Start()
     {
         mainCamera = Camera.main;
+
+        // Change camera according to resolution
+        float aspectRatio = (float)Screen.width / (float)Screen.height;
+        float cameraSize = mainCamera.orthographicSize;
+        CameraDebug($"Screen: {Screen.width} x {Screen.height} | Aspect ratio: {aspectRatio}");
+
+        if (aspectRatio > targetAspectRatio)
+        {
+            // Screen is wider than the target, adjust the orthographic size
+            cameraSize = mainCamera.orthographicSize / (aspectRatio / targetAspectRatio);
+        }
+        else
+        {
+            // Screen is taller than the target
+            cameraSize = mainCamera.orthographicSize * (targetAspectRatio / aspectRatio);
+        }
+
+        mainCamera.orthographicSize = cameraSize;
+
+        // Set min and max sizes for zoom function
+        maxSize = mainCamera.orthographicSize;
+        minSize = maxSize - 2;
     }
 
     private void Update()
@@ -25,5 +48,18 @@ public class CameraController : MonoBehaviour
 
         // Set the new orthographic size.
         mainCamera.orthographicSize = newSize;
+    }
+
+
+    [Header("Debug")]
+
+    [SerializeField] private bool cameraDebug;
+
+    public void CameraDebug(string message)
+    {
+        if (cameraDebug)
+        {
+            Debug.Log(message);
+        }
     }
 }
