@@ -3,51 +3,32 @@ using UnityEngine;
 // Attach this script to any background object to scale it with screen size
 public class ScaleToScreenSize : MonoBehaviour
 {
+    [Header("Variables")]
+    [SerializeField] private float targetAspectRatio = 1.5f; // The target aspect ratio of the game
+
     private void Start()
     {
         // Get the current transform values of the object
         float localX = transform.localScale.x;
         float localY = transform.localScale.y;
 
-        // Get the screen width and height
-        float screenHeight = Camera.main.orthographicSize * 2;
-        float screenWidth = screenHeight * Screen.width / Screen.height;
+        // Get current aspect ratio
+        float aspectRatio = (float)Screen.width / (float)Screen.height;
 
-        // Get the sprite's width and height
-        float spriteHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-        float spriteWidth = GetComponent<SpriteRenderer>().bounds.size.x;
+        float newWidth;
 
-        float scaleX;
-        float scaleY;
-        // Calculate the scale factor to fit the screen
-        if (spriteWidth < screenWidth)
+        if (aspectRatio > targetAspectRatio)
         {
-            scaleX = (screenWidth / spriteWidth) * localX;
-
-            if (spriteHeight < screenHeight)
-            {
-                scaleY = (screenHeight / spriteHeight) * localY;
-            }
-            else
-            {
-                scaleY = (spriteHeight / screenHeight) * localY;
-            }
+            // Screen is wider than the target, adjust the object size
+            newWidth = localY / (aspectRatio / targetAspectRatio);
         }
         else
         {
-            scaleX = (spriteWidth / screenWidth) * localX;
-
-            if (spriteHeight < screenHeight)
-            {
-                scaleY = (screenHeight / spriteHeight) * localY;
-            }
-            else
-            {
-                scaleY = (spriteHeight / screenHeight) * localY;
-            }
+            // Screen is taller than the target
+            newWidth = localY * (targetAspectRatio / aspectRatio);
         }
 
         // Set the scale to fit the screen
-        transform.localScale = new Vector3(scaleX, scaleY, 1);
+        transform.localScale = new Vector3(localX, newWidth, 1);
     }
 }

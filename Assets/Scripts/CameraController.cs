@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour
     public float zoomSpeed = 2.0f;
     public float minSize = 3.0f;
     public float maxSize = 5.0f;
-    public float targetAspectRatio = 16f / 9f; // The target aspect ratio of the game
+    public float targetAspectRatio = 1.5f; // The target aspect ratio of the game
 
     private Camera mainCamera;
 
@@ -29,6 +29,7 @@ public class CameraController : MonoBehaviour
             cameraSize = mainCamera.orthographicSize * (targetAspectRatio / aspectRatio);
         }
 
+        //CameraDebug($"Camera pixel size: {mainCamera.pixelWidth} x {mainCamera.pixelHeight}");
         mainCamera.orthographicSize = cameraSize;
 
         // Set min and max sizes for zoom function
