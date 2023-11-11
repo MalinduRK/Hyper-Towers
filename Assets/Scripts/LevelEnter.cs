@@ -17,6 +17,6 @@ public class LevelEnter : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        interfaceAudioManager.PlayClip(levelEnterSound);
+        interfaceAudioManager.PlayClip(levelEnterSound, 0.15f);
     }
 }

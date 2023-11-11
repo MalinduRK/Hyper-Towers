@@ -817,6 +817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interfaceAudioSource: {fileID: 433200769}
+  defaultVolume: 0.25
 --- !u!82 &433200769
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1887,6 +1888,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 69d7e06203e5ad04eb3274a02377064e, type: 2}
+  resolutionDropdown: {fileID: 0}
+  windowModeDropdown: {fileID: 0}
+  successMessageText: {fileID: 0}
 --- !u!4 &1562883177
 Transform:
   m_ObjectHideFlags: 0
