@@ -99,6 +99,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36e16964dfe6034990a249eddb5bd4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetEnemy: {fileID: 0}
+  towerData:
+    id: 
+    name: 
+    description: 
+    range: 0
+    turn_rate: 0
+    damage: 0
+    firerate: 0
+    projectile_velocity: 0
+    cost: 0
+    scrap_value: 0
+  velocity: 0
+  damage: 0
 --- !u!114 &709939122829402685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1fe38b9cbec94a97e34a9937b56b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEnemy: {fileID: 0}
   enemyHitDebug: 0
 --- !u!1 &8376025114515193431
 GameObject:
@@ -191,7 +204,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
