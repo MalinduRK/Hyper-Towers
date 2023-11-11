@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameState : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private AudioClip victory;
     [SerializeField] private AudioClip escapeMenuOpenSound;
     [SerializeField] private AudioClip escapeMenuCloseSound;
+    [SerializeField] private AudioMixer audioMixer;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject overlayPanel;
@@ -22,13 +24,14 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameObject uiManager;
 
     [Header("Components")]
-    private AudioSource audioSource;
     private InterfaceAudioHandler interfaceAudioManager; // Persistent audio manager
 
     [Header("Variables")]
     private bool isPaused = true;
     private bool isEscaped = false; // Turns true when escape menu is open
     //private bool gameStarted = false; // This should only be false before starting the first wave
+    private float lowpassCutoff = 350f; // Cutoff frequency for the music lowpass filter
+    private float lowpassCutoffDefault = 22000f; // Default cutoff frequency for the music lowpass filter
 
     private void Start()
     {
@@ -37,9 +40,6 @@ public class GameState : MonoBehaviour
 
         // Disable escape menu
         escapeMenuPanel.SetActive(false);
-
-        // Assign audio source
-        audioSource = GetComponent<AudioSource>();
 
         // Find audio manager
         interfaceAudioManager = GameObject.Find("PersistentAudioManager").GetComponent<InterfaceAudioHandler>();
@@ -81,6 +81,8 @@ public class GameState : MonoBehaviour
         interactionManager.DisableInteractions();
         escapeMenuPanel.SetActive(true);
         isEscaped = true;
+        // Muffle sound using a low pass filter
+        audioMixer.SetFloat("bgmLowpass", lowpassCutoff);
     }
 
     public void CloseEscapeMenu()
@@ -89,6 +91,8 @@ public class GameState : MonoBehaviour
         interactionManager.EnableInteractions();
         escapeMenuPanel.SetActive(false);
         isEscaped = false;
+        // Remove muffle sound of low pass filter
+        audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
     }
 
     // This function is created in order for any outside class to access this class and start, pause or resume a wave
@@ -159,8 +163,7 @@ public class GameState : MonoBehaviour
         PauseGame();
         interactionManager.DisableInteractions();
         // Play audio
-        audioSource.clip = gameOver;
-        audioSource.Play();
+        interfaceAudioManager.PlayClip(gameOver, 0.3f);
 
         GameStateDebug("Game over");
     }
@@ -172,8 +175,7 @@ public class GameState : MonoBehaviour
         PauseGame();
         interactionManager.DisableInteractions();
         // Play audio
-        audioSource.clip = victory;
-        audioSource.Play();
+        interfaceAudioManager.PlayClip(victory, 0.3f);
 
         GameStateDebug("Victory");
     }

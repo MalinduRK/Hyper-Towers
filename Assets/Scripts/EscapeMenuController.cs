@@ -1,14 +1,21 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class EscapeMenuController : MonoBehaviour
 {
+    [Header("Assets")]
+    [SerializeField] private AudioMixer audioMixer;
+
     [Header("Game Managers")]
     [SerializeField] private GameObject stateManager;
 
     [Header("Components")]
     private GameState gameState;
+
+    [Header("Variables")]
+    private float lowpassCutoffDefault = 22000f; // Default cutoff frequency for the music lowpass filter
 
     private void Start()
     {
@@ -24,6 +31,9 @@ public class EscapeMenuController : MonoBehaviour
     public void Restart()
     {
         // Level restart code here
+
+        // Remove muffle sound of low pass filter
+        audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
     }
 
     public void Settings()
@@ -41,6 +51,9 @@ public class EscapeMenuController : MonoBehaviour
 
         // Set timescale to 1 (since timescale is persistent through scenes)
         Time.timeScale = 1;
+
+        // Remove muffle sound of low pass filter
+        audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
     }
 
     public void QuitToDesktop()

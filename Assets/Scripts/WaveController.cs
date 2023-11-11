@@ -100,11 +100,13 @@ public class WaveController : MonoBehaviour
             // Play audio
             if (!isFinalWave) // Normal wave call sound
             {
+                audioSource.volume = 1f;
                 audioSource.clip = callWave;
                 audioSource.Play();
             }
             else // Final wave call sound
             {
+                audioSource.volume = 0.2f;
                 audioSource.clip = callFinalWave;
                 audioSource.Play();
             }
@@ -141,6 +143,7 @@ public class WaveController : MonoBehaviour
             notificationController.FinalWaveNotifier();
 
             // Play audio
+            audioSource.volume = 0.5f;
             audioSource.clip = waveClear;
             audioSource.Play();
         }
@@ -152,6 +155,7 @@ public class WaveController : MonoBehaviour
             notificationController.NextWaveNotifier();
 
             // Play audio
+            audioSource.volume = 0.5f;
             audioSource.clip = waveClear;
             audioSource.Play();
         }
