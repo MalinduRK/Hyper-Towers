@@ -25,6 +25,7 @@ public class GameState : MonoBehaviour
 
     [Header("Components")]
     private InterfaceAudioHandler interfaceAudioManager; // Persistent audio manager
+    private MusicController musicManager; // Persistent audio manager
 
     [Header("Variables")]
     private bool isPaused = true;
@@ -41,8 +42,9 @@ public class GameState : MonoBehaviour
         // Disable escape menu
         escapeMenuPanel.SetActive(false);
 
-        // Find audio manager
+        // Find audio managers
         interfaceAudioManager = GameObject.Find("PersistentAudioManager").GetComponent<InterfaceAudioHandler>();
+        musicManager = GameObject.Find("PersistentAudioManager").GetComponent<MusicController>();
     }
 
     private void Update()
@@ -164,6 +166,8 @@ public class GameState : MonoBehaviour
         interactionManager.DisableInteractions();
         // Play audio
         interfaceAudioManager.PlayClip(gameOver, 0.3f);
+        // Lower music volume
+        StartCoroutine(musicManager.LowerMusic());
 
         GameStateDebug("Game over");
     }
@@ -176,6 +180,8 @@ public class GameState : MonoBehaviour
         interactionManager.DisableInteractions();
         // Play audio
         interfaceAudioManager.PlayClip(victory, 0.3f);
+        // Lower music volume
+        StartCoroutine(musicManager.LowerMusic());
 
         GameStateDebug("Victory");
     }

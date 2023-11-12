@@ -14,6 +14,7 @@ public class MusicController : MonoBehaviour
 
     [Header("Variables")]
     private string activeSceneName; // Variable to store the active scene name to use for checking previous scene, since the parameter doesn't work for some reason
+    private float defaultVolume = 0.2f;
 
     private void Awake()
     {
@@ -79,7 +80,7 @@ public class MusicController : MonoBehaviour
     private IEnumerator CrossfadeTo(AudioClip newClip)
     {
         float fadeDuration = 2.0f;
-        float startVolume = musicAudioSource.volume;
+        float startVolume = defaultVolume;
         float timer = 0f;
 
         while (timer < fadeDuration)
@@ -100,6 +101,35 @@ public class MusicController : MonoBehaviour
         {
             timer += Time.deltaTime;
             musicAudioSource.volume = Mathf.Lerp(0f, startVolume, timer / fadeDuration);
+            yield return null;
+        }
+    }
+
+    public IEnumerator LowerMusic()
+    {
+        float fadeDuration = 2.0f;
+        float startVolume = defaultVolume;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.unscaledDeltaTime; // Can't use deltaTime here since the game time is paused
+            musicAudioSource.volume = Mathf.Lerp(startVolume, 0f, timer / fadeDuration);
+            yield return null;
+        }
+    }
+
+    public IEnumerator RaiseMusic()
+    {
+        float fadeDuration = 2.0f;
+        float startVolume = 0;
+        float endVolume = defaultVolume;
+        float timer = 0f;
+
+        while (timer < fadeDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            musicAudioSource.volume = Mathf.Lerp(startVolume, endVolume, timer / fadeDuration);
             yield return null;
         }
     }
