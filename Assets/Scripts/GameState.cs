@@ -16,16 +16,20 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameObject escapeMenuPanel;
     [SerializeField] private TextMeshProUGUI endGameText;
     [SerializeField] private GameObject enemySpawner;
+    [SerializeField] private GameObject escapeButtonPanel;
+    [SerializeField] private GameObject settingsPanel;
 
     [Header("Game Managers")]
     [SerializeField] private GameObject waveManager;
     [SerializeField] private GameObject notificationManager;
     [SerializeField] private GameInteractivity interactionManager;
     [SerializeField] private GameObject uiManager;
+    [SerializeField] private GameObject settingsManager;
 
     [Header("Components")]
     private InterfaceAudioHandler interfaceAudioManager; // Persistent audio manager
     private MusicController musicManager; // Persistent audio manager
+    private SettingsReaderWriter settingsReaderWriter;
 
     [Header("Variables")]
     private bool isPaused = true;
@@ -45,6 +49,9 @@ public class GameState : MonoBehaviour
         // Find audio managers
         interfaceAudioManager = GameObject.Find("PersistentAudioManager").GetComponent<InterfaceAudioHandler>();
         musicManager = GameObject.Find("PersistentAudioManager").GetComponent<MusicController>();
+
+        // Assign settingsReaderWriter
+        settingsReaderWriter = settingsManager.GetComponent<SettingsReaderWriter>();
     }
 
     private void Update()
@@ -81,7 +88,12 @@ public class GameState : MonoBehaviour
     {
         PauseGame();
         interactionManager.DisableInteractions();
+
         escapeMenuPanel.SetActive(true);
+        // Handle panels inside the escape panel
+        escapeButtonPanel.SetActive(true);
+        settingsPanel.SetActive(false);
+
         isEscaped = true;
         // Muffle sound using a low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoff);
@@ -91,7 +103,12 @@ public class GameState : MonoBehaviour
     {
         ResumeGame();
         interactionManager.EnableInteractions();
+
+        // Save settings if menu is closed from the settings menu
+        settingsReaderWriter.SaveSettings();
+
         escapeMenuPanel.SetActive(false);
+
         isEscaped = false;
         // Remove muffle sound of low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);

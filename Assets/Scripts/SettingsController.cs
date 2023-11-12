@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
@@ -29,57 +30,62 @@ public class SettingsController : MonoBehaviour
         // Assign settingsData
         settingsData = GetComponent<SettingsReaderWriter>().ReadSettings();
 
-        // Get all resolutions matching the current device screen
-        resolutions = Screen.resolutions;
-
-        // Clear the options of the resolution dropdown at start
-        resolutionDropdown.ClearOptions();
-
-        // Create list to store all viable resolutions as a string
-        List<string> resolutionOptions = new List<string>();
-
-        // Variable to store current screen resolution
-        int currentResolutionIndex = 0;
-
-        // Add all resolutions to the list
-        for (int i = 0; i < resolutions.Length; i++)
+        // If this is not the SettingsMenu scene, the following functions should not run
+        if (SceneManager.GetActiveScene().name == "SettingsMenu")
         {
-            // Take screen refresh rate and round off to nearest int
-            int refreshRate = Mathf.RoundToInt(float.Parse(resolutions[i].refreshRateRatio.ToString()));
+            // Get all resolutions matching the current device screen
+            resolutions = Screen.resolutions;
 
-            // If the previous resolution has the same value, don't add this one to the list
-            if (i != 0)
+            // Clear the options of the resolution dropdown at start
+            resolutionDropdown.ClearOptions();
+
+            // Create list to store all viable resolutions as a string
+            List<string> resolutionOptions = new List<string>();
+
+            // Variable to store current screen resolution
+            int currentResolutionIndex = 0;
+
+            // Add all resolutions to the list
+            for (int i = 0; i < resolutions.Length; i++)
             {
-                if (resolutions[i].width == resolutions[i - 1].width && resolutions[i].height == resolutions[i - 1].height)
+                // Take screen refresh rate and round off to nearest int
+                int refreshRate = Mathf.RoundToInt(float.Parse(resolutions[i].refreshRateRatio.ToString()));
+
+                // If the previous resolution has the same value, don't add this one to the list
+                if (i != 0)
                 {
-                    return;
+                    if (resolutions[i].width == resolutions[i - 1].width && resolutions[i].height == resolutions[i - 1].height)
+                    {
+                        return;
+                    }
+                }
+
+                string option = $"{resolutions[i].width} x {resolutions[i].height}";
+                resolutionOptions.Add(option);
+
+                // Set the current resolution from the list of resolutions
+                if (resolutions[i].width == settingsData.resolutionWidth && resolutions[i].height == settingsData.resolutionHeight)
+                {
+                    currentResolutionIndex = i;
                 }
             }
 
-            string option = $"{resolutions[i].width} x {resolutions[i].height}";
-            resolutionOptions.Add(option);
+            // Add new options to resolution dropdown
+            resolutionDropdown.AddOptions(resolutionOptions);
+            // Display current resolution on the dropdown menu
+            resolutionDropdown.value = currentResolutionIndex;
+            resolutionDropdown.RefreshShownValue();
 
-            // Set the current resolution from the list of resolutions
-            if (resolutions[i].width == settingsData.resolutionWidth && resolutions[i].height == settingsData.resolutionHeight)
-            {
-                currentResolutionIndex = i;
-            }
+
+            // Set current window mode in the dropdown on start
+            int currentWindowModeIndex = settingsData.windowMode;
+
+            // Set and refresh dropdown
+            windowModeDropdown.value = currentWindowModeIndex;
+            windowModeDropdown.RefreshShownValue();
+
+            SettingsDebug($"Resolution: {resolutionDropdown.value} | Window mode: {windowModeDropdown.value}");
         }
-
-        // Add new options to resolution dropdown
-        resolutionDropdown.AddOptions(resolutionOptions);
-        // Display current resolution on the dropdown menu
-        resolutionDropdown.value = currentResolutionIndex;
-        resolutionDropdown.RefreshShownValue();
-
-
-        // Set current window mode in the dropdown on start
-        int currentWindowModeIndex = settingsData.windowMode;
-
-        // Set and refresh dropdown
-        windowModeDropdown.value = currentWindowModeIndex;
-        windowModeDropdown.RefreshShownValue();
-
 
         // Variables to store current volumes
         float currentMasterVolume;
@@ -126,8 +132,7 @@ public class SettingsController : MonoBehaviour
             sfxVolumeSlider.GetComponent<Slider>().value = volumeMinValue;
         }
 
-
-        SettingsDebug($"Resolution: {resolutionDropdown.value} | Window mode: {windowModeDropdown.value} | Master volume: {currentMasterVolume} | BGM volume: {currentBGMVolume} | SFX volume: {currentSFXVolume}");
+        SettingsDebug($"Master volume: {currentMasterVolume} | BGM volume: {currentBGMVolume} | SFX volume: {currentSFXVolume}");
     }
 
     public void SetResolution(int resolutionIndex)

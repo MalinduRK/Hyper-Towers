@@ -4,6 +4,7 @@ using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 // Data class to store the settings json structure
 [System.Serializable]
@@ -41,49 +42,67 @@ public class SettingsReaderWriter : MonoBehaviour
 
     public void SaveSettings()
     {
-        // Get resolution string from the dropdown and extract width and height values
-        string resolutionString = resolutionDropdown.options[resolutionDropdown.value].text; // Get current value of the dropdown
-        //Debug.Log(resolutionString);
+        // Load existing settings
+        filePath = Application.persistentDataPath + "/settings.json";
+        string json = File.ReadAllText(filePath);
+        settingsData = JsonUtility.FromJson<SettingsData>(json);
 
-        string[] parts = resolutionString.Split('x'); // Split the string using 'x' as the delimiter
-        // Initialize variables and assign default values
-        int resolutionWidth = 1280;
-        int resolutionHeight = 720;
+        // String which holds the updated json data later in the code
+        string updatedJson = JsonUtility.ToJson(settingsData);
 
-        if (parts.Length == 2)
+        // Save the below settings only if the current scene is SettingsMenu
+        if (SceneManager.GetActiveScene().name == "SettingsMenu")
         {
-            if (int.TryParse(parts[0].Trim(), out resolutionWidth))
+            // Get resolution string from the dropdown and extract width and height values
+            string resolutionString = resolutionDropdown.options[resolutionDropdown.value].text; // Get current value of the dropdown
+            //Debug.Log(resolutionString);
+
+            string[] parts = resolutionString.Split('x'); // Split the string using 'x' as the delimiter
+                                                          // Initialize variables and assign default values
+            int resolutionWidth = 1280;
+            int resolutionHeight = 720;
+
+            if (parts.Length == 2)
             {
-                if (int.TryParse(parts[1].Trim(), out resolutionHeight))
+                if (int.TryParse(parts[0].Trim(), out resolutionWidth))
                 {
-                    // Now you have resolutionWidth and resolutionHeight as integers
-                    Debug.Log("Width: " + resolutionWidth);
-                    Debug.Log("Height: " + resolutionHeight);
+                    if (int.TryParse(parts[1].Trim(), out resolutionHeight))
+                    {
+                        // Now you have resolutionWidth and resolutionHeight as integers
+                        Debug.Log("Width: " + resolutionWidth);
+                        Debug.Log("Height: " + resolutionHeight);
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to parse resolution height.");
+                    }
                 }
                 else
                 {
-                    Debug.LogError("Failed to parse resolution height.");
+                    Debug.LogError("Failed to parse resolution width.");
                 }
             }
             else
             {
-                Debug.LogError("Failed to parse resolution width.");
+                Debug.LogError("Invalid format for resolution string.");
             }
-        }
-        else
-        {
-            Debug.LogError("Invalid format for resolution string.");
-        }
 
-        // Get new settings
-        int resolutionRefreshRate = Mathf.RoundToInt(float.Parse(Screen.currentResolution.refreshRateRatio.ToString()));
-        int windowModeIndex = windowModeDropdown.value;
-        audioMixer.GetFloat("masterVolume", out float currentMasterVolume);
-        audioMixer.GetFloat("bgmVolume", out float currentBGMVolume);
-        audioMixer.GetFloat("sfxVolume", out float currentSFXVolume);
+            // Get new settings
+            int resolutionRefreshRate = Mathf.RoundToInt(float.Parse(Screen.currentResolution.refreshRateRatio.ToString()));
+            int windowModeIndex = windowModeDropdown.value;
+
+            // Update specific fields
+            settingsData.resolutionWidth = resolutionWidth;
+            settingsData.resolutionHeight = resolutionHeight;
+            settingsData.resolutionRefreshRate = resolutionRefreshRate;
+            settingsData.windowMode = windowModeIndex;
+
+            // Convert updated settings back to JSON
+            updatedJson = JsonUtility.ToJson(settingsData);
+        }
 
         // Set new settings into json format
-        settingsData = new SettingsData
+        /*settingsData = new SettingsData
         {
             resolutionWidth = resolutionWidth,
             resolutionHeight = resolutionHeight,
@@ -92,19 +111,31 @@ public class SettingsReaderWriter : MonoBehaviour
             masterVolume = currentMasterVolume,
             bgmVolume = currentBGMVolume,
             sfxVolume = currentSFXVolume
-        };
+        };*/
 
-        string json = JsonUtility.ToJson(settingsData);
+        audioMixer.GetFloat("masterVolume", out float currentMasterVolume);
+        audioMixer.GetFloat("bgmVolume", out float currentBGMVolume);
+        audioMixer.GetFloat("sfxVolume", out float currentSFXVolume);
+
+        // Update specific fields
+        settingsData.masterVolume = currentMasterVolume;
+        settingsData.bgmVolume = currentBGMVolume;
+        settingsData.sfxVolume = currentSFXVolume;
+
+        updatedJson = JsonUtility.ToJson(settingsData);
 
         // Write new json data to file
         try
         {
             // Attempt to write the JSON string to the file
-            File.WriteAllText(filePath, json);
+            File.WriteAllText(filePath, updatedJson);
 
             // If the write operation is successful, display success message
             Debug.Log("Successfully applied settings");
-            successMessageText.text = "Settings applied";
+            if (successMessageText != null) // This message doesn't display in-game
+            {
+                successMessageText.text = "Settings applied";
+            }
             // Start a coroutine to clear the text after 2 seconds
             StartCoroutine(ClearTextAfterDelayCoroutine());
         }
@@ -112,7 +143,10 @@ public class SettingsReaderWriter : MonoBehaviour
         {
             // If there was an error, catch the exception and display error message
             Debug.LogError("Failed to apply settings: " + e.Message);
-            successMessageText.text = "Failed to apply settings";
+            if (successMessageText != null) // This message doesn't display in-game
+            {
+                successMessageText.text = "Failed to apply settings";
+            }
             // Start a coroutine to clear the text after 2 seconds
             StartCoroutine(ClearTextAfterDelayCoroutine());
         }
@@ -151,6 +185,78 @@ public class SettingsReaderWriter : MonoBehaviour
 
             Debug.Log($"Settings loaded from file {filePath}");
         }
+        else // Create file and write default data
+        {
+            // Get current screen resolution
+            Resolution resolution = Screen.currentResolution;
+
+            int resolutionWidth = resolution.width;
+            int resolutionHeight = resolution.height;
+            int resolutionRefreshRate = Mathf.RoundToInt(float.Parse(resolution.refreshRateRatio.ToString()));
+
+            // Set default window mode
+            int windowModeIndex = 1; // TODO: Confirm this
+
+            // Get current window mode
+            if (Screen.fullScreenMode == FullScreenMode.ExclusiveFullScreen)
+            {
+                windowModeIndex = 0;
+            }
+            else if (Screen.fullScreenMode == FullScreenMode.FullScreenWindow)
+            {
+                windowModeIndex = 1;
+            }
+            else
+            {
+                windowModeIndex = 2;
+            }
+
+            // Set default volumes (0 db is the max volume and means the opposite of muted)
+            int currentMasterVolume = 0;
+            int currentBGMVolume = 0;
+            int currentSFXVolume = 0;
+
+            // Set new settings into json format
+            settingsData = new SettingsData
+            {
+                resolutionWidth = resolutionWidth,
+                resolutionHeight = resolutionHeight,
+                resolutionRefreshRate = resolutionRefreshRate,
+                windowMode = windowModeIndex,
+                masterVolume = currentMasterVolume,
+                bgmVolume = currentBGMVolume,
+                sfxVolume = currentSFXVolume
+            };
+
+            string json = JsonUtility.ToJson(settingsData);
+
+            // Write new json data to file
+            try
+            {
+                // Attempt to write the JSON string to the file
+                File.WriteAllText(filePath, json);
+
+                // If the write operation is successful, display success message
+                Debug.Log("Successfully applied settings");
+                if (successMessageText != null) // This message doesn't display in-game
+                {
+                    successMessageText.text = "Settings applied";
+                }
+                // Start a coroutine to clear the text after 2 seconds
+                StartCoroutine(ClearTextAfterDelayCoroutine());
+            }
+            catch (Exception e)
+            {
+                // If there was an error, catch the exception and display error message
+                Debug.LogError("Failed to apply settings: " + e.Message);
+                if (successMessageText != null) // This message doesn't display in-game
+                {
+                    successMessageText.text = "Failed to apply settings";
+                }
+                // Start a coroutine to clear the text after 2 seconds
+                StartCoroutine(ClearTextAfterDelayCoroutine());
+            }
+        }
     }
 
     // This function will only return the settings values without applying them
@@ -173,7 +279,10 @@ public class SettingsReaderWriter : MonoBehaviour
         // Wait for 2 seconds
         yield return new WaitForSeconds(2f);
 
-        // Clear the text
-        successMessageText.text = "";
+        if (successMessageText != null)
+        {
+            // Clear the text
+            successMessageText.text = "";
+        }
     }
 }

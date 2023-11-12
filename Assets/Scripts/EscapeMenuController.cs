@@ -11,9 +11,12 @@ public class EscapeMenuController : MonoBehaviour
     [Header("Game Managers")]
     [SerializeField] private GameObject stateManager;
 
+    [Header("Game Objects")]
+    [SerializeField] private GameObject escapeButtonPanel;
+    [SerializeField] private GameObject settingsPanel;
+
     [Header("Components")]
     private GameState gameState;
-    private MusicController musicManager; // Persistent audio manager
 
     [Header("Variables")]
     private float lowpassCutoffDefault = 22000f; // Default cutoff frequency for the music lowpass filter
@@ -22,9 +25,6 @@ public class EscapeMenuController : MonoBehaviour
     {
         // Assign GameState component
         gameState = stateManager.GetComponent<GameState>();
-
-        // Find audio manager
-        musicManager = GameObject.Find("PersistentAudioManager").GetComponent<MusicController>();
     }
 
     public void Resume()
@@ -40,9 +40,18 @@ public class EscapeMenuController : MonoBehaviour
         audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
     }
 
-    public void Settings()
+    public void OpenSettings()
     {
+        escapeButtonPanel.SetActive(false);
         // Open in game settings menu
+        settingsPanel.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        escapeButtonPanel.SetActive(true);
+        // Close in game settings menu
+        settingsPanel.SetActive(false);
     }
 
     public void ExitToMainMenu()
@@ -58,9 +67,6 @@ public class EscapeMenuController : MonoBehaviour
 
         // Remove muffle sound of low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
-
-        // Raise music volume to default if lowered
-        //musicManager.RaiseMusic();
     }
 
     public void QuitToDesktop()
