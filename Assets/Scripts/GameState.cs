@@ -62,14 +62,10 @@ public class GameState : MonoBehaviour
             if (isEscaped) // Already in escape menu. Resume game
             {
                 CloseEscapeMenu();
-                // Play menu close sound
-                interfaceAudioManager.PlayClip(escapeMenuCloseSound);
             }
             else // Escape
             {
                 OpenEscapeMenu();
-                // Play menu open sound
-                interfaceAudioManager.PlayClip(escapeMenuOpenSound);
             }
         }
 
@@ -97,6 +93,9 @@ public class GameState : MonoBehaviour
         isEscaped = true;
         // Muffle sound using a low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoff);
+
+        // Play menu open sound
+        interfaceAudioManager.PlayClip(escapeMenuOpenSound);
     }
 
     public void CloseEscapeMenu()
@@ -112,6 +111,9 @@ public class GameState : MonoBehaviour
         isEscaped = false;
         // Remove muffle sound of low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
+
+        // Play menu close sound
+        interfaceAudioManager.PlayClip(escapeMenuCloseSound);
     }
 
     // This function is created in order for any outside class to access this class and start, pause or resume a wave
