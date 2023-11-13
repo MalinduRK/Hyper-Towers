@@ -16,19 +16,21 @@ public class ScaleToScreenSize : MonoBehaviour
         float aspectRatio = (float)Screen.width / (float)Screen.height;
 
         float newWidth;
+        float newHeight;
 
         if (aspectRatio > targetAspectRatio)
         {
             // Screen is wider than the target, adjust the object size
-            newWidth = localY / (aspectRatio / targetAspectRatio);
+            newWidth = localX * (aspectRatio / targetAspectRatio);
+            // Set the scale to fit the screen
+            transform.localScale = new Vector3(newWidth, localY, 1);
         }
         else
         {
             // Screen is taller than the target
-            newWidth = localY * (targetAspectRatio / aspectRatio);
+            newHeight = localY * (targetAspectRatio / aspectRatio);
+            // Set the scale to fit the screen
+            transform.localScale = new Vector3(localX, newHeight, 1);
         }
-
-        // Set the scale to fit the screen
-        transform.localScale = new Vector3(localX, newWidth, 1);
     }
 }

@@ -18,16 +18,12 @@ public class CameraController : MonoBehaviour
         float cameraSize = mainCamera.orthographicSize;
         CameraDebug($"Screen: {Screen.width} x {Screen.height} | Aspect ratio: {aspectRatio}");
 
-        if (aspectRatio > targetAspectRatio)
+        if (aspectRatio < targetAspectRatio)
         {
-            // Screen is wider than the target, adjust the orthographic size
-            cameraSize = mainCamera.orthographicSize / (aspectRatio / targetAspectRatio);
-        }
-        else
-        {
-            // Screen is taller than the target
+            // Screen is taller than the target, adjust the orthographic size
             cameraSize = mainCamera.orthographicSize * (targetAspectRatio / aspectRatio);
         }
+        // Doesn't need to adjust size if the screen is wider. The background object will stretch to fit the screen width
 
         //CameraDebug($"Camera pixel size: {mainCamera.pixelWidth} x {mainCamera.pixelHeight}");
         mainCamera.orthographicSize = cameraSize;
