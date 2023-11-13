@@ -8490,6 +8490,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 693057550700478419, guid: f165c75ec0896944eb186aed4fee71ff, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7548288593409754403, guid: f165c75ec0896944eb186aed4fee71ff, type: 3}
       propertyPath: m_RenderMode
       value: 1
@@ -11222,7 +11226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2821682474597006555, guid: 19fbc9870f093ec4f9c2fc7bbfb9b27f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 815.4749
+      value: 815.475
       objectReference: {fileID: 0}
     - target: {fileID: 2821682474597006555, guid: 19fbc9870f093ec4f9c2fc7bbfb9b27f, type: 3}
       propertyPath: m_AnchoredPosition.y
