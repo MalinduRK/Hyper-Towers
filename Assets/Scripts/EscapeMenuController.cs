@@ -34,7 +34,11 @@ public class EscapeMenuController : MonoBehaviour
 
     public void Restart()
     {
-        // Level restart code here
+        // Get the name of the currently active scene
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentSceneName);
 
         // Remove muffle sound of low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);

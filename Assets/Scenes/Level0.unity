@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -4654,7 +4654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -11042,7 +11042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 393674006596759544, guid: 19fbc9870f093ec4f9c2fc7bbfb9b27f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 63.809364
+      value: 63.809357
       objectReference: {fileID: 0}
     - target: {fileID: 393674006596759544, guid: 19fbc9870f093ec4f9c2fc7bbfb9b27f, type: 3}
       propertyPath: m_AnchoredPosition.y
