@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 // This script is responsible for handling the selection of a sector in the selection circle
@@ -11,7 +10,6 @@ public class SectorSelection : MonoBehaviour
 
     [Header("Components")]
     public Sprite objectSprite;
-    private ScrapCounter scrapCounter;
     private GameInteractivity interactionManager;
     private DetailPanelController detailPanelController;
 
@@ -23,10 +21,6 @@ public class SectorSelection : MonoBehaviour
     {
         // Get the parent Selection Circle of the sector
         parentCircle = gameObject.transform.parent.gameObject;
-
-        // Find scrap manager and assign scrapCounter
-        GameObject scrapManager = GameObject.Find("ScrapManager");
-        scrapCounter = scrapManager.GetComponent<ScrapCounter>();
 
         // Assign interaction manager
         interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
@@ -75,5 +69,8 @@ public class SectorSelection : MonoBehaviour
 
         // Notify other scripts that the selection menu is closed
         detailPanelController.isSelectionMenuOpen = false;
+
+        // Notify detail panel controller that the mouse is not hovering over a sector
+        detailPanelController.isHoveringOverSector = false;
     }
 }
