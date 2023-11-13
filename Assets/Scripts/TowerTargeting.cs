@@ -15,10 +15,12 @@ public class TowerTargeting : MonoBehaviour
 
     [Header("Variables")]
     public bool enemyInRange = false;
+    public bool facingEnemy = false; // This boolean will be used by ProjectileSpawner.cs to determine if a bullet should be shot or not
     //private string enemyTag = "Enemy"; // Tag used by enemy objects
     private Vector3 enemyPos; // Position of the last detected enemy
     private Vector3 basePos; // Position of the base
     private float detectionRadius;
+    private float maxAngleDifference = 1f; // Max angle which determines if the turret is facing the enemy or not
 
     private void Start()
     {
@@ -48,11 +50,11 @@ public class TowerTargeting : MonoBehaviour
 
         /*
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition); // Mouse position
-        Vector3 lookDirection = mousePos - transform.position; // Difference between mouse and tower
-        lookDirection.z = 0; // Ensure the object stays in the same plane.
+        Vector3 enemyDirection = mousePos - transform.position; // Difference between mouse and tower
+        enemyDirection.z = 0; // Ensure the object stays in the same plane.
 
         // Calculate the rotation to look at the mouse pointer.
-        float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f; // Calculate the angle between the direction vector and the X-axis, and then convert it (rad value) to degrees
+        float angle = Mathf.Atan2(enemyDirection.y, enemyDirection.x) * Mathf.Rad2Deg - 90f; // Calculate the angle between the direction vector and the X-axis, and then convert it (rad value) to degrees
         // Adding a -90f makes it so that the barrel of the tower is pointing towards the target
         */
 
@@ -60,17 +62,36 @@ public class TowerTargeting : MonoBehaviour
         {
             // Get the position of the current target
             enemyPos = targetEnemy.transform.position;
-            Vector3 lookDirection = enemyPos - transform.position; // Difference between enemy and tower
-            lookDirection.z = 0; // Ensure the object stays in the same plane.
+            Vector3 enemyDirection = enemyPos - transform.position; // Difference between enemy and tower
+            enemyDirection.z = 0; // Ensure the object stays in the same plane.
 
             // Calculate the rotation to look at the enemy
-            float angle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90f; // Calculate the angle between the direction vector and the X-axis, and then convert it (rad value) to degrees
+            float angle = Mathf.Atan2(enemyDirection.y, enemyDirection.x) * Mathf.Rad2Deg - 90f; // Calculate the angle between the direction vector and the X-axis, and then convert it (rad value) to degrees
             // Adding a -90f makes it so that the barrel of the tower is pointing towards the target
 
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            // Apply the rotation to the object.
-            transform.rotation = rotation;
+            // Gradually rotate towards the target rotation
+            float rotationSpeed = 180f; // Adjust this value to control the rotation speed
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+
+            // Get the angle between the turret's up direction and the direction to the enemy
+            float angleDifference = Vector3.Angle(transform.up, enemyDirection);
+            //Debug.Log($"Angle difference: {angleDifference} | Up: {transform.up} | Enemy: {enemyDirection}");
+
+            // Check if the turret is facing the enemy (adjust the threshold as needed)
+            if (angleDifference < maxAngleDifference)
+            {
+                // Turret is facing the enemy
+                facingEnemy = true;
+                TargetDebug("Facing enemy");
+            }
+            else
+            {
+                facingEnemy = false;
+                TargetDebug("Not facing enemy");
+            }
         }
     }
 

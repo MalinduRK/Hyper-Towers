@@ -130,7 +130,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   enemyInRange: 0
-  targetDebug: 0
+  facingEnemy: 0
+  targetDebug: 1
 --- !u!114 &2231202175275849675
 MonoBehaviour:
   m_ObjectHideFlags: 0

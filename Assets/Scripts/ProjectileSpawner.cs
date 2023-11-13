@@ -47,7 +47,7 @@ public class ProjectileSpawner : MonoBehaviour
             ammoLoaded = true;
         }
 
-        if (towerTargeting.enemyInRange && ammoLoaded) // Shoot if an enemy is in range and an ammo is loaded
+        if (towerTargeting.enemyInRange && towerTargeting.facingEnemy && ammoLoaded) // Shoot if an enemy is in range, facing them and ammo is loaded
         {
             ShootBullet();
             // Empty the bullet
