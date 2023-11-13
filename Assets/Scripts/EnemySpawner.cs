@@ -66,6 +66,8 @@ public class EnemySpawner : MonoBehaviour
         if (!waveOngoing)
         {
             stateManager.GetComponent<GameState>().StartWave();
+            // Hide hover text
+            hoverText.SetActive(false);
         }
     }
 
