@@ -12,9 +12,10 @@ public class ProjectileSpawner : MonoBehaviour
     [Header("Components")]
     private TowerTargeting towerTargeting;
     private AudioSource laserShot;
+    private TowerData towerData; // Load all projectile related data through this
 
     [Header("Variables")]
-    private float firerate = 1f; // Fire rate of the tower (lower the faster)
+    private float firerate; // Fire rate of the tower (lower the faster)
     private float nextLoadTime; // The next time a bullet is loaded into the magazine
     private bool ammoLoaded = false; // The tower has to have this true in order to fire a shot
 
@@ -22,6 +23,9 @@ public class ProjectileSpawner : MonoBehaviour
     {
         // Get a reference to the TowerTargeting script
         towerTargeting = GetComponent<TowerTargeting>();
+
+        // Assign TowerData
+        towerData = GetComponent<TowerStats>().towerData;
 
         // Find game objects in scene
         projectilesParent = GameObject.Find("Projectiles");
@@ -32,6 +36,9 @@ public class ProjectileSpawner : MonoBehaviour
         }
 
         // TODO: This is not the final intended code. Should implement a reload function that reloads the magazine after every few shots. The reload function should run here instead.
+
+        // Assign firerate
+        firerate = towerData.firerate;
 
         // Specify the next load at the start
         nextLoadTime = Time.time + firerate;
