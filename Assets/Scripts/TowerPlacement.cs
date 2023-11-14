@@ -91,7 +91,7 @@ public class TowerPlacement : MonoBehaviour
     }
 
     // Mouse click event
-    private void OnMouseDown()
+    private void OnMouseUpAsButton()
     {
         if (!towerBuilt) // If no tower is built on the plot, build a tower
         {
