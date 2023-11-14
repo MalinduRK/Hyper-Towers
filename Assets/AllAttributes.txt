@@ -31,6 +31,10 @@ Bullet sprite
 -------------
 "Glenos-G 160 bullet" from Commando 2
 
+Enemy explosion
+---------------
+"Free 2D Impact FX" by Inguz Media
+
 Fonts
 -----
 "Ethnocentric" by Typodermic Fonts

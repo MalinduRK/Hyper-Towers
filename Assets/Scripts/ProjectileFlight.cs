@@ -3,6 +3,7 @@ using UnityEngine;
 public class ProjectileFlight : MonoBehaviour
 {
     [Header("Game Objects")]
+    public GameObject explosionPrefab;
     private GameObject targetEnemy;
 
     [Header("Components")]
@@ -42,6 +43,8 @@ public class ProjectileFlight : MonoBehaviour
         }
         else // Destroy bullet
         {
+            // Instantiate destroy particle system at the bullet's position
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -62,6 +65,9 @@ public class ProjectileFlight : MonoBehaviour
             targetEnemy.GetComponent<EnemyStats>().Hit(projectileStats.damage);
             // Perform actions when the bullet reaches the target.
             // Example: Hit the target or destroy the bullet.
+
+            // Instantiate destroy particle system at the bullet's position
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
