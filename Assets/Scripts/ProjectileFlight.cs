@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ProjectileFlight : MonoBehaviour
 {
+    [Header("Assets")]
+    [SerializeField] private AudioClip enemyHitSound;
+
     [Header("Game Objects")]
     public GameObject explosionPrefab;
     private GameObject targetEnemy;
@@ -66,8 +69,17 @@ public class ProjectileFlight : MonoBehaviour
             // Perform actions when the bullet reaches the target.
             // Example: Hit the target or destroy the bullet.
 
+            // Play enemy hit sound
+            float randVolume = Random.Range(0.1f, 1); // Add random volume
+            AudioSource.PlayClipAtPoint(enemyHitSound, transform.position, randVolume);
+
             // Instantiate destroy particle system at the bullet's position
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            GameObject particleSystem = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            // Get the main module of the Particle System
+            ParticleSystem.MainModule mainModule = explosionPrefab.GetComponent<ParticleSystem>().main;
+            // Destroy the explosionPrefab after the duration of the Particle System
+            Destroy(particleSystem, mainModule.duration);
+
             Destroy(gameObject);
         }
     }

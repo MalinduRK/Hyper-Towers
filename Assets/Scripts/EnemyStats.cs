@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
+    [Header("Assets")]
+    [SerializeField] private AudioClip explosionSound;
+
     [Header("Game Objects")]
     public GameObject explosionPrefab;
     private GameObject currentHealthBar;
@@ -60,9 +63,16 @@ public class EnemyStats : MonoBehaviour
         {
             Destroy(gameObject);
 
-            // Play destroy animation
-            // Instantiate the particle system at the enemy's position
-            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            // Instantiate the destroy particle system at the enemy's position
+            GameObject particleSystem = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+            // Get the main module of the Particle System
+            ParticleSystem.MainModule mainModule = explosionPrefab.GetComponent<ParticleSystem>().main;
+            // Destroy the explosionPrefab after the duration of the Particle System
+            Destroy(particleSystem, mainModule.duration);
+
+            // Play explosion sound
+            float randVolume = Random.Range(0.1f, 0.3f); // Add random volume
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position, randVolume);
 
             // Add 1 scrap to the total scrap count
             scrapCounter.AddScrap(enemyData.scrap_value);

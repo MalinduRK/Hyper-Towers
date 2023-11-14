@@ -25,6 +25,10 @@ Bullet sprite
 -------------
 "Glenos-G 160 bullet" from Commando 2
 
+Enemy hit/explosion SFX
+-------------
+"Grenade Sound FX" by MGWSoundDesign
+
 Enemy explosion
 ---------------
 "Free 2D Impact FX" by Inguz Media
@@ -35,6 +39,10 @@ Fonts
 "Pavelt" by Khurasan
 "Nasalization" by Typodermic Fonts
 *All of the above fonts obtained via https://www.dafont.com
+
+Custom cursor
+-------------
+"Cursor" icon by Icons8
 
 
 Note:
