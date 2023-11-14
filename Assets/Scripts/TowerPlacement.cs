@@ -3,7 +3,7 @@ using UnityEngine;
 public class TowerPlacement : MonoBehaviour
 {
     [Header("Assets")]
-    [SerializeField] private AudioClip turretBuild;
+    [SerializeField] private AudioClip[] turretBuild;
     [SerializeField] private AudioClip cannotBuild;
     [SerializeField] private AudioClip openMenu;
 
@@ -181,7 +181,8 @@ public class TowerPlacement : MonoBehaviour
             towerBuilt = true;
 
             // Play build sound
-            audioSource.clip = turretBuild;
+            int randNum = Random.Range(0,2); // Pick a random build sound from the array
+            audioSource.clip = turretBuild[randNum];
             audioSource.Play();
         }
         else // Not enough scrap

@@ -235,7 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cad59cb6e29fdf43bb1ece136f4ea65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretBuild: {fileID: 8300000, guid: 3c26b614d4f1dd9409f14ac9a20ebe87, type: 3}
+  turretBuild:
+  - {fileID: 8300000, guid: ce39f4f3755827d48a1a3ad88e33f80f, type: 3}
+  - {fileID: 8300000, guid: 21c42bf8ae2cee4488281fc5b007f29f, type: 3}
+  - {fileID: 8300000, guid: f2446ce176c9a004a87b9fea59d2239a, type: 3}
   cannotBuild: {fileID: 8300000, guid: 7b52ba83ccb718b4db1df380e497d12e, type: 3}
   openMenu: {fileID: 8300000, guid: 8c146518fc0ba5243a512ca9b734492c, type: 3}
   towerRangePrefab: {fileID: 7121255280069071225, guid: c2ebecec4f9d407498aacda63d687961, type: 3}
