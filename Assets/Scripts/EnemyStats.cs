@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     [Header("Game Objects")]
+    public GameObject explosionPrefab;
     private GameObject currentHealthBar;
     //private GameObject scrapManager; // Reference to the scrap manager
 
@@ -58,6 +59,11 @@ public class EnemyStats : MonoBehaviour
         if (enemyData.health <= 0) // Enemy is dead
         {
             Destroy(gameObject);
+
+            // Play destroy animation
+            // Instantiate the particle system at the enemy's position
+            Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
             // Add 1 scrap to the total scrap count
             scrapCounter.AddScrap(enemyData.scrap_value);
         }
