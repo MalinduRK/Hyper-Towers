@@ -140,14 +140,8 @@ public class DetailPanelController : MonoBehaviour
                         firerateText.text = towerData.firerate.ToString();
                     }
                 }
-            }
 
-            // Find the "StatsPanelBottom" object inside the "StatsPanel" child
-            Transform statsPanelBottom = statsPanel.Find("StatsPanelBottom");
-
-            if (statsPanelBottom != null)
-            {
-                // Find the "Range" child object inside the "StatsPanelBottom" child
+                // Find the "Range" child object inside the "StatsPanelTop" child
                 Transform range = statsPanelTop.Find("Range");
 
                 if (range != null)
@@ -162,9 +156,47 @@ public class DetailPanelController : MonoBehaviour
                         rangeText.text = towerData.range.ToString();
                     }
                 }
+            }
+
+            // Find the "StatsPanelBottom" object inside the "StatsPanel" child
+            Transform statsPanelBottom = statsPanel.Find("StatsPanelBottom");
+
+            if (statsPanelBottom != null)
+            {
+                // Find the "RotationSpeed" child object inside the "StatsPanelBottom" child
+                Transform rotationSpd = statsPanelBottom.Find("RotationSpeed");
+
+                if (rotationSpd != null)
+                {
+                    // Find the "RotationSpeedValue" object inside the "RotationSpeed" child
+                    Transform rotationSpeedValue = rotationSpd.Find("RotationSpeedValue");
+
+                    if (rotationSpeedValue != null)
+                    {
+                        // Update RotationSpeedValue text
+                        TextMeshProUGUI rotationSpdText = rotationSpeedValue.GetComponent<TextMeshProUGUI>();
+                        rotationSpdText.text = towerData.turn_rate.ToString();
+                    }
+                }
+
+                // Find the "ProjectileVelocity" child object inside the "StatsPanelBottom" child
+                Transform velocity = statsPanelBottom.Find("ProjectileVelocity");
+
+                if (velocity != null)
+                {
+                    // Find the "ProjectileVelocityValue" object inside the "ProjectileVelocity" child
+                    Transform velocityValue = velocity.Find("ProjectileVelocityValue");
+
+                    if (velocityValue != null)
+                    {
+                        // Update ProjectileVelocityValue text
+                        TextMeshProUGUI velocityText = velocityValue.GetComponent<TextMeshProUGUI>();
+                        velocityText.text = towerData.projectile_velocity.ToString();
+                    }
+                }
 
                 // Find the "Scrap" child object inside the "StatsPanelBottom" child
-                Transform scrap = statsPanelTop.Find("scrap");
+                Transform scrap = statsPanelBottom.Find("Scrap");
 
                 if (scrap != null)
                 {
