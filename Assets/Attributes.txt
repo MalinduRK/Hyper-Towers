@@ -40,9 +40,22 @@ Fonts
 "Nasalization" by Typodermic Fonts
 *All of the above fonts obtained via https://www.dafont.com
 
-Custom cursor
--------------
-"Cursor" icon by Icons8
+Upgrade icon
+------------
+Up arrow icons created by gungyoga04 - Flaticon
+https://www.flaticon.com/free-icons/up-arrow
+
+Sell icon (Dollar)
+------------------
+Icons made by Gregor Cresnar
+https://www.flaticon.com/authors/gregor-cresnar
+
+Lock Icon
+---------
+Icons made by Those Icons - Flaticon
+https://www.flaticon.com/authors/those-icons
+
+
 
 
 Note:

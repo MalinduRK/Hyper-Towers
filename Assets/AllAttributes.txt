@@ -49,3 +49,18 @@ Fonts
 Custom cursor
 -------------
 "Cursor" icon by Icons8
+
+Upgrade icon
+------------
+"Up arrow" icon created by gungyoga04 - Flaticon
+https://www.flaticon.com/free-icons/up-arrow
+
+Sell icon (Dollar)
+------------------
+Icons made by Gregor Cresnar - Flaticon
+https://www.flaticon.com/authors/gregor-cresnar
+
+Lock Icon
+---------
+Icons made by Those Icons - Flaticon
+https://www.flaticon.com/authors/those-icons

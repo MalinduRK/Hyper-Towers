@@ -33,12 +33,17 @@ public class SectorSelection : MonoBehaviour
     {
         // Higlight sector
 
-        // Pass tower reference and sprite to detail panel controller
-        detailPanelController.referenceObjectName = assignedAction;
-        detailPanelController.referenceSprite = objectSprite;
+        // TODO: The signal should always be sent to the detailPanelController, and the detailPanelController should check and decide on the action. This is a temporary solution
+        if (assignedAction != string.Empty && selectionCategory != "manage") // Only send signal when hovering over unlocked sector
+        {
+            Debug.Log($"Assigned action: {assignedAction} || Selection category: {selectionCategory}");
+            // Pass tower reference and sprite to detail panel controller
+            detailPanelController.referenceObjectName = assignedAction;
+            detailPanelController.referenceSprite = objectSprite;
 
-        // Notify detail panel controller that the mouse is hovering over a sector
-        detailPanelController.isHoveringOverSector = true;
+            // Notify detail panel controller that the mouse is hovering over a sector
+            detailPanelController.isHoveringOverSector = true;
+        }
     }
 
     private void OnMouseExit()
@@ -52,12 +57,21 @@ public class SectorSelection : MonoBehaviour
         // Switch statement is carried out in nested format to minimize the search time for the correct action
         switch (selectionCategory)
         {
-            case "Towers": // Build tower
+            case "towers": // Build tower
                 relatedObject.GetComponent<TowerPlacement>().BuildTower(assignedAction);
                 break;
 
-            case "Manage": // Manage tower (upgrade/raze)
-                // Nested switch here to check with assigned action
+            case "manage": // Manage tower (upgrade/raze)
+                switch (assignedAction)
+                {
+                    case "raze": // Destroy tower
+                        // Get tower plot
+                        GameObject towerPlot = transform.parent.parent.parent.gameObject;
+                        // Send signal that the tower is no longer built on it
+                        towerPlot.GetComponent<TowerPlacement>().towerBuilt = false;
+                        Destroy(relatedObject);
+                        break;
+                }
                 break;
         }
 

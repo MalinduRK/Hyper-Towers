@@ -32,8 +32,8 @@ public class TowerTargeting : MonoBehaviour
         basePos.z = 0;
 
         enemies = GameObject.Find("Enemies");
-        // Find the tower range object within the parent
-        towerRangeObject = transform.parent.Find("TowerRange(Clone)").gameObject;
+        // Find the tower range object
+        towerRangeObject = transform.Find("TowerRange").gameObject;
         // Get a reference to the 2D collider of the tower range
         //towerRangeCollider = towerRangeObject.GetComponent<CircleCollider2D>();
         // Trigger the below function right from the start (0th second) and every 0.5 seconds (2 times per second).

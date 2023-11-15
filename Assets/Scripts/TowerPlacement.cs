@@ -19,7 +19,7 @@ public class TowerPlacement : MonoBehaviour
     private AudioSource audioSource;
 
     [Header("Variables")]
-    private bool towerBuilt = false; // Bool to mark if a tower is built on the plot
+    public bool towerBuilt = false; // Bool to mark if a tower is built on the plot
     private Vector3 buildPosition; // Corrected build position for turrets
 
     private void Start()
@@ -54,14 +54,11 @@ public class TowerPlacement : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        // Check if the TowerPlots object has more than one child
-        int childCount = gameObject.transform.childCount;
-
-        if (childCount > 1) // There is a tower on the plot
+        if (towerBuilt) // There is a tower on the plot
         {
-            towerBuilt = true; // In this context, it means there is a pre-built tower in the plot in this level
-            // Show tower range object if it is found in plot
-            Transform childTransform = transform.Find("TowerRange(Clone)");
+            Transform towerTransform = transform.Find("Tower"); // Find tower
+            Transform childTransform = towerTransform.Find("TowerRange"); // Find tower range of tower
+
             if (childTransform != null)
             {
                 childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = true;
@@ -78,12 +75,17 @@ public class TowerPlacement : MonoBehaviour
 
     private void OnMouseExit()
     {
-        // Hide tower range object if it is found in plot
-        Transform childTransform = transform.Find("TowerRange(Clone)");
-        if (childTransform != null)
+        if (towerBuilt)
         {
-            childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            HoverDebug("Hidden tower range indicator");
+            // Hide tower range object if it is found in plot
+            Transform towerTransform = transform.Find("Tower"); // Find tower
+            Transform childTransform = towerTransform.Find("TowerRange"); // Find tower range of tower
+
+            if (childTransform != null)
+            {
+                childTransform.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                HoverDebug("Hidden tower range indicator");
+            }
         }
 
         towerPlotHighlight.SetActive(false);
@@ -93,7 +95,7 @@ public class TowerPlacement : MonoBehaviour
     // Mouse click event
     private void OnMouseUpAsButton()
     {
-        if (!towerBuilt) // If no tower is built on the plot, build a tower
+        if (!towerBuilt) // If no tower is built on the plot, open tower build menu
         {
             // Play menu open sound
             audioSource.clip = openMenu;
@@ -110,8 +112,6 @@ public class TowerPlacement : MonoBehaviour
             // Reference selection sectors within the selection circle
             GameObject selectionSectorTop = selectionCircle.transform.Find("SelectionSectorTop").gameObject;
 
-            //GameObject tower1Icon = Instantiate(towerPrefabs[0], selectionSectorTop.transform);
-
             // Find the sprite of the displayed game object
             Sprite towerSprite = towerPrefabs[0].GetComponent<SpriteRenderer>().sprite;
 
@@ -121,9 +121,19 @@ public class TowerPlacement : MonoBehaviour
             // Assign item references to selection sectors
             SectorSelection sectorSelection = selectionSectorTop.GetComponent<SectorSelection>();
             sectorSelection.relatedObject = gameObject;
-            sectorSelection.selectionCategory = "Towers";
+            sectorSelection.selectionCategory = "towers";
             sectorSelection.assignedAction = "Tower1";
             sectorSelection.objectSprite = towerSprite;
+
+            // TODO: Assign references to each tower as above
+        }
+        else // A tower is built, open tower menu
+        {
+            // Get reference to the TowerManagement script inside the Tower object
+            TowerManagement towerManager = gameObject.transform.Find("Tower").GetComponent<TowerManagement>();
+
+            // Open tower menu
+            towerManager.SelectTower();
         }
     }
 
@@ -159,9 +169,14 @@ public class TowerPlacement : MonoBehaviour
             // Build new tower
             GameObject newTower = Instantiate(towerPrefab, buildPosition, Quaternion.identity);
             newTower.transform.SetParent(transform);
+            // Rename tower object
+            newTower.name = "Tower";
+
             // Add range prefab
             GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
-            newRange.transform.SetParent(transform);
+            newRange.transform.SetParent(newTower.transform);
+            // Rename range object
+            newRange.name = "TowerRange";
 
             // Hide range prefab after creating
             newRange.gameObject.GetComponent<SpriteRenderer>().enabled = false;

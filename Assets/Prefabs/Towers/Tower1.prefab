@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4141895314373057501}
   - component: {fileID: 6426087156390168075}
   - component: {fileID: 8972807280723566605}
+  - component: {fileID: -7033484652419408103}
   - component: {fileID: 3632510507813665370}
   - component: {fileID: 2231202175275849675}
   - component: {fileID: 4644566191699696614}
@@ -113,6 +114,22 @@ MonoBehaviour:
     projectile_velocity: 0
     cost: 0
     scrap_value: 0
+--- !u!114 &-7033484652419408103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526146870431928437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb3a9fb6c5692b40a252765afacaba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeIcon: {fileID: 21300000, guid: f5ca891861bf32d4baad09f233704701, type: 3}
+  sellIcon: {fileID: 21300000, guid: 8733b3f2fe973674a866f1c015f76235, type: 3}
+  towerRangePrefab: {fileID: 7121255280069071225, guid: c2ebecec4f9d407498aacda63d687961, type: 3}
+  selectionCirclePrefab: {fileID: 2080869730181595404, guid: dfe49518c6a6a9b4894e97282a6e4104, type: 3}
 --- !u!114 &3632510507813665370
 MonoBehaviour:
   m_ObjectHideFlags: 0
