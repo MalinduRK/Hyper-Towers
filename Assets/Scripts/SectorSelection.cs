@@ -7,6 +7,7 @@ public class SectorSelection : MonoBehaviour
     [Header("Game Objects")]
     public GameObject relatedObject; // Game object related with the selection circle
     private GameObject parentCircle; // Parent selection circle
+    private ScrapCounter scrapManager;
 
     [Header("Components")]
     public Sprite objectSprite;
@@ -27,6 +28,9 @@ public class SectorSelection : MonoBehaviour
 
         // Assign detail panel controller
         detailPanelController = GameObject.Find("UIManager").GetComponent<DetailPanelController>();
+
+        // Assign scrap manager
+        scrapManager = GameObject.Find("ScrapManager").GetComponent<ScrapCounter>();
     }
 
     private void OnMouseEnter()
@@ -69,6 +73,11 @@ public class SectorSelection : MonoBehaviour
                         GameObject towerPlot = transform.parent.parent.parent.gameObject;
                         // Send signal that the tower is no longer built on it
                         towerPlot.GetComponent<TowerPlacement>().towerBuilt = false;
+
+                        // Return scrap
+                        int scrapValue = relatedObject.GetComponent<TowerStats>().towerData.scrap_value; // Get scrap value of the tower
+                        scrapManager.AddScrap(scrapValue);
+
                         Destroy(relatedObject);
                         break;
                 }

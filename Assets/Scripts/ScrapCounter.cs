@@ -22,7 +22,7 @@ public class ScrapCounter : MonoBehaviour
     // Add scrap to the scrap pool
     public void AddScrap(int scrapValue)
     {
-        scrapCount += scrapValue; // Add the enemy scrap to the scrap pool
+        scrapCount += scrapValue; // Add the scrap amount to the scrap pool
         UpdateScrap();
     }
 
