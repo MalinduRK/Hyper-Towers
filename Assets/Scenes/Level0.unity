@@ -9606,6 +9606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPlotsParent: {fileID: 1156498690}
+  enemySpawner: {fileID: 1180711674}
 --- !u!1001 &2047258947
 PrefabInstance:
   m_ObjectHideFlags: 0
