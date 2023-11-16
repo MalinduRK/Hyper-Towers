@@ -34,7 +34,7 @@ public class GameState : MonoBehaviour
     [Header("Variables")]
     private bool isPaused = true;
     private bool isEscaped = false; // Turns true when escape menu is open
-    //private bool gameStarted = false; // This should only be false before starting the first wave
+    private bool isGameOver = false; // This turns true when the game ends in a victory or defeat
     private float lowpassCutoff = 350f; // Cutoff frequency for the music lowpass filter
     private float lowpassCutoffDefault = 22000f; // Default cutoff frequency for the music lowpass filter
 
@@ -57,7 +57,7 @@ public class GameState : MonoBehaviour
     private void Update()
     {
         // Escape key check
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
         {
             if (isEscaped) // Already in escape menu. Resume game
             {
@@ -69,13 +69,22 @@ public class GameState : MonoBehaviour
             }
         }
 
-        // Check if the spacebar key is pressed and the escape menu is NOT open
-        if (Input.GetKeyDown(KeyCode.Space) && !isEscaped)
+        // Check if the spacebar key is pressed
+        if (Input.GetKeyDown(KeyCode.Space) && !isEscaped && !isGameOver)
         {
             // This code will run when the spacebar is pressed.
             ButtonPressDebug("Spacebar pressed!");
 
             CheckAndExecuteWave();
+        }
+
+        // Check if any key is pressed (For game end scenario)
+        if (isGameOver && Input.anyKey)
+        {
+            ButtonPressDebug("Any key is pressed!");
+
+            // Exit to main menu if any key is pressed on game over
+            uiManager.GetComponent<EscapeMenuController>().ExitToMainMenu();
         }
     }
 
@@ -188,6 +197,7 @@ public class GameState : MonoBehaviour
         // Lower music volume
         StartCoroutine(musicManager.LowerMusic());
 
+        isGameOver = true;
         GameStateDebug("Game over");
     }
 
@@ -202,6 +212,7 @@ public class GameState : MonoBehaviour
         // Lower music volume
         StartCoroutine(musicManager.LowerMusic());
 
+        isGameOver = true;
         GameStateDebug("Victory");
     }
 
