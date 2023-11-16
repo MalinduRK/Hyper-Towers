@@ -21,7 +21,6 @@ public class GameState : MonoBehaviour
 
     [Header("Game Managers")]
     [SerializeField] private GameObject waveManager;
-    [SerializeField] private GameObject notificationManager;
     [SerializeField] private GameInteractivity interactionManager;
     [SerializeField] private GameObject uiManager;
     [SerializeField] private GameObject settingsManager;
@@ -150,11 +149,6 @@ public class GameState : MonoBehaviour
         // Start wave
         WaveController waveController = waveManager.GetComponent<WaveController>();
         waveController.StartNewWave();
-
-        // Update notification text
-        NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
-        notificationController.ClearText();
-        notificationController.DisableAnimations();
 
         // Change play button to pause button
         uiManager.GetComponent<PlayButtonController>().StartWave();

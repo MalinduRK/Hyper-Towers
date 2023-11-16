@@ -1,48 +1,49 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class NotificationController : MonoBehaviour
 {
     [Header("Game Objects")]
-    private TextMeshProUGUI notificationText;
-
-    [Header("Components")]
-    private Animator _animator;
-
-    private void Start()
-    {
-        // Assign TMP component
-        notificationText = GetComponent<TextMeshProUGUI>();
-        // Set starting text
-        notificationText.text = "Press space to start";
-        // Assign animator component
-        _animator = GetComponent<Animator>();
-    }
+    [SerializeField] private GameObject notificationPanel;
+    [SerializeField] private TextMeshProUGUI notificationText;
 
     public void ClearText()
     {
-        notificationText.text = null;
+        notificationText.text = string.Empty;
     }
 
-    public void NextWaveNotifier()
+    public void WaveCompleteNotifier()
     {
-        notificationText.text = "Press space to start next wave";
-        EnableAnimations();
+        string notificationString = "Wave complete";
+        ShowNotification(notificationString);
+    }
+
+    public void NextWaveNotifier(int waveNumber)
+    {
+        string notificationString = "Wave " + waveNumber;
+        ShowNotification(notificationString);
     }
 
     public void FinalWaveNotifier()
     {
-        notificationText.text = "Final wave";
-        EnableAnimations();
+        string notificationString = "Final wave";
+        ShowNotification(notificationString);
     }
 
-    public void EnableAnimations()
+    public void ShowNotification(string notificationString)
     {
-        _animator.enabled = true;
+        notificationPanel.SetActive(true);
+        notificationText.text = notificationString;
+        StartCoroutine(HideNotification());
     }
 
-    public void DisableAnimations()
+    private IEnumerator HideNotification()
     {
-        _animator.enabled = false;
+        // Wait for 3 seconds and then disable panel
+        yield return new WaitForSeconds(3f);
+
+        ClearText();
+        notificationPanel.SetActive(false);
     }
 }

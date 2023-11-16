@@ -12,7 +12,11 @@ UI sounds (escape menu enter/exit, menu clicks, call wave, etc.)
 ----------------------------------------------------------------
 "SCI-FI User Interface SFX" by Sound Works 12
 
-Victory/Defeat sounds
+Victory sound
+-------------
+"AVA - Sci Fi - Free Pack" on https://epicsoundeffects.com/
+
+Defeat sound
 ---------------------
 "Sci-Fi Sfx" by Little Robot Sound Factory
 

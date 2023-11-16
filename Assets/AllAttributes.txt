@@ -64,3 +64,8 @@ Lock Icon
 ---------
 Icons made by Those Icons - Flaticon
 https://www.flaticon.com/authors/those-icons
+
+mixkit-dark-synth-oscillator-646
+"Dark synth oscillator" Mixkit
+
+"AVA - Sci Fi - Free Pack" on https://epicsoundeffects.com/

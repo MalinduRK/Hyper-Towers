@@ -19,7 +19,6 @@ public class WaveController : MonoBehaviour
     [SerializeField] private GameObject enemySpawnerObject;
     [SerializeField] private GameObject enemiesParent; // Parent class holding all enemy objects
     //--Game managers
-    [SerializeField] private GameObject notificationManager;
     [SerializeField] private GameObject stateManager;
     [SerializeField] private GameObject dataManager;
 
@@ -28,7 +27,7 @@ public class WaveController : MonoBehaviour
     private AudioSource audioSource;
 
     [Header("Variables")]
-    private int waveId = 0; // Current wave
+    public int waveId = 0; // Current wave
     private List<WaveData> waveData; // Wave data
     private bool isFinalWave = false; // Check whether if its the final wave
 
@@ -97,18 +96,26 @@ public class WaveController : MonoBehaviour
             // Trigger wave
             enemySpawner.SpawnEnemies(currentWave);
 
-            // Play audio
-            if (!isFinalWave) // Normal wave call sound
+            // Play audio and display notification
+            if (!isFinalWave) // Normal wave
             {
+                // Notify player that the nth wave has started
+                NotificationController notificationController = stateManager.GetComponent<NotificationController>();
+                notificationController.NextWaveNotifier(waveId + 1);
+
                 audioSource.volume = 1f;
                 audioSource.clip = callWave;
                 audioSource.Play();
             }
-            else // Final wave call sound
+            else // Final wave
             {
                 audioSource.volume = 0.2f;
                 audioSource.clip = callFinalWave;
                 audioSource.Play();
+
+                // Notify player that the final wave has started
+                NotificationController notificationController = stateManager.GetComponent<NotificationController>();
+                notificationController.FinalWaveNotifier();
             }
         }
         else // Finished last wave
@@ -138,9 +145,9 @@ public class WaveController : MonoBehaviour
             isFinalWave = true;
             WaveDebug("Get ready for the final wave");
 
-            // Notify final wave to player
-            NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
-            notificationController.FinalWaveNotifier();
+            // Notify player that the wave has ended
+            NotificationController notificationController = stateManager.GetComponent<NotificationController>();
+            notificationController.WaveCompleteNotifier();
 
             // Play audio
             audioSource.volume = 0.5f;
@@ -151,8 +158,8 @@ public class WaveController : MonoBehaviour
         {
             WaveDebug("End of wave");
             // Notify player that the wave has ended
-            NotificationController notificationController = notificationManager.GetComponent<NotificationController>();
-            notificationController.NextWaveNotifier();
+            NotificationController notificationController = stateManager.GetComponent<NotificationController>();
+            notificationController.WaveCompleteNotifier();
 
             // Play audio
             audioSource.volume = 0.5f;
