@@ -55,7 +55,7 @@ public class SettingsController : MonoBehaviour
                 {
                     if (resolutions[i].width == resolutions[i - 1].width && resolutions[i].height == resolutions[i - 1].height)
                     {
-                        return;
+                        continue;
                     }
                 }
 
