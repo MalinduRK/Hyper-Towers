@@ -37,6 +37,9 @@ public class EscapeMenuController : MonoBehaviour
         // Get the name of the currently active scene
         string currentSceneName = SceneManager.GetActiveScene().name;
 
+        // Resume game
+        gameState.ResumeGame();
+
         // Reload the current scene
         SceneManager.LoadScene(currentSceneName);
 
