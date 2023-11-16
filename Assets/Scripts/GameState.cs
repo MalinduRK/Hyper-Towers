@@ -109,6 +109,7 @@ public class GameState : MonoBehaviour
     public void CloseEscapeMenu()
     {
         ResumeGame();
+        
         interactionManager.EnableInteractions();
 
         // Save settings if menu is closed from the settings menu
@@ -177,8 +178,11 @@ public class GameState : MonoBehaviour
         Time.timeScale = 1; // This will resume the game
         isPaused = false;
 
-        // Change play button to pause button
-        uiManager.GetComponent<PlayButtonController>().ResumeWave();
+        // Change play button to pause button if wave is ongoing
+        if (enemySpawner.GetComponent<EnemySpawner>().waveOngoing)
+        {
+            uiManager.GetComponent<PlayButtonController>().ResumeWave();
+        }
 
         GameStateDebug("Game resumed");
     }
