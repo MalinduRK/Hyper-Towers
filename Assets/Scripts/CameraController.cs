@@ -35,6 +35,8 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        /*
+        // Zoom camera when scrolling
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
         // Adjust the orthographic size based on the scroll input.
@@ -45,6 +47,7 @@ public class CameraController : MonoBehaviour
 
         // Set the new orthographic size.
         mainCamera.orthographicSize = newSize;
+        */
     }
 
 
