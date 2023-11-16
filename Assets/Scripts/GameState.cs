@@ -112,7 +112,10 @@ public class GameState : MonoBehaviour
         interactionManager.EnableInteractions();
 
         // Save settings if menu is closed from the settings menu
-        settingsReaderWriter.SaveSettings();
+        if (settingsPanel.activeSelf)
+        {
+            settingsReaderWriter.SaveSettings();
+        }
 
         escapeMenuPanel.SetActive(false);
 
