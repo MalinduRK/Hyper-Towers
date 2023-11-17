@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -18,6 +19,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameObject enemySpawner;
     [SerializeField] private GameObject escapeButtonPanel;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject tutorialPanel;
 
     [Header("Game Managers")]
     [SerializeField] private GameObject waveManager;
@@ -34,6 +36,8 @@ public class GameState : MonoBehaviour
     private bool isPaused = true;
     private bool isEscaped = false; // Turns true when escape menu is open
     private bool isGameOver = false; // This turns true when the game ends in a victory or defeat
+    private bool spacebarEnabled = true; // This controls whether the spacebar resumes/pauses the game or not
+    private bool escapeEnabled = true; // This controls whether the esc key opens/closes the escape menu
     private float lowpassCutoff = 350f; // Cutoff frequency for the music lowpass filter
     private float lowpassCutoffDefault = 22000f; // Default cutoff frequency for the music lowpass filter
 
@@ -51,12 +55,16 @@ public class GameState : MonoBehaviour
 
         // Assign settingsReaderWriter
         settingsReaderWriter = settingsManager.GetComponent<SettingsReaderWriter>();
+
+        // Open tutorial panel on start if it hadn't been seen by the player before
+        //interactionManager.DisableInteractions(); // Prevent player from playing the game until tutorial panel is closed
+        StartCoroutine(StartTutorial()); // Open tutorial after a slight delay to let the player see the game
     }
 
     private void Update()
     {
         // Escape key check
-        if (Input.GetKeyDown(KeyCode.Escape) && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Escape) && escapeEnabled)
         {
             if (isEscaped) // Already in escape menu. Resume game
             {
@@ -69,7 +77,7 @@ public class GameState : MonoBehaviour
         }
 
         // Check if the spacebar key is pressed
-        if (Input.GetKeyDown(KeyCode.Space) && !isEscaped && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.Space) && spacebarEnabled)
         {
             // This code will run when the spacebar is pressed.
             ButtonPressDebug("Spacebar pressed!");
@@ -87,6 +95,27 @@ public class GameState : MonoBehaviour
         }
     }
 
+    public IEnumerator StartTutorial()
+    {
+        yield return new WaitForSeconds(1f);
+
+        tutorialPanel.SetActive(true);
+        // Disable space key press until the tutorial is over
+        spacebarEnabled = false;
+        // Muffle sound using a low pass filter
+        audioMixer.SetFloat("bgmLowpass", lowpassCutoff);
+    }
+
+    public void EndTutorial()
+    {
+        tutorialPanel.SetActive(false);
+        // Re-enable spacebar
+        spacebarEnabled = true;
+        interactionManager.EnableInteractions();
+        // Remove muffle sound of low pass filter
+        audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
+    }
+
     // Below two functions control what happens when escape button is pressed
     public void OpenEscapeMenu()
     {
@@ -99,6 +128,7 @@ public class GameState : MonoBehaviour
         settingsPanel.SetActive(false);
 
         isEscaped = true;
+        spacebarEnabled = false;
         // Muffle sound using a low pass filter
         audioMixer.SetFloat("bgmLowpass", lowpassCutoff);
 
@@ -108,9 +138,18 @@ public class GameState : MonoBehaviour
 
     public void CloseEscapeMenu()
     {
+        // Limit certain functionality if escape menu is opened while the tutorialPanel is active
+        if (!tutorialPanel.activeSelf)
+        {
+            interactionManager.EnableInteractions();
+
+            spacebarEnabled = true;
+
+            // Remove muffle sound of low pass filter
+            audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
+        }
+
         ResumeGame();
-        
-        interactionManager.EnableInteractions();
 
         // Save settings if menu is closed from the settings menu
         if (settingsPanel.activeSelf)
@@ -121,8 +160,6 @@ public class GameState : MonoBehaviour
         escapeMenuPanel.SetActive(false);
 
         isEscaped = false;
-        // Remove muffle sound of low pass filter
-        audioMixer.SetFloat("bgmLowpass", lowpassCutoffDefault);
 
         // Play menu close sound
         interfaceAudioManager.PlayClip(escapeMenuCloseSound);
@@ -199,6 +236,8 @@ public class GameState : MonoBehaviour
         StartCoroutine(musicManager.LowerMusic());
 
         isGameOver = true;
+        escapeEnabled = false;
+        spacebarEnabled = false;
         GameStateDebug("Game over");
     }
 
@@ -214,6 +253,8 @@ public class GameState : MonoBehaviour
         StartCoroutine(musicManager.LowerMusic());
 
         isGameOver = true;
+        escapeEnabled = false;
+        spacebarEnabled = false;
         GameStateDebug("Victory");
     }
 
