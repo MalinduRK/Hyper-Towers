@@ -20,7 +20,7 @@ public class TowerManagement : MonoBehaviour
     public void SelectTower()
     {
         // Create new selection circle
-        GameObject selectionCircle = Instantiate(selectionCirclePrefab, transform);
+        GameObject selectionCircle = Instantiate(selectionCirclePrefab, transform.parent);
 
         // Disable interactions with outside objects
         interactionManager.DisableInteractions();

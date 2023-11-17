@@ -70,7 +70,7 @@ public class SectorSelection : MonoBehaviour
                 {
                     case "raze": // Destroy tower
                         // Get tower plot
-                        GameObject towerPlot = transform.parent.parent.parent.gameObject;
+                        GameObject towerPlot = transform.parent.parent.gameObject;
                         // Send signal that the tower is no longer built on it
                         towerPlot.GetComponent<TowerPlacement>().towerBuilt = false;
 
