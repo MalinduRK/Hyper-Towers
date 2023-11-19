@@ -1868,8 +1868,9 @@ GameObject:
   - component: {fileID: 1562883177}
   - component: {fileID: 1562883176}
   - component: {fileID: 1562883178}
+  - component: {fileID: 1562883179}
   m_Layer: 0
-  m_Name: SettingsLoader
+  m_Name: DataLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1916,6 +1917,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2076d23c80591fc4ca9e622bb958f001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1562883179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562883175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af450bac92c14b549ac434212ea9780e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1642451318
@@ -2156,7 +2169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -7.1694, y: -39.39}
+  m_AnchoredPosition: {x: -7.1694, y: -39.390015}
   m_SizeDelta: {x: 392.5, y: 153.3}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1847480756
