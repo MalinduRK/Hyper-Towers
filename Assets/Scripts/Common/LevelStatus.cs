@@ -34,6 +34,8 @@ public class LevelStatus : MonoBehaviour
         // Mark tutorial completion as true
         levelStatusData.tutorialCompleted = true;
 
+        updatedJson = JsonUtility.ToJson(levelStatusData);
+
         // Write new json data to file
         try
         {

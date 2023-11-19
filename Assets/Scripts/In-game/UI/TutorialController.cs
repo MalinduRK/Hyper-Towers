@@ -4,6 +4,7 @@ public class TutorialController : MonoBehaviour
 {
     [Header("Game Obejcts")]
     [SerializeField] private GameObject stateManager;
+    [SerializeField] private GameObject dataManager;
     [SerializeField] private GameObject[] tutorialPanes;
 
     [Header("Variables")]
@@ -55,5 +56,7 @@ public class TutorialController : MonoBehaviour
     public void CloseTutorial()
     {
         stateManager.GetComponent<GameState>().EndTutorial();
+        // Mark tutorial as complete
+        dataManager.GetComponent<LevelStatus>().CompleteTutorial();
     }
 }

@@ -26,11 +26,13 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameInteractivity interactionManager;
     [SerializeField] private GameObject uiManager;
     [SerializeField] private GameObject settingsManager;
+    [SerializeField] private GameObject dataManager;
 
     [Header("Components")]
     private InterfaceAudioHandler interfaceAudioManager; // Persistent audio manager
     private MusicController musicManager; // Persistent audio manager
     private SettingsReaderWriter settingsReaderWriter;
+    private LevelStatus levelStatus;
 
     [Header("Variables")]
     private bool isPaused = true;
@@ -56,9 +58,16 @@ public class GameState : MonoBehaviour
         // Assign settingsReaderWriter
         settingsReaderWriter = settingsManager.GetComponent<SettingsReaderWriter>();
 
+        // Load level status
+        levelStatus = dataManager.GetComponent<LevelStatus>();
+        LevelStatusData levelStatusData = levelStatus.ReadLevelStatus();
+
         // Open tutorial panel on start if it hadn't been seen by the player before
         //interactionManager.DisableInteractions(); // Prevent player from playing the game until tutorial panel is closed
-        StartCoroutine(StartTutorial()); // Open tutorial after a slight delay to let the player see the game
+        if (!levelStatusData.tutorialCompleted) // Load tutorial only if hasn't been completed
+        {
+            StartCoroutine(StartTutorial()); // Open tutorial after a slight delay to let the player see the game
+        }
     }
 
     private void Update()

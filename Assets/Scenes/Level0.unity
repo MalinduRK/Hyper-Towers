@@ -3909,6 +3909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateManager: {fileID: 1392893525}
+  dataManager: {fileID: 487536176}
   tutorialPanes:
   - {fileID: 330983340}
   - {fileID: 272111896}
@@ -4004,6 +4005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 487536177}
+  - component: {fileID: 487536179}
   - component: {fileID: 487536178}
   m_Layer: 0
   m_Name: DataManager
@@ -4042,6 +4044,18 @@ MonoBehaviour:
   waveJson: {fileID: 4900000, guid: bf5539373ef176e41b97bea8c708026a, type: 3}
   towerJson: {fileID: 4900000, guid: 3d0d771b50ba64748aa4e81e95a21aea, type: 3}
   enemyJson: {fileID: 4900000, guid: f2bf9362f2759294d8706a30427a5a6b, type: 3}
+--- !u!114 &487536179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487536176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af450bac92c14b549ac434212ea9780e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &493558610
 GameObject:
   m_ObjectHideFlags: 0
@@ -9813,12 +9827,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 487536177}
   - {fileID: 1392893527}
   - {fileID: 585686776}
   - {fileID: 1309665701}
   - {fileID: 2030696898}
   - {fileID: 1042540558}
-  - {fileID: 487536177}
   - {fileID: 1865141295}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -11648,6 +11662,7 @@ MonoBehaviour:
   interactionManager: {fileID: 2030696899}
   uiManager: {fileID: 1042540557}
   settingsManager: {fileID: 1865141294}
+  dataManager: {fileID: 487536176}
   buttonPressDebug: 0
   gameStateDebug: 1
 --- !u!4 &1392893527
