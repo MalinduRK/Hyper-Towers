@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class NavigationController : MonoBehaviour
 {
+    [SerializeField] private GameObject tutorialPanel;
+
     public void LoadMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
@@ -12,6 +14,16 @@ public class NavigationController : MonoBehaviour
     public void LoadLevelSelectionMenu()
     {
         SceneManager.LoadScene("LevelSelection");
+    }
+
+    public void OpenTutorial()
+    {
+        tutorialPanel.SetActive(true);
+    }
+
+    public void CloseTutorial()
+    {
+        tutorialPanel.SetActive(false);
     }
 
     public void LoadSettings()
