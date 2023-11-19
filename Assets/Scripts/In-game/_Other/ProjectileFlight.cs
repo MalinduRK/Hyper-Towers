@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ProjectileFlight : MonoBehaviour
 {
     [Header("Assets")]
+    public AudioMixer audioMixer;
     [SerializeField] private AudioClip enemyHitSound;
 
     [Header("Game Objects")]
@@ -71,7 +73,17 @@ public class ProjectileFlight : MonoBehaviour
 
             // Play enemy hit sound
             float randVolume = Random.Range(0.1f, 1); // Add random volume
-            AudioSource.PlayClipAtPoint(enemyHitSound, transform.position, randVolume);
+            audioMixer.GetFloat("sfxVolume", out float currentSFXVolume); // Get sfx volume
+            // Convert audio mixer volume to actual volume units of the audio source (the volume sliders in settings go from 0 to -20)
+            float sfxVolumePercent = 0; // Set volume to 0 if audio mixer is at -80db
+            if (currentSFXVolume != -80) // If not, set volume
+            {
+                sfxVolumePercent = (currentSFXVolume + 20) / 20;
+            }
+
+            float volume = randVolume * sfxVolumePercent;
+            //Debug.Log($"current sfx: {currentSFXVolume} | converted sfx : {sfxVolumePercent} | volume: {volume}");
+            AudioSource.PlayClipAtPoint(enemyHitSound, transform.position, volume);
 
             // Instantiate destroy particle system at the bullet's position
             GameObject particleSystem = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
