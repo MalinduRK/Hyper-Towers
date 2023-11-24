@@ -69,3 +69,7 @@ mixkit-dark-synth-oscillator-646
 "Dark synth oscillator" Mixkit
 
 "AVA - Sci Fi - Free Pack" on https://epicsoundeffects.com/
+
+Infinity icon
+-------------
+<div> Icons made by <a href="https://www.flaticon.com/authors/kmg-design" title="kmg design"> kmg design </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>

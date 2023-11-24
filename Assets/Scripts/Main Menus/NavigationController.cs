@@ -36,6 +36,15 @@ public class NavigationController : MonoBehaviour
         SceneManager.LoadScene("CreditsScreen");
     }
 
+    public void LoadLevelEndless()
+    {
+        // Load loading screen
+        SceneManager.LoadScene("LoadingScreen");
+
+        // Load the new scene asynchronously, with the loading screen
+        StartCoroutine(LoadSceneAsync("LevelEndless"));
+    }
+
     public void LoadLevel0()
     {
         // Load loading screen
