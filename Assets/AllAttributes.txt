@@ -73,3 +73,7 @@ mixkit-dark-synth-oscillator-646
 Infinity icon
 -------------
 <div> Icons made by <a href="https://www.flaticon.com/authors/kmg-design" title="kmg design"> kmg design </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+Arrow icon
+----------
+<div> Icons made by <a href="https://www.flaticon.com/authors/roundicons-premium" title="Roundicons Premium"> Roundicons Premium </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
