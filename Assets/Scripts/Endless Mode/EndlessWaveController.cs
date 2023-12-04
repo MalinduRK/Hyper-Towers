@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class EndlessWaveController : MonoBehaviour
 {
     [Header("Assets")]
-    [SerializeField] private TextAsset waveJson; // Reference to wave_data.json file
     [SerializeField] private AudioClip callWave;
     [SerializeField] private AudioClip callFinalWave;
     [SerializeField] private AudioClip waveClear;
@@ -28,7 +27,7 @@ public class EndlessWaveController : MonoBehaviour
 
     [Header("Variables")]
     public int waveId = 0; // Current wave
-    private List<WaveData> waveData; // Wave data
+    private WaveData waveData; // Wave data
     private bool isFinalWave = false; // Check whether if its the final wave
 
     private void Start()
@@ -58,24 +57,17 @@ public class EndlessWaveController : MonoBehaviour
             return;
         }
 
-        // Assign DataReader.cs
-        DataReader dataReader = dataManager.GetComponent<DataReader>();
-
-        // Access wave data for the current level
-        waveData = dataReader.ReadWaveData(currentLevel);
+        // Set first wave data
+        waveData = new WaveData
+        {
+            enemy_count = 5,
+            spawn_interval = 2.0f,
+            enemies = new string[] { "Enemy1" },
+            pattern = "single"
+        };
 
         // Get reference to EnemySpawner component in enemySpawner object
         enemySpawner = enemySpawnerObject.GetComponent<EnemySpawner>();
-
-        // Access the data, e.g., accessing wave1 of level0.
-        /*
-        foreach (WaveData wave in waves)
-        {
-            Debug.Log("Enemy Count: " + wave.enemy_count);
-            Debug.Log("Spawn Interval: " + wave.spawn_interval);
-            // Access other wave properties as needed.
-        }
-        */
 
         // Assign audio source
         audioSource = GetComponent<AudioSource>();
@@ -87,9 +79,9 @@ public class EndlessWaveController : MonoBehaviour
         int enemyCount = enemiesParent.transform.childCount;
 
         // Start wave only if there are no enemies remaining in the scene
-        if ((waveId < waveData.Count) && (enemyCount == 0)) // Handle exceptions
+        if (enemyCount == 0) // Handle exceptions
         {
-            WaveData currentWave = waveData[waveId]; 
+            WaveData currentWave = CreateNewWave(waveId); 
 
             // Update text
             waveText.text = $"{waveId + 1}"; // Wave id starts from 0, but the 0th wave is wave 1
@@ -124,48 +116,35 @@ public class EndlessWaveController : MonoBehaviour
         }
     }
 
+    // Use this function to create new waves, infinitely
+    private WaveData CreateNewWave(int waveId)
+    {
+        WaveData previousWaveData = waveData;
+
+        // Change stats of the next wave
+        waveData = new WaveData
+        {
+            enemy_count = previousWaveData.enemy_count + 5,
+            spawn_interval = previousWaveData.spawn_interval - 0.1f,
+            enemies = previousWaveData.enemies,
+            pattern = previousWaveData.pattern
+        };
+
+        return waveData;
+    }
+
     // This function runs only after all the enemies of a wave are defeated
     public void CheckGameEnd()
     {
-        Debug.Log("Checking game end");
-        if (isFinalWave) // This is the final wave
-        {
-            // Get remaining base HP
-            int baseHP = int.Parse(baseHealthText.text);
+        WaveDebug("End of wave");
+        // Notify player that the wave has ended
+        NotificationController notificationController = stateManager.GetComponent<NotificationController>();
+        notificationController.WaveCompleteNotifier();
 
-            // Victory is achieved only if there is at least 1HP remaining. Otherwise Pathfinder.cs script will handle the game over
-            if (baseHP > 0)
-            {
-                GameState gameState = stateManager.GetComponent<GameState>();
-                gameState.Victory();
-            }
-        }
-        else if (waveId + 2 == waveData.Count) // Next wave is the final wave
-        {
-            isFinalWave = true;
-            WaveDebug("Get ready for the final wave");
-
-            // Notify player that the wave has ended
-            NotificationController notificationController = stateManager.GetComponent<NotificationController>();
-            notificationController.WaveCompleteNotifier();
-
-            // Play audio
-            audioSource.volume = 0.5f;
-            audioSource.clip = waveClear;
-            audioSource.Play();
-        }
-        else // This or the next wave isn't the final wave
-        {
-            WaveDebug("End of wave");
-            // Notify player that the wave has ended
-            NotificationController notificationController = stateManager.GetComponent<NotificationController>();
-            notificationController.WaveCompleteNotifier();
-
-            // Play audio
-            audioSource.volume = 0.5f;
-            audioSource.clip = waveClear;
-            audioSource.Play();
-        }
+        // Play audio
+        audioSource.volume = 0.5f;
+        audioSource.clip = waveClear;
+        audioSource.Play();
 
         // Prepare for next wave
         waveId++;
