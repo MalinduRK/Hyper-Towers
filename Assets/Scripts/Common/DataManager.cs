@@ -14,6 +14,9 @@ public class WaveData
 [System.Serializable]
 public class LevelData
 {
+    public int starting_scrap;
+    public List<string> enemy_types;
+    public List<string> tower_types;
     public List<WaveData> waves;
 }
 

@@ -7,6 +7,31 @@
             "waves": [
                 {
                     "enemy_count": "10",
+                    "spawn_interval": "3f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single"
+                },
+                {
+                    "enemy_count": "15",
+                    "spawn_interval": "2f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single"
+                },
+                {
+                    "enemy_count": "20",
+                    "spawn_interval": "1.5f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single"
+                }
+            ]
+        },
+        {
+            "starting_scrap": "10",
+            "enemy_types": ["Enemy1", "Enemy2"],
+            "tower_types": ["Tower1", "Tower2"],
+            "waves": [
+                {
+                    "enemy_count": "10",
                     "spawn_interval": "2f",
                     "enemies": ["Enemy1"],
                     "pattern": "single"
