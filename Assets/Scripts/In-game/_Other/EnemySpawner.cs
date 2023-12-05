@@ -84,10 +84,17 @@ public class EnemySpawner : MonoBehaviour
             case "single":
                 StartCoroutine(Single(waveData));
                 break;
+
+            case "single_burst":
+                StartCoroutine(SingleBurst(waveData));
+                break;
         }
     }
 
-    // Spawn a single enemy for the entire wave
+
+    //--Spawn patterns
+
+    // Spawn a single enemy type for the entire wave
     private IEnumerator Single(WaveData wave)
     {
         // Display total number of enemies this wave
@@ -133,6 +140,62 @@ public class EnemySpawner : MonoBehaviour
             yield break;
         }
     }
+
+    // Spawn a single enemy type in bursts
+    private IEnumerator SingleBurst(WaveData wave)
+    {
+        // Display total number of enemies this wave
+        int enemiesLeft = wave.enemy_count;
+        enemyCountText.text = enemiesLeft.ToString();
+
+        GameObject enemyPrefab = enemies[0]; // Current enemy prefab (Assign default for initialization)
+
+        // Get the correct enemy prefab from the enemies array
+        foreach (GameObject enemy in enemies)
+        {
+            // Find the enemy prefab matching the json data
+            if (enemy.name == wave.enemies[0]) // Only the first entry is checked since this is a Single pattern
+            {
+                enemyPrefab = enemy;
+            }
+        }
+
+        if (enemyPrefab != null) // Run the code only if the enemy prefab is found
+        {
+            // Here, the enemy count is divided by the burst count so that this for loop can spawn a burst at once
+            for (int i = 0; i < wave.enemy_count / wave.burst_count; i++) // Loop spawner until all enemies are spawned
+            {
+                // Spawn a burst
+                for (int j = 0; j < wave.burst_count; j++)
+                {
+                    // Instantiate a new enemy from the prefab.
+                    GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+                    // Set the parent of the spawned enemy to the enemiesParent.
+                    newEnemy.transform.parent = enemiesParent;
+
+                    // Update number of enemies left to spawn
+                    enemyCountText.text = (--enemiesLeft).ToString();
+
+                    // Wait for the specified interval before spawning the next enemy.
+                    yield return new WaitForSeconds(wave.burst_delay);
+                }
+
+                // Wait for the specified interval before spawning the next burst.
+                yield return new WaitForSeconds(wave.spawn_interval);
+            }
+
+            EnemyCountDebug("All enemies spawned");
+            StartCoroutine(TrackEnemies());
+        }
+        else
+        {
+            Debug.LogError("Enemy prefab not found");
+
+            yield break;
+        }
+    }
+
 
     // Function to track the remaining enemies of a wave
     private IEnumerator TrackEnemies()

@@ -54,6 +54,15 @@ public class NavigationController : MonoBehaviour
         StartCoroutine(LoadSceneAsync("Level0"));
     }
 
+    public void LoadLevel1()
+    {
+        // Load loading screen
+        SceneManager.LoadScene("LoadingScreen");
+
+        // Load the new scene asynchronously, with the loading screen
+        StartCoroutine(LoadSceneAsync("Level1"));
+    }
+
     // Use this function to load scene with the loading screen
     IEnumerator LoadSceneAsync(string sceneName)
     {

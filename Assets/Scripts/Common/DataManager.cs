@@ -9,6 +9,8 @@ public class WaveData
     public float spawn_interval;
     public string[] enemies;
     public string pattern;
+    public int burst_count;
+    public float burst_delay;
 }
 
 [System.Serializable]

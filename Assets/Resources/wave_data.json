@@ -32,21 +32,25 @@
             "waves": [
                 {
                     "enemy_count": "10",
-                    "spawn_interval": "2f",
-                    "enemies": ["Enemy1"],
-                    "pattern": "single"
-                },
-                {
-                    "enemy_count": "15",
-                    "spawn_interval": "1.5f",
+                    "spawn_interval": "3f",
                     "enemies": ["Enemy1"],
                     "pattern": "single"
                 },
                 {
                     "enemy_count": "20",
-                    "spawn_interval": "1.5f",
+                    "spawn_interval": "3f",
                     "enemies": ["Enemy1"],
-                    "pattern": "single"
+                    "pattern": "single_burst",
+                    "burst_count": "2",
+                    "burst_delay": "0.5f"
+                },
+                {
+                    "enemy_count": "30",
+                    "spawn_interval": "2f",
+                    "enemies": ["Enemy1"],
+                    "pattern": "single_burst",
+                    "burst_count": "3",
+                    "burst_delay": "0.3f"
                 }
             ]
         }

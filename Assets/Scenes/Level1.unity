@@ -4744,6 +4744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrapCountText: {fileID: 715162332}
+  dataManager: {fileID: 487536176}
 --- !u!4 &585686776
 Transform:
   m_ObjectHideFlags: 0
