@@ -139,9 +139,12 @@ public class TowerTargeting : MonoBehaviour
 
                 GameObject enemyInView = collider.gameObject; // The current enemy in calculation
 
-                // Calculate the distance from enemy to the base
-                Vector3 newEnemyPos = enemyInView.transform.position;
-                float distanceToBase = Vector3.Distance(newEnemyPos, basePos);
+                // Get the distance from enemy to the base
+                float distanceToBase = enemyInView.GetComponent<EnemyStats>().distanceToBase;
+
+                /*Vector3 newEnemyPos = enemyInView.transform.position;
+                float distanceToBase = Vector3.Distance(newEnemyPos, basePos);*/
+
                 if (distanceToBase < shortestDistance) // Target this enemy only if it is has the shorter distance out of all enemies in range
                 {
                     shortestDistance = distanceToBase;

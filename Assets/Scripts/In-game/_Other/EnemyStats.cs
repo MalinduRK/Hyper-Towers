@@ -18,8 +18,10 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Variables")]
     public EnemyData enemyData = new EnemyData();
+    public float distanceToBase; // Path distance from this enemy to the base
     private float enemyMaxHP; // Max HP of enemy
     private float lengthFactor; // Factor which represents 1 unit of HP in terms of length of the health bar
+    private Vector3 previousPosition; // Constantly updated enemy position
 
     // Start is called before the first frame update
     private void Start()
@@ -54,6 +56,45 @@ public class EnemyStats : MonoBehaviour
         // Multiply any HP unit by the length factor to get the actual length of the health bar
 
         //Debug.Log($"Length factor: {lengthFactor}");
+
+        // Set starting distance of the enemy towards the base
+        GameObject waypointContainer = GameObject.Find("Waypoints"); // Find the waypoints container
+
+
+        Vector2 previousWaypointPosition = Vector2.zero; // This variable stores the current waypoint position for the next iteration to access inside the for loop
+
+        // Add the distances between each waypoint starting from the spawned position
+        for (int i = 0; i < waypointContainer.transform.childCount; i++)
+        {
+            Transform waypoint = waypointContainer.transform.GetChild(i);
+            Vector2 waypointPosition = waypoint.position;
+            
+            // Add distance to base
+            if (i == 0) // First waypoint
+            {
+                distanceToBase = Vector2.Distance(gameObject.transform.position, waypointPosition);
+            }
+            else // Rest of the waypoints
+            {
+                distanceToBase += Vector2.Distance(waypointPosition, previousWaypointPosition);
+            }
+
+            previousWaypointPosition = waypointPosition;
+        }
+
+        previousPosition = gameObject.transform.position; // Update the enemy's starting position
+    }
+
+    void Update()
+    {
+        // Calculate the distance the enemy moved since the last frame
+        float distanceMoved = Vector2.Distance(transform.position, previousPosition);
+
+        // Update the previous position for the next frame
+        previousPosition = transform.position;
+
+        // Update distance to base based on the distance moved
+        distanceToBase -= distanceMoved;
     }
 
     public void Hit(float hitDamage)
