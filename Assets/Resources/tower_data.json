@@ -5,12 +5,12 @@
             "name": "Sentry",
             "description": "Decent firerate, low damage. Better in numbers. Overall balanced.",
             "range": "5",
-            "turn_rate": "5",
-            "damage": "3",
+            "turn_rate": "7",
+            "damage": "4",
             "firerate": "1",
             "projectile_velocity": "5",
-            "cost": "5",
-            "scrap_value": "5"
+            "cost": "10",
+            "scrap_value": "10"
         }
     ]
 }

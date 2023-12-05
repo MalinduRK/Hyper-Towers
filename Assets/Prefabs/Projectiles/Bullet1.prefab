@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 69d7e06203e5ad04eb3274a02377064e, type: 2}
-  enemyHitSound: {fileID: 8300000, guid: 64baa1f44691afc42a584e482cd9a27d, type: 3}
+  enemyHitSound: {fileID: 8300000, guid: 47633d50f01abb14a9cc45423ba2901d, type: 3}
   explosionPrefab: {fileID: 4126348575454091348, guid: 2bab100450494624ab70967191ac7d75, type: 3}
   enemyHitDebug: 0
 --- !u!1 &8376025114515193431

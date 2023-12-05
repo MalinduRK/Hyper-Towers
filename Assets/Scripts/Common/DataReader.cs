@@ -8,6 +8,17 @@ public class DataReader : MonoBehaviour
     [SerializeField] private TextAsset towerJson; // Reference to tower_data.json file
     [SerializeField] private TextAsset enemyJson; // Reference to enemy_data.json file
 
+    public LevelData ReadLevelData(int currentLevel)
+    {
+        // Deserialize the JSON data into a C# object.
+        WaveJsonData jsonData = JsonUtility.FromJson<WaveJsonData>(waveJson.text);
+
+        // Access data specific to the current level
+        LevelData levelData = jsonData.levels[currentLevel];
+
+        return levelData;
+    }
+
     public List<WaveData> ReadWaveData(int currentLevel)
     {
         // Deserialize the JSON data into a C# object.

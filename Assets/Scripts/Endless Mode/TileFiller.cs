@@ -3,7 +3,7 @@ using UnityEngine.Tilemaps;
 
 public class TileFiller : MonoBehaviour
 {
-    public Tilemap tilemap;
+/*    public Tilemap tilemap;
     public TileBase emptyTile;
 
     void Start()
@@ -22,5 +22,7 @@ public class TileFiller : MonoBehaviour
         {
             tilemap.SetTile(position, emptyTile);
         }
-    }
+    }*/
+
+
 }
