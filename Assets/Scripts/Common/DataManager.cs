@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 
 //--Wave Data
@@ -36,19 +37,25 @@ public class TowerData
     public string id;
     public string name;
     public string description;
-    public float range;
-    public float turn_rate;
-    public float damage;
-    public float firerate;
-    public float projectile_velocity;
-    public int cost;
-    public int scrap_value;
+    public List<TierData> tiers;
 }
 
 [System.Serializable]
 public class TowerJsonData
 {
     public List<TowerData> towers;
+}
+
+[System.Serializable]
+public class TierData
+{
+    public string tier_id;
+    public float range;
+    public float turn_rate;
+    public float damage;
+    public float firerate;
+    public float projectile_velocity;
+    public int cost;
 }
 
 //--Enemy Data

@@ -52,13 +52,7 @@ public class DataReader : MonoBehaviour
             towerData.id = tower.id;
             towerData.name = tower.name;
             towerData.description = tower.description;
-            towerData.range = tower.range;
-            towerData.turn_rate = tower.turn_rate;
-            towerData.damage = tower.damage;
-            towerData.firerate = tower.firerate;
-            towerData.projectile_velocity = tower.projectile_velocity;
-            towerData.cost = tower.cost;
-            towerData.scrap_value = tower.scrap_value;
+            towerData.tiers = tower.tiers;
         }
         else
         {

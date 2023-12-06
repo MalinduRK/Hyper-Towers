@@ -68,6 +68,29 @@ public class SectorSelection : MonoBehaviour
             case "manage": // Manage tower (upgrade/raze)
                 switch (assignedAction)
                 {
+                    case "upgrade": // Upgrade tower
+                        // Check scrap
+                        int currentScrap = scrapManager.GetScrap();
+                        // Get reference to TowerStats script
+                        TowerStats towerStats = relatedObject.GetComponent<TowerStats>();
+                        // Get upgrade cost based on the current tower tier
+                        int upgradeCost = towerStats.tierData.cost;
+                        // Upgrade tower
+                        if (upgradeCost <= currentScrap) // Tower upgradeable
+                        {
+                            // Change tier data of the tower
+                            int currentTier = towerStats.currentTier; // Get current tier
+                            towerStats.tierData = towerStats.towerData.tiers[++currentTier];
+                            towerStats.currentTier = currentTier; // Set new tier
+
+                            // Change tower sprite
+                            relatedObject.GetComponent<SpriteRenderer>().sprite = towerStats.towerSprites[currentTier];
+
+                            // Use scrap
+                            scrapManager.UseScrap(upgradeCost);
+                        }
+                        break;
+
                     case "raze": // Destroy tower
                         // Get tower plot
                         GameObject towerPlot = transform.parent.parent.gameObject;
@@ -75,7 +98,7 @@ public class SectorSelection : MonoBehaviour
                         towerPlot.GetComponent<TowerPlacement>().towerBuilt = false;
 
                         // Return scrap
-                        int scrapValue = relatedObject.GetComponent<TowerStats>().towerData.scrap_value; // Get scrap value of the tower
+                        int scrapValue = relatedObject.GetComponent<TowerStats>().scrapValue; // Get scrap value of the tower
                         scrapManager.AddScrap(scrapValue);
 
                         Destroy(relatedObject);

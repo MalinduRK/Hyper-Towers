@@ -162,7 +162,8 @@ public class TowerPlacement : MonoBehaviour
             }
         }
 
-        int towerCost = towerData.scrap_value; // Cost of the tower
+        // Access tier 1 tower data
+        int towerCost = towerData.tiers[0].cost; // Cost of the tower
 
         if (scrapCounter.GetScrap() >= towerCost) // There is enough scrap to build a tower
         {
@@ -171,6 +172,10 @@ public class TowerPlacement : MonoBehaviour
             newTower.transform.SetParent(transform);
             // Rename tower object
             newTower.name = "Tower";
+            // Set starting scrap value of the tower
+            newTower.GetComponent<TowerStats>().scrapValue = towerData.tiers[0].cost;
+            // Set starting tier data
+            newTower.GetComponent<TowerStats>().tierData = towerData.tiers[0];
 
             // Add range prefab
             GameObject newRange = Instantiate(towerRangePrefab, transform.position, Quaternion.identity);
@@ -182,7 +187,7 @@ public class TowerPlacement : MonoBehaviour
             newRange.gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
             // Set correct range
-            float towerRange = towerData.range;
+            float towerRange = towerData.tiers[0].range;
             newRange.transform.localScale = towerRange * Vector3.one;
 
             // Send tower data to TowerStats.cs

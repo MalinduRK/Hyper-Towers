@@ -12,7 +12,7 @@ public class TowerTargeting : MonoBehaviour
     [Header("Components")]
     //private CircleCollider2D towerRangeCollider;
     [SerializeField] private LayerMask detectionLayer; // Assign the layer(s) you want to detect in the Inspector.
-    private TowerData towerData;
+    private TowerStats towerStats;
 
     [Header("Variables")]
     public bool enemyInRange = false;
@@ -42,8 +42,8 @@ public class TowerTargeting : MonoBehaviour
         // Radius of the circle is half of the circle's local scale
         detectionRadius = towerRangeObject.transform.localScale.x / 2;
 
-        // Assign tower data
-        towerData = GetComponent<TowerStats>().towerData;
+        // Assign tower stats component
+        towerStats = GetComponent<TowerStats>();
 
         InvokeRepeating(nameof(UpdateTarget), 0f, 0.5f);
     }
@@ -76,7 +76,7 @@ public class TowerTargeting : MonoBehaviour
             Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             // Gradually rotate towards the target rotation
-            float rotationSpeed = towerData.turn_rate * 30; // Adjust this value to control the rotation speed
+            float rotationSpeed = towerStats.tierData.turn_rate * 30; // Adjust this value to control the rotation speed
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
 

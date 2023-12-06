@@ -44,6 +44,21 @@ public class TowerManagement : MonoBehaviour
         */
 
 
+        //--Top Sector
+
+        // Reference selection sectors within the selection circle
+        GameObject selectionSectorTop = selectionCircle.transform.Find("SelectionSectorTop").gameObject;
+
+        // Assign icon sprite of the relevent function to the Icon sprite of the current sector
+        selectionSectorTop.transform.Find("Icon").GetComponent<SpriteRenderer>().sprite = upgradeIcon;
+
+        // Assign item references to selection sector
+        SectorSelection sectorSelectionTop = selectionSectorTop.GetComponent<SectorSelection>();
+        sectorSelectionTop.relatedObject = gameObject;
+        sectorSelectionTop.selectionCategory = "manage";
+        sectorSelectionTop.assignedAction = "upgrade";
+        sectorSelectionTop.objectSprite = upgradeIcon;
+
         //--Bottom Sector
 
         // Reference selection sectors within the selection circle

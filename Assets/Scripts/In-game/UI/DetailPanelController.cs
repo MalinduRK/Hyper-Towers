@@ -121,7 +121,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update damage value text
                         TextMeshProUGUI damageText = damageValue.GetComponent<TextMeshProUGUI>();
-                        damageText.text = towerData.damage.ToString();
+                        damageText.text = towerData.tiers[0].damage.ToString();
                     }
                 }
 
@@ -137,7 +137,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update firerate value text
                         TextMeshProUGUI firerateText = firerateValue.GetComponent<TextMeshProUGUI>();
-                        firerateText.text = towerData.firerate.ToString();
+                        firerateText.text = towerData.tiers[0].firerate.ToString();
                     }
                 }
 
@@ -153,7 +153,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update range value text
                         TextMeshProUGUI rangeText = rangeValue.GetComponent<TextMeshProUGUI>();
-                        rangeText.text = towerData.range.ToString();
+                        rangeText.text = towerData.tiers[0].range.ToString();
                     }
                 }
             }
@@ -175,7 +175,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update RotationSpeedValue text
                         TextMeshProUGUI rotationSpdText = rotationSpeedValue.GetComponent<TextMeshProUGUI>();
-                        rotationSpdText.text = towerData.turn_rate.ToString();
+                        rotationSpdText.text = towerData.tiers[0].turn_rate.ToString();
                     }
                 }
 
@@ -191,7 +191,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update ProjectileVelocityValue text
                         TextMeshProUGUI velocityText = velocityValue.GetComponent<TextMeshProUGUI>();
-                        velocityText.text = towerData.projectile_velocity.ToString();
+                        velocityText.text = towerData.tiers[0].projectile_velocity.ToString();
                     }
                 }
 
@@ -207,7 +207,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update scrap value text
                         TextMeshProUGUI scrapText = scrapValue.GetComponent<TextMeshProUGUI>();
-                        scrapText.text = towerData.scrap_value.ToString();
+                        scrapText.text = towerData.tiers[0].cost.ToString();
                     }
                 }
             }

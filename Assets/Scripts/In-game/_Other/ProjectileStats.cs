@@ -6,7 +6,7 @@ public class ProjectileStats : MonoBehaviour
     public GameObject targetEnemy;
 
     [Header("Variables")]
-    public TowerData towerData;
+    public TowerStats towerStats;
     public float velocity;
     public float damage;
     public float firerate;
@@ -14,8 +14,8 @@ public class ProjectileStats : MonoBehaviour
     private void Start()
     {
         // Assign data required for the projectile from towerData
-        velocity = towerData.projectile_velocity;
-        damage = towerData.damage;
-        firerate = towerData.firerate;
+        velocity = towerStats.tierData.projectile_velocity;
+        damage = towerStats.tierData.damage;
+        firerate = towerStats.tierData.firerate;
     }
 }

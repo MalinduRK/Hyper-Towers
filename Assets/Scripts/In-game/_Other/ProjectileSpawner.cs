@@ -12,7 +12,7 @@ public class ProjectileSpawner : MonoBehaviour
     [Header("Components")]
     private TowerTargeting towerTargeting;
     private AudioSource laserShot;
-    private TowerData towerData; // Load all projectile related data through this
+    private TowerStats towerStats; // Load all projectile related data through this
 
     [Header("Variables")]
     private float firerate; // Fire rate of the tower (lower the faster)
@@ -25,7 +25,7 @@ public class ProjectileSpawner : MonoBehaviour
         towerTargeting = GetComponent<TowerTargeting>();
 
         // Assign TowerData
-        towerData = GetComponent<TowerStats>().towerData;
+        towerStats = GetComponent<TowerStats>();
 
         // Find game objects in scene
         projectilesParent = GameObject.Find("Projectiles");
@@ -38,7 +38,7 @@ public class ProjectileSpawner : MonoBehaviour
         // TODO: This is not the final intended code. Should implement a reload function that reloads the magazine after every few shots. The reload function should run here instead.
 
         // Assign firerate
-        firerate = towerData.firerate;
+        firerate = towerStats.tierData.firerate;
 
         // Specify the next load at the start
         nextLoadTime = Time.time + firerate;
@@ -82,8 +82,8 @@ public class ProjectileSpawner : MonoBehaviour
         newBullet.GetComponent<ProjectileStats>().targetEnemy = towerTargeting.targetEnemy;
 
         // Read the tower stats from TowerStats.cs and pass them to the ProjectileStats.cs script
-        TowerData towerData = GetComponent<TowerStats>().towerData;
-        newBullet.GetComponent<ProjectileStats>().towerData = towerData;
+        TowerStats towerStats = GetComponent<TowerStats>();
+        newBullet.GetComponent<ProjectileStats>().towerStats = towerStats;
 
         // Set the parent of the bullet to the projectilesParent.
         newBullet.transform.parent = projectilesParent.transform;

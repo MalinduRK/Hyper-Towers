@@ -4,13 +4,26 @@
             "id": "Tower1",
             "name": "Sentry",
             "description": "Decent firerate, low damage. Better in numbers. Overall balanced.",
-            "range": "5",
-            "turn_rate": "7",
-            "damage": "4",
-            "firerate": "1",
-            "projectile_velocity": "5",
-            "cost": "10",
-            "scrap_value": "10"
+            "tiers": [
+                {
+                    "tier_id": "0",
+                    "range": "5",
+                    "turn_rate": "7",
+                    "damage": "4",
+                    "firerate": "1",
+                    "projectile_velocity": "5",
+                    "cost": "10"
+                },
+                {
+                    "tier_id": "1",
+                    "range": "6",
+                    "turn_rate": "9",
+                    "damage": "5",
+                    "firerate": "1.5",
+                    "projectile_velocity": "6",
+                    "cost": "15"
+                }
+            ]
         }
     ]
 }
