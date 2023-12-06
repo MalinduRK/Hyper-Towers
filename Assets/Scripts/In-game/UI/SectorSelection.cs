@@ -86,6 +86,11 @@ public class SectorSelection : MonoBehaviour
                             // Change tower sprite
                             relatedObject.GetComponent<SpriteRenderer>().sprite = towerStats.towerSprites[currentTier];
 
+                            // Change tower range indicator
+                            GameObject towerRange = relatedObject.transform.Find("TowerRange").gameObject;
+                            float newRange = towerStats.towerData.tiers[currentTier].range;
+                            towerRange.transform.localScale = newRange * Vector3.one;
+
                             // Use scrap
                             scrapManager.UseScrap(upgradeCost);
                         }

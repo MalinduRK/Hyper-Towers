@@ -26,7 +26,7 @@
             ]
         },
         {
-            "starting_scrap": "10",
+            "starting_scrap": "15",
             "enemy_types": ["Enemy1", "Enemy2"],
             "tower_types": ["Tower1", "Tower2"],
             "waves": [
