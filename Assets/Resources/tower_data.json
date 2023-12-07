@@ -20,7 +20,7 @@
                     "turn_rate": "9",
                     "damage": "5",
                     "firerate": "1.5",
-                    "projectile_velocity": "6",
+                    "projectile_velocity": "7",
                     "cost": "15"
                 }
             ]
