@@ -51,6 +51,12 @@
                     "pattern": "single_burst",
                     "burst_count": "3",
                     "burst_delay": "0.3f"
+                },
+                {
+                    "enemy_count": "20",
+                    "spawn_interval": "2f",
+                    "enemies": ["Enemy1","Enemy2"],
+                    "pattern": "multiple"
                 }
             ]
         }

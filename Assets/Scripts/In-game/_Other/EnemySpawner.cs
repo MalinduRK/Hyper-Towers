@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -88,8 +89,13 @@ public class EnemySpawner : MonoBehaviour
             case "single_burst":
                 StartCoroutine(SingleBurst(waveData));
                 break;
+
+            case "multiple":
+                StartCoroutine(Multiple(waveData));
+                break;
         }
     }
+
 
 
     //--Spawn patterns
@@ -195,6 +201,52 @@ public class EnemySpawner : MonoBehaviour
             yield break;
         }
     }
+
+    // Spawn multiple enemy types with a constant gap for the entire wave
+    private IEnumerator Multiple(WaveData wave)
+    {
+        // Display total number of enemies this wave
+        int enemiesLeft = wave.enemy_count;
+        enemyCountText.text = enemiesLeft.ToString();
+
+        List<GameObject> enemyPrefabs = new List<GameObject>(); // Current enemy prefabs list
+
+        int i = 0; // Counter for foreach statement
+
+        // Get the correct enemy prefab from the enemies array
+        foreach (GameObject enemy in enemies)
+        {
+            // Find the enemy prefab matching the json data
+            if (enemy.name == wave.enemies[i]) // Only the first entry is checked since this is a Single pattern
+            {
+                enemyPrefabs.Add(enemy); // Add current enemy to the list
+            }
+
+            i++;
+        }
+
+        while (enemiesLeft > 0) // Stop spawning when enemy counter reaches 0
+        {
+            foreach (GameObject enemyPrefab in enemyPrefabs)
+            {
+                // Instantiate a new enemy from the prefab.
+                GameObject newEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+
+                // Set the parent of the spawned enemy to the enemiesParent.
+                newEnemy.transform.parent = enemiesParent;
+
+                // Update number of enemies left to spawn
+                enemyCountText.text = (--enemiesLeft).ToString();
+
+                // Wait for the specified interval before spawning the next enemy.
+                yield return new WaitForSeconds(wave.spawn_interval);
+            }
+        }
+
+        EnemyCountDebug("All enemies spawned");
+        StartCoroutine(TrackEnemies());
+    }
+
 
 
     // Function to track the remaining enemies of a wave

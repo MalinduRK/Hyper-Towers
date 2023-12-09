@@ -23,7 +23,6 @@ public class EnemyStats : MonoBehaviour
     private float lengthFactor; // Factor which represents 1 unit of HP in terms of length of the health bar
     private Vector3 previousPosition; // Constantly updated enemy position
 
-    // Start is called before the first frame update
     private void Start()
     {
         // Get the name of the current GameObject (It's always in the format "EnemyX(Clone)")

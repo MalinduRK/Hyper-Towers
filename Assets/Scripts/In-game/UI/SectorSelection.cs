@@ -73,13 +73,13 @@ public class SectorSelection : MonoBehaviour
                         int currentScrap = scrapManager.GetScrap();
                         // Get reference to TowerStats script
                         TowerStats towerStats = relatedObject.GetComponent<TowerStats>();
-                        // Get upgrade cost based on the current tower tier
-                        int upgradeCost = towerStats.tierData.cost;
+                        // Get upgrade cost of the next tower tier
+                        int currentTier = towerStats.currentTier; // Get current tier
+                        int upgradeCost = towerStats.towerData.tiers[currentTier + 1].cost;
                         // Upgrade tower
                         if (upgradeCost <= currentScrap) // Tower upgradeable
                         {
                             // Change tier data of the tower
-                            int currentTier = towerStats.currentTier; // Get current tier
                             towerStats.tierData = towerStats.towerData.tiers[++currentTier];
                             towerStats.currentTier = currentTier; // Set new tier
 
@@ -93,6 +93,9 @@ public class SectorSelection : MonoBehaviour
 
                             // Use scrap
                             scrapManager.UseScrap(upgradeCost);
+
+                            // Change firerate
+                            relatedObject.GetComponent<ProjectileSpawner>().firerate = towerStats.tierData.firerate;
                         }
                         break;
 

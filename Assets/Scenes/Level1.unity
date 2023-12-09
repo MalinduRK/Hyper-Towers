@@ -15498,7 +15498,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4490629794340714130, guid: 19fbc9870f093ec4f9c2fc7bbfb9b27f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.764954
+      value: -31.764893
       objectReference: {fileID: 0}
     - target: {fileID: 5154602400117391026, guid: 19fbc9870f093ec4f9c2fc7bbfb9b27f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -15841,6 +15841,14 @@ PrefabInstance:
       propertyPath: enemiesParent
       value: 
       objectReference: {fileID: 778229877}
+    - target: {fileID: 2887915710838715682, guid: 826155341eb1b1f4785c61be96121a1a, type: 3}
+      propertyPath: enemies.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887915710838715682, guid: 826155341eb1b1f4785c61be96121a1a, type: 3}
+      propertyPath: enemies.Array.data[1]
+      value: 
+      objectReference: {fileID: 5664401185350760041, guid: be2ecf6afe478c74a820786a88a3128c, type: 3}
     - target: {fileID: 8693821729642151032, guid: 826155341eb1b1f4785c61be96121a1a, type: 3}
       propertyPath: m_Name
       value: EnemySpawner

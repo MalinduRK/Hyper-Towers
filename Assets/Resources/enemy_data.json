@@ -11,7 +11,7 @@
         {
             "id": "Enemy2",
             "name": "Second",
-            "health": "25",
+            "health": "30",
             "scrap_value": "2",
             "speed": "1.5",
             "damage": "1"

@@ -15,7 +15,7 @@ public class ProjectileSpawner : MonoBehaviour
     private TowerStats towerStats; // Load all projectile related data through this
 
     [Header("Variables")]
-    private float firerate; // Fire rate of the tower (lower the faster)
+    public float firerate; // Fire rate of the tower (lower the faster)
     private float nextLoadTime; // The next time a bullet is loaded into the magazine
     private bool ammoLoaded = false; // The tower has to have this true in order to fire a shot
 
