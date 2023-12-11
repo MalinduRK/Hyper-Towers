@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eca6d869cd67c74d90424c4befcd61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 69d7e06203e5ad04eb3274a02377064e, type: 2}
+  razeSound: {fileID: 0}
   relatedObject: {fileID: 0}
   objectSprite: {fileID: 0}
   selectionCategory: 
@@ -518,6 +520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eca6d869cd67c74d90424c4befcd61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 69d7e06203e5ad04eb3274a02377064e, type: 2}
+  razeSound: {fileID: 8300000, guid: 19661737222b2a643890a77966c54db2, type: 3}
   relatedObject: {fileID: 0}
   objectSprite: {fileID: 0}
   selectionCategory: 
@@ -1056,6 +1060,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eca6d869cd67c74d90424c4befcd61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 69d7e06203e5ad04eb3274a02377064e, type: 2}
+  razeSound: {fileID: 0}
   relatedObject: {fileID: 0}
   objectSprite: {fileID: 0}
   selectionCategory: 
@@ -1256,6 +1262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eca6d869cd67c74d90424c4befcd61c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 69d7e06203e5ad04eb3274a02377064e, type: 2}
+  razeSound: {fileID: 0}
   relatedObject: {fileID: 0}
   objectSprite: {fileID: 0}
   selectionCategory: 

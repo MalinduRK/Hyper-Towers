@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 // This script is responsible for handling the selection of a sector in the selection circle
 
 public class SectorSelection : MonoBehaviour
 {
+    [Header("Assets")]
+    public AudioMixer audioMixer;
+    [SerializeField] private AudioClip razeSound;
+
     [Header("Game Objects")]
     public GameObject relatedObject; // Game object related with the selection circle
     private GameObject parentCircle; // Parent selection circle
@@ -108,6 +113,21 @@ public class SectorSelection : MonoBehaviour
                         // Return scrap
                         int scrapValue = relatedObject.GetComponent<TowerStats>().scrapValue; // Get scrap value of the tower
                         scrapManager.AddScrap(scrapValue);
+
+                        // Play tower raze sound
+                        float randVolume = Random.Range(0.8f, 1); // Add random volume
+                        audioMixer.GetFloat("sfxVolume", out float currentSFXVolume); // Get sfx volume
+                        
+                        // Convert audio mixer volume to actual volume units of the audio source (the volume sliders in settings go from 0 to -20)
+                        float sfxVolumePercent = 0; // Set volume to 0 if audio mixer is at -80db
+                        if (currentSFXVolume != -80) // If not, set volume
+                        {
+                            sfxVolumePercent = (currentSFXVolume + 20) / 20;
+                        }
+
+                        float volume = randVolume * sfxVolumePercent;
+                        //Debug.Log($"current sfx: {currentSFXVolume} | converted sfx : {sfxVolumePercent} | volume: {volume}");
+                        AudioSource.PlayClipAtPoint(razeSound, transform.position, volume);
 
                         Destroy(relatedObject);
                         break;

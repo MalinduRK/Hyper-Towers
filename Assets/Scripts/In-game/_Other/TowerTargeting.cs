@@ -73,6 +73,13 @@ public class TowerTargeting : MonoBehaviour
             float angle = Mathf.Atan2(enemyDirection.y, enemyDirection.x) * Mathf.Rad2Deg - 90f; // Calculate the angle between the direction vector and the X-axis, and then convert it (rad value) to degrees
             // Adding a -90f makes it so that the barrel of the tower is pointing towards the target
 
+            // Calculate angle from base to the enemy
+            Vector3 enemyDirectionFromBase = enemyPos - basePos; // Difference between enemy and base
+            enemyDirectionFromBase.z = 0; // Ensure the object stays in the same plane.
+            float angleFromBase = Mathf.Atan2(enemyDirectionFromBase.y, enemyDirectionFromBase.x) * Mathf.Rad2Deg - 90f;
+
+            Debug.Log("Angle towards enemy - From tower: " + angle + " From base: " + angleFromBase);
+
             Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             // Gradually rotate towards the target rotation

@@ -77,3 +77,7 @@ Infinity icon
 Arrow icon
 ----------
 <div> Icons made by <a href="https://www.flaticon.com/authors/roundicons-premium" title="Roundicons Premium"> Roundicons Premium </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+Coin sfx
+--------
+Sound Effect by <a href="https://pixabay.com/users/floraphonic-38928062/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=180438">floraphonic</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=180438">Pixabay</a>
