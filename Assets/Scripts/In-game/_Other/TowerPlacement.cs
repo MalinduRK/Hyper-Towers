@@ -6,6 +6,7 @@ public class TowerPlacement : MonoBehaviour
     [SerializeField] private AudioClip[] turretBuild;
     [SerializeField] private AudioClip cannotBuild;
     [SerializeField] private AudioClip openMenu;
+    [SerializeField] private GameObject buildParticles;
 
     [Header("Game Objects")]
     [SerializeField] private GameObject towerRangePrefab;
@@ -204,6 +205,14 @@ public class TowerPlacement : MonoBehaviour
             int randNum = Random.Range(0,2); // Pick a random build sound from the array
             audioSource.clip = turretBuild[randNum];
             audioSource.Play();
+
+            // Play build particle effect
+            // Instantiate particle system at the tower's position
+            GameObject particleSystem = Instantiate(buildParticles, transform.position, Quaternion.identity);
+            // Get the main module of the Particle System
+            ParticleSystem.MainModule mainModule = buildParticles.GetComponent<ParticleSystem>().main;
+            // Destroy the explosionPrefab after the duration of the Particle System
+            Destroy(particleSystem, mainModule.duration);
         }
         else // Not enough scrap
         {
