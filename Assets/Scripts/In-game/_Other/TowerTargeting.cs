@@ -89,7 +89,7 @@ public class TowerTargeting : MonoBehaviour
 
             // Get the angle between the turret's up direction and the direction to the enemy
             float angleDifference = Vector3.Angle(transform.up, enemyDirection);
-            //Debug.Log($"Angle difference: {angleDifference} | Up: {transform.up} | Enemy: {enemyDirection}");
+            Debug.Log($"Angle difference: {angleDifference} | Up: {transform.up} | Enemy: {enemyDirection}");
 
             // Check if the turret is facing the enemy (adjust the threshold as needed)
             if (angleDifference < maxAngleDifference)
