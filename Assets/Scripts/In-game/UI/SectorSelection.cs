@@ -59,6 +59,12 @@ public class SectorSelection : MonoBehaviour
     {
         // Notify detail panel controller that the mouse is not hovering over a sector
         detailPanelController.isHoveringOverSector = false;
+
+        // Notify detail panel controller that the mouse is not hovering over a built tower
+        detailPanelController.isHoveringOverTower = false;
+
+        // Reset tier ID upon exiting sector circle
+        detailPanelController.tierId = 0;
     }
 
     private void OnMouseDown() // Clicking on a sector

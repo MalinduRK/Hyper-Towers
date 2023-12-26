@@ -21,6 +21,7 @@ public class DetailPanelController : MonoBehaviour
     public bool isSelectionMenuOpen = false;
     public bool isHoveringOverSector = false;
     public bool isHoveringOverTower = false;
+    public int tierId = 0; // Set default tier to tier 0
     private float centerScreenY = 0.5f;
     private float panelY;
 
@@ -47,9 +48,11 @@ public class DetailPanelController : MonoBehaviour
             UpdatePanel();
             RelocatePanel();
         }
-        else if (!isSelectionMenuOpen && isHoveringOverTower) // Mouse is hovering over a built tower
+        else if (isSelectionMenuOpen && isHoveringOverTower) // Mouse is hovering over a built tower
         {
-            //
+            // Enable and update detail panel
+            UpdatePanel();
+            RelocatePanel();
         }
         else
         {
@@ -121,7 +124,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update damage value text
                         TextMeshProUGUI damageText = damageValue.GetComponent<TextMeshProUGUI>();
-                        damageText.text = towerData.tiers[0].damage.ToString();
+                        damageText.text = towerData.tiers[tierId].damage.ToString();
                     }
                 }
 
@@ -137,7 +140,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update firerate value text
                         TextMeshProUGUI firerateText = firerateValue.GetComponent<TextMeshProUGUI>();
-                        firerateText.text = towerData.tiers[0].firerate.ToString();
+                        firerateText.text = towerData.tiers[tierId].firerate.ToString();
                     }
                 }
 
@@ -153,7 +156,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update range value text
                         TextMeshProUGUI rangeText = rangeValue.GetComponent<TextMeshProUGUI>();
-                        rangeText.text = towerData.tiers[0].range.ToString();
+                        rangeText.text = towerData.tiers[tierId].range.ToString();
                     }
                 }
             }
@@ -175,7 +178,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update RotationSpeedValue text
                         TextMeshProUGUI rotationSpdText = rotationSpeedValue.GetComponent<TextMeshProUGUI>();
-                        rotationSpdText.text = towerData.tiers[0].turn_rate.ToString();
+                        rotationSpdText.text = towerData.tiers[tierId].turn_rate.ToString();
                     }
                 }
 
@@ -191,7 +194,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update ProjectileVelocityValue text
                         TextMeshProUGUI velocityText = velocityValue.GetComponent<TextMeshProUGUI>();
-                        velocityText.text = towerData.tiers[0].projectile_velocity.ToString();
+                        velocityText.text = towerData.tiers[tierId].projectile_velocity.ToString();
                     }
                 }
 
@@ -207,7 +210,7 @@ public class DetailPanelController : MonoBehaviour
                     {
                         // Update scrap value text
                         TextMeshProUGUI scrapText = scrapValue.GetComponent<TextMeshProUGUI>();
-                        scrapText.text = towerData.tiers[0].cost.ToString();
+                        scrapText.text = towerData.tiers[tierId].cost.ToString();
                     }
                 }
             }

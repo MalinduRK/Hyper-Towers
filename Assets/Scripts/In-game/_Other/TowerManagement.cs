@@ -11,10 +11,16 @@ public class TowerManagement : MonoBehaviour
     [SerializeField] private GameObject selectionCirclePrefab;
     private GameInteractivity interactionManager;
 
+    [Header("Components")]
+    private DetailPanelController detailPanelController;
+
     private void Start()
     {
         // Assign interaction manager
         interactionManager = GameObject.Find("InteractionManager").GetComponent<GameInteractivity>();
+
+        // Assign detail panel controller
+        detailPanelController = GameObject.Find("UIManager").GetComponent<DetailPanelController>();
     }
 
     public void SelectTower()
@@ -73,5 +79,19 @@ public class TowerManagement : MonoBehaviour
         sectorSelectionBottom.selectionCategory = "manage";
         sectorSelectionBottom.assignedAction = "raze";
         sectorSelectionBottom.objectSprite = sellIcon;
+
+        // Display detail panel
+        ShowDetailPanel();
+    }
+
+    private void ShowDetailPanel()
+    {
+        // Pass tower reference and sprite to detail panel controller
+        detailPanelController.referenceObjectName = gameObject.GetComponent<TowerStats>().towerData.id;
+        detailPanelController.tierId = gameObject.GetComponent<TowerStats>().currentTier;
+        detailPanelController.referenceSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        // Notify detail panel controller that the mouse is hovering over the tower
+        detailPanelController.isHoveringOverTower = true;
     }
 }
